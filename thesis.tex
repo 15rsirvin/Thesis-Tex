@@ -140,7 +140,7 @@
 
 Anyone who needs to use math, tables, a lot of figures, complex cross-references, IPA or who just cares about the final appearance of their document should use \LaTeX. At Reed, math majors are required to use it, most physics majors will want to use it, and many other science majors may want it also.
 	
-    \chapter{Multi-Agent Systems}
+    \chapter{Agent Systems}
     	This chapter lays out the background material of multi-agent systems--what they are, how they work, and why economists might be interested in them--that drives the rest of the thesis. 
 	
 \section{Agents}
@@ -149,7 +149,7 @@ An \textbf{agent} is something that acts. This comes from the Latin word agere, 
 \subsection{In Economics}
 In economics many of the models are constructed with utility maximizing agents in line with Decision Theory and Rational Choice Theory. Because economics seeks to understand the outcomes of peoples interactions, and perhaps how these outcomes could be improved, if people can be modeled as utility maximizers, it is then possible to analytically solve for this solution and see what the results are. 
 
-The primary purpose of constructing agents in economics is to see how their interactions play out in economic settings.
+The primary purpose of constructing agents in economics is to see how their interactions play out in an economic setting that can not be solved analytically.  
  
 \subsection{In Artificial Intelligence}\label{commands}
 In artificial intelligence, the primary purpose of understanding agents is to try and create the most effective artificial agents possible. This discipline cares deeply about how good the agents they are able to make are able to solve problems, either general or specific. To do this, they use much of the theory of agents with a deep emphasis on how a constructed agent can be taught or learn from its environment to achieve its goals.
@@ -157,14 +157,38 @@ In artificial intelligence, the primary purpose of understanding agents is to tr
 
 	
 \section{Formal Model of Agents}
-This section lays out a more formal definition of agents, specifically geared towards constructed or artificial agents such as we will be constructing. An \textbf{agent} is anything that can be viewed as perceiving its environment through sensors and acting upon its environment through actuators. A \textbf{precept} is a perceptual input to an agent, and a \textbf{precept sequence} is the complete history of everything the agent has ever perceived. 
+This section lays out a more formal definition of agents, specifically geared towards constructed or artificial agents such as we will be constructing. An \textbf{agent} is anything that can be viewed as perceiving its environment through sensors and acting upon its environment through actuators. A \textbf{precept} is a perceptual input to an agent, and a \textbf{precept sequence} is the complete history of everything the agent has ever perceived. The agent then has an \textbf{agent function} that maps these precepts to an action. In the case of an artificial agent this is done with an \textbf{agent program} that is the physical implementation of the agent function. In the case of an agent simulated on a computer, this will be the computer code that decides what action to take. The agents actions will then cause the environment to go through a series of states and the agent will measure the outcome with some \textbf{performance measure}.
 
-  
-
+\begin{figure}[h!]
+	% the options are h = here, t = top, b = bottom, p = page of figures.
+	% you can add an exclamation mark to make it try harder, and multiple
+	% options if you have an order of preference, e.g.
+	% \begin{figure}[h!tbp]
 	
-\section{Agents Who Learn}
+	\centering
+	% DO NOT ADD A FILENAME EXTENSION TO THE GRAPHIC FILE
+	\includegraphics[scale=0.05, angle=90]{utilityAgent}
+	\caption{Utility Based Agent}
+	\label{utility-agent-STOLEN}
+\end{figure}
 
+For our purposes we focus on what are called \textbf{utility based agents}, where the agent has a utility function as an internalized performance measure and is able to numerically assign values of "goodness" to the outcome from the agents perspective. A rational agent will always try to maximize average expected utility over its lifetime as explained by decision theory.
 
+\subsection{Task Environment}
+The environment that an agent exists in and their relationship to it is critical for understanding the system as a whole. For example the environment can fully observable with the agent's sensors able to see the entire environment, or only partially observable to the agent. There can also be multiple agents within the system, each trying to maximize their own performance measure. This is called a \textbf{multi-agent system} and it will be a key aspect of all of the simulations we construct. It is important to note that the agents in the multi-agent system share no internal state and must communicate (if they so wish to do so) through the environment. The environment can also be deterministic or stochastic, either depending entirely upon its current state and the agents actions or contains randomness.
+	
+\subsection{Agents Who Learn}
+
+Learning is a critical part of being a rational agent. We expect that as agents interact with their environment, they should be able to adapt and change in order to continue to maximize their utility. The general model of an artificial agent who learns is as follows. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.05]{learningAgent}
+	\caption{Model of Agent that Learns}
+	\label{learning-agent-STOLEN}
+\end{figure}
+
+First, the agent reprieves its environment and sends that information to the performance function that determines what it will do. There is now a critic that gives feedback for how the agent is doing based on aprori information and the observed state that sends feedback to a learning element that can change the behavior of the performance element. Based on what the learning element is trying improve, there is also a problem generator that suggests actions to the performance element so that different actions can be tested and evaluated.  
 
 \chapter{Mathematics and Science}	
 \section{Math}
