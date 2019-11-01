@@ -93,7 +93,8 @@
 	\centering % You could remove this to move table to the left
 	\begin{tabular}{ll}
 		\textbf{AI}  	&  Artificial Intelligence\\
-		\textbf{MAS}  	&  Multi Agent System\\
+		\textbf{MAS}  	&  Multi-Agent System\\
+		\textbf{MDP}    &  Markov Decision Processes\\
 		\textbf{ML}     &  Machine Learning\\
 	\end{tabular}
 	\end{table}
@@ -207,7 +208,13 @@ Reinforcement learning has become a popular way of teaching agents how to play g
 	
 	
 \subsection{Q-Learning}
-Q-Learning is an an algorithm that has been developed for single-agent, fully observable environments with discrete actions 
+Q-Learning is an an algorithm that has been developed for single-agent, fully observable environments with discrete actions. Q learning involves creating a table of expected payoffs for each action $a$ available at a state $s$ denoted $\hat{Q}(s,a)$. Each time the agent transitions from a state $s$ to a state $s^{'}$ taking an action $a$ and recieving payoff $r$, the $Q$ table is updated according to the following assignment:
+$$ \hat{Q}(s,a) \leftarrow \hat{Q}(s,a) + \alpha [(r + \gamma max_{a^{1}} \hat{Q}(s^{'}, a^{'})) - \hat{Q}(s,a)] $$
+
+where we pick $\alpha \in [0,1]$ which we call the learning rate.
+
+\subsection{Deep Reinforcement Learning}
+Using deep learning in the form of Neural Networks can be helpful for exploring large policy spaces efficiently. It also eliminates the need to hand design features to be optimized for the reinforcement learning process.  
 
 \section{Chemistry 101: Symbols}
 
