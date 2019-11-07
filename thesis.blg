@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: thesis.aux
+The style file: APA/apa-good.bst
+Database file #1: thesis.bib
+Warning--can't use both author and editor fields in Russel2010
+Warning--empty journal in Sargent2019
+You've used 6 entries,
+            2804 wiz_defined-function locations,
+            625 strings with 5670 characters,
+and the built_in function-call counts, 3141 in all, are:
+= -- 261
+> -- 105
+< -- 6
++ -- 39
+- -- 33
+* -- 233
+:= -- 495
+add.period$ -- 17
+call.type$ -- 6
+change.case$ -- 41
+chr.to.int$ -- 6
+cite$ -- 8
+duplicate$ -- 236
+empty$ -- 241
+format.name$ -- 59
+if$ -- 605
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 49
+newline$ -- 36
+num.names$ -- 24
+pop$ -- 98
+preamble$ -- 1
+purify$ -- 35
+quote$ -- 0
+skip$ -- 90
+stack$ -- 0
+substring$ -- 141
+swap$ -- 117
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 51
+warning$ -- 2
+while$ -- 24
+width$ -- 0
+write$ -- 80
+(There were 2 warnings)

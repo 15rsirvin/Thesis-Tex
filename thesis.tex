@@ -37,6 +37,9 @@
 \usepackage[hyphens]{url}
 \usepackage{rotating}
 \usepackage{natbib}
+\usepackage{changepage}
+
+\graphicspath{./diagrams/}
 % Comment out the natbib line above and uncomment the following two lines to use the new 
 % biblatex-chicago style, for Chicago A. Also make some changes at the end where the 
 % bibliography is included. 
@@ -141,9 +144,96 @@
 \section{Who should use it?}
 
 Anyone who needs to use math, tables, a lot of figures, complex cross-references, IPA or who just cares about the final appearance of their document should use \LaTeX. At Reed, math majors are required to use it, most physics majors will want to use it, and many other science majors may want it also.
+
+\chapter{Literature Review}
+	This "chapter" is my attempt to get words on a page in the process of writing the literature review. It is also an attempt to structure my thought process on what I have read and what questions I want to answer. In general, the proceeding sections would like to answer the following questions:
 	
-    \chapter{Agent Systems}
-    	This chapter lays out the background material of multi-agent systems--what they are, how they work, and why economists might be interested in them--that drives the rest of the thesis. 
+	\begin{itemize}
+		\item Why Multi-Agent Simulations?
+		\item How do the agents model people, what are the assumptions?
+		\item How does learning affect these simulations?
+		\item Does the non-stationarity of multi-agent systems make learning techniques invalid as models of human behavior?
+	\end{itemize}
+	
+	Because this is a cursory document it will move back and forth between detailed notes on a single paper and a more structured literature review where I feel stronger on the material.
+	
+\section{Why use Agent Based Modeling?}
+	Tries to answer :
+	\begin{itemize}
+		\item What questions do Agent Based Models (ABM) try to answer?
+		\item What are their strengths?
+		\item What are their shortcomings?
+		\item Examples and results?
+	\end{itemize}
+
+\subsection{The Logic of Agent Based Simulations}
+
+From "Agent-based modeling: Methods and techniques for simulating human systems" \cite{Bonabeau2002}: \\
+
+Agent-based modeling (ABM) is a technique that models a system as a computer simulation of autonomous decision making entities that we call agents. The agents behavior and decision making process should in some way represent the behavior of the system they are supposed to model. Models are able to produce complex behavior from even relatively simple assumptions about agents that may be insightful for understanding the system they are trying to simulate. "Sophisticated ABM sometimes incorporates neural networks, evolutionary algorithms, or other learning techniques to allow realistic learning and adaptation." The main idea of ABM's is "describing a system from the prospective of its constituent units." 
+
+"The benefits of ABM over other modeling techniques can be captured in three statements: (i)  ABM captures emergent phenomena; (ii) ABM provides a natural description of a system; and (iii) ABM is flexible." The main benefit from this list being that ABM captures emergent phenomena that result from the interaction of individual agents. Example given is Traffic Jam that is result of car agents, but the traffic jam moves in the opposite direction of the cars and the traffic jam is itself an emergent behavior from the Car agents. One reason to use and ABM model is if there may be emergent phenomena; " when (i) Individual behavior is nonlinear and can be characterized by thresholds, if-then rules, or nonlinear coupling. (ii) Individual behavior exhibits memory, path dependence, and hysteresis, non-markovian behavior, or temporal correlations including learning and adaptation. (iii) Agent interactions are heterogeneous and can generate network effects. (iv) Averages will not work. Aggergate DEQ's tent to smooth out fluctuations, not ABM, which is important because under certain conditions, fluctuations can be amplified."
+
+ABM is natural for explaining a system of behavioral entities such as traffic jams, stock markets, voters, or the inter-workings of an organization. Modeling Markets: Markets, and stock markets specifically have their resulting dynamics come from the interaction of many agents. This can be understood using ABM. NASDAQ used a an ABM to make decision about mechanism changes where there are many agents who learn via reinforcement learning and neural networks with the goal not being to emulate human behavior, but all possible behavior in regards to the change in mechanism. Found that decreasing tick-size actually increased ask-bid spread and made price discovery harder for agents. Another use is modeling auctions. EBAY lets people build agents to automate the bidding process. \textbf{important to thesis below:} "ultimately, transactions among economic software agents will constitute an essential and perhaps even dominant portion of the world economy." People at IBM have been exploring impact of shopbots on market dynamics with simulated shopbot economies of buyers and sellers. Economists have studied phenomena such as price dispersion by using ABM models where the goal is to design economic software agents. "In particular, they have been examining agent economies in which (i)search costs are nonlinear; (ii) some portion of the buyer population makes no use of search mechanisms; and (iii) shopbots are economically motivated strategically pricing their services so as to maximize their own profits." These stratagies of ABM techniques can also be applied to studying many agents playing an economic game. Author calls this "Game Theory without the theory." and says "Game theory is a great framework, but game theorists suffer from self-imposed constrains: being able to prove their theorems puts severe limitations to what is possible" in particular he argues it is impossible to model realistic games within their framework.
+
+The author describes the following issues with ABM. Like all models (in social sciences especially) the model must serve a purpose and cannot be a general-purpose model. \textbf{important:} 
+"Another issue has to do with the very nature of the systems one is modeling with ABM in social sciences: they most often involve human agents, with potentially irrational behavior, subjective choices, and complex psychology--in other words, soft factors, difficult to quantify, calibrate, and sometimes justify." Should only use ABM to justify qualitative results (not quantitative) due to the varying degrees of accuracy input into the simulation. 
+\cite{Bonabeau2002} \\
+
+\textbf{How this applies to Thesis:} This goes in depth on the "why" of Agent based modeling, specifically justifying it for bottom up modeling in the cases where that may be the best way to model something in the social sciences. The really interesting parts to me was about markets which highlights more or less exactly what I want to do, looking at markets composed of heterogeneous agents that learn via methods in AI. Some of these models are not even trying to emulate human behavior but just study the dynamics of competitive computer agents in a market setting (or how to build the best agents). The real issue I seem to be focusing in on is, what results can we get from such AI agent models when we know that different learning algorithms behave differently within the context of a non-stationary learning environment. As noted in my notes from a different section, when multiple agents are interacting and learning together they inherently create a non-stationary environment (constantly changing). This constant changing means that only under very specific circumstances and with certain algorithms can it be proved the agents will converge to an (optimal) equilibrium. Can a neural net be said to approximate a humans learning? Probably not, but many simulations use it anyway. Does changing the composition of agents of each learning algorithm change the resulting dynamic in a meaningful way? If so, like I suspect, what can one even learn from such a simulation that generalizes at all to markets of agents artificial or otherwise?   
+
+\subsection{Example: Schelling's Segregation Model}
+
+Schelling's Segregation model is an example of a ABM designed in 1969 by Thomas C. Shelling to try and explain racial segregation. Example of how agent preferences can lead to interesting aggregate structure. This model is presented in the lecture notes of Thomas Sargent and I recreated the model in python. The model is as follows: \\
+
+There are two kinds of agents, orange and green of which there are 250 of each type living in on a unit square. The agents each have a location, a point on the square, $(x,y)$, where $0 < x,y,<1$. The agents are \textit{happy} if half of its neighbors, the ten closest agents in euclidean distance, are of the same type. If the agent is not \textit{happy} then the agent is said to be \textit{unhappy}. Initially, the agents are randomly assigned a point on the unit square i.e. each is initially assigned a point drawn from a bi-variate uniform distribution $ S = (0,1)^2$. Cycling though each agent, each agent is given a choice to stay or to move. If the agent is happy, then they stay otherwise they move according to the following procedure:
+
+\begin{adjustwidth}{1cm}{}
+	\textbf{1.} Draw a random location in $S$ \\
+	\textbf{2.} If happy at new location, move there\\
+	\textbf{3.} Else, go to step 1
+\end{adjustwidth}
+
+Continue this cycle, moving through the agents until everyone is happy and does not wish to move.\\
+
+The results are shown in the following figures: 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{segregation_1}
+	\caption{Schelling's Segregation Model: Cycle 1}
+	\label{SSM1}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{segregation_2}
+	\caption{Schelling's Segregation Model: Cycle 2}
+	\label{SSM2}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{segregation_3}
+	\caption{Schelling's Segregation Model: Cycle 3}
+	\label{SSM3}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{segregation_4}
+	\caption{Schelling's Segregation Model: Cycle 4}
+	\label{SSM4}
+\end{figure}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.5]{segregation_5}
+	\caption{Schelling's Segregation Model: Cycle 5}
+	\label{SSM5}
+\end{figure}
+
+As can be seen, in cycle 1 (Figure \ref{SSM1}), the agents are well distributed among each other, but as they move in cycles 2-5, they become progressively more segregated. After 5 cycles all agents are happy and the simulation terminates. This example highlights the benefits of using an ABM. With very few assumptions about the agents preferences (wanting half or more of their neighbors to be the same type as them), we can see the resulting emergent behavior of segregated neighborhoods in the system as a whole. 
+	
+\chapter{Agent Systems}
+   	This chapter lays out the background material of multi-agent systems--what they are, how they work, and why economists might be interested in them--that drives the rest of the thesis. 
 	
 \section{Agents}
 An \textbf{agent} is something that acts. This comes from the Latin word agere, to do. In general, anything might be considered an agent so long as it can perceive the environment and act upon it. A \textbf{rational agents} is something that acts to achieve the best outcome or with uncertainty, the best expected outcome in a given situation. For example we are agents, we have the ability to take an action and effect the world. We even might be considered rational since we are generally trying to navigate the world around us so as to try and lead to our preferred outcome. People are not the only agents, animals and machines are also agents capable of acting on the world around them. 
@@ -190,8 +280,7 @@ Learning is a critical part of being a rational agent. We expect that as agents 
 	\label{learning-agent-STOLEN}
 \end{figure}
 
-First, the agent reprieves its environment and sends that information to the performance function that determines what it will do. There is now a critic that gives feedback for how the agent is doing based on aprori information and the observed state that sends feedback to a learning element that can change the behavior of the performance element. Based on what the learning element is trying improve, there is also a problem generator that suggests actions to the performance element so that different actions can be tested and evaluated.  
-
+First, the agent reprieves its environment and sends that information to the performance function that determines what it will do. There is now a critic that gives feedback for how the agent is doing based on aprori information and the observed state that sends feedback to a learning element that can change the behavior of the performance element. Based on what the learning element is trying improve, there is also a problem generator that suggests actions to the performance element so that different actions can be tested and evaluated. \cite{Russel2010}
 \chapter{Reinforcement Learning}	
 
 Reinforcement learning has become a popular way of teaching agents how to play games and interact with each other in Machine Learning (ML). Because the dynamics and behavior of a final simulation are determined by the learning algorithm used for its composing agents, we spend some time developing the ideas of reinforcement learning in both a single agent and multi-agent setting. 
@@ -214,18 +303,8 @@ $$ \hat{Q}(s,a) \leftarrow \hat{Q}(s,a) + \alpha [(r + \gamma max_{a^{1}} \hat{Q
 where we pick $\alpha \in [0,1]$ which we call the learning rate.
 
 \subsection{Deep Reinforcement Learning}
-Using deep learning in the form of Neural Networks can be helpful for exploring large policy spaces efficiently. It also eliminates the need to hand design features to be optimized for the reinforcement learning process.  
+Using deep learning in the form of Neural Networks can be helpful for exploring large policy spaces efficiently. It also eliminates the need to hand design features to be optimized for the reinforcement learning process. \cite{Shoham2008} 
 
-\section{Chemistry 101: Symbols}
-
-
-
-\subsection{Typesetting reactions}
-
-
-\section{Physics}
-
-\section{Biology}
 
 
 \chapter{Tables and Graphics}
