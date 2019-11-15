@@ -1,4 +1,4 @@
-\begin{thebibliography}{6}
+\begin{thebibliography}{9}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -17,6 +17,11 @@ Bonabeau, E. (2002).
 \newblock {\em Proceedings of the National Academy of Sciences of the United
   States of America\/}, {\em 99\/}(SUPPL. 3), 7280--7287.
 
+\bibitem[{Holland \& Miller(1991)}]{Holland1991}
+Holland, J., \& Miller, J. (1991).
+\newblock {Artificial Adaptive Agents in Economic Theory}.
+\newblock {\em American Economic Review\/}.
+
 \bibitem[{MacAl \& North(2010)}]{MacAl2010}
 MacAl, C.~M., \& North, M.~J. (2010).
 \newblock {Tutorial on agent-based modelling and simulation}.
@@ -31,11 +36,22 @@ Russel, S.~J., \& Norvig, P. (2010).
 Sargent, T.~J., \& Stachurski, J. (2019).
 \newblock {Lectures in Quantitative Economics}.
 
+\bibitem[{Shoham(2008)}]{Shoham2008a}
+Shoham, Y. (2008).
+\newblock {Computer science and game theory}.
+\newblock In {\em Proceedings of the International Joint Conference on
+  Autonomous Agents and Multiagent Systems, AAMAS\/}.
+
 \bibitem[{Shoham \& Leyton-Brown(2008)}]{Shoham2008}
 Shoham, Y., \& Leyton-Brown, K. (2008).
 \newblock {Multiagent systems: Algorithmic, Game-Theoretic, and logical
   foundations}.
 \newblock {\em Multiagent Systems: Algorithmic, Game-Theoretic, and Logical
   Foundations\/}, {\em 9780521899\/}, 1--483.
+
+\bibitem[{Tesfatsion(2002)}]{Tesfatsion2002}
+Tesfatsion, L. (2002).
+\newblock {Agent-based computational economics: growing economies from the
+  bottom up.}
 
 \end{thebibliography}
