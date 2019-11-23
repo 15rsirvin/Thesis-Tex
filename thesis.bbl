@@ -1,4 +1,4 @@
-\begin{thebibliography}{9}
+\begin{thebibliography}{13}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -10,6 +10,11 @@ Auchincloss, A.~H., \& Garcia, L. M.~T. (2015).
   from urban health research}.
 \newblock {\em Cadernos de Sa{\'{u}}de P{\'{u}}blica\/}.
 
+\bibitem[{Axtell(2005)}]{Axtell2005}
+Axtell, R. (2005).
+\newblock {The complexity of exchange}.
+\newblock {\em Economic Journal\/}, {\em 115\/}(504), 193--210.
+
 \bibitem[{Bonabeau(2002)}]{Bonabeau2002}
 Bonabeau, E. (2002).
 \newblock {Agent-based modeling: Methods and techniques for simulating human
@@ -17,10 +22,20 @@ Bonabeau, E. (2002).
 \newblock {\em Proceedings of the National Academy of Sciences of the United
   States of America\/}, {\em 99\/}(SUPPL. 3), 7280--7287.
 
+\bibitem[{Boutilier et~al.(1997)Boutilier, Shoham, \& Wellman}]{Boutilier1997}
+Boutilier, C., Shoham, Y., \& Wellman, M.~P. (1997).
+\newblock {Economic principles of multi-agent systems}.
+\newblock {\em Artificial Intelligence\/}, {\em 94\/}(1-2), 1--6.
+
 \bibitem[{Holland \& Miller(1991)}]{Holland1991}
 Holland, J., \& Miller, J. (1991).
 \newblock {Artificial Adaptive Agents in Economic Theory}.
 \newblock {\em American Economic Review\/}.
+
+\bibitem[{Jamal et~al.(2017)Jamal, Maier, \& Sunder}]{Jamal2017}
+Jamal, K., Maier, M., \& Sunder, S. (2017).
+\newblock {Simple Agents, Intelligent Markets}.
+\newblock {\em Computational Economics\/}, {\em 49\/}(4), 653--675.
 
 \bibitem[{MacAl \& North(2010)}]{MacAl2010}
 MacAl, C.~M., \& North, M.~J. (2010).
@@ -53,5 +68,12 @@ Shoham, Y., \& Leyton-Brown, K. (2008).
 Tesfatsion, L. (2002).
 \newblock {Agent-based computational economics: growing economies from the
   bottom up.}
+
+\bibitem[{Tesfatsion(2005)}]{Tesfatsion2005}
+Tesfatsion, L. (2005).
+\newblock {AGENT-BASED COMPUTATIONAL ECONOMICS : A CONSTRUCTIVE APPROACH TO
+  ECONOMIC THEORY 18 December 2005}.
+\newblock {\em Computational Economics\/}, {\em 2\/}(October 2003), 831--880.
+\urlprefix\url{http://linkinghub.elsevier.com/retrieve/pii/S1574002105020162}
 
 \end{thebibliography}
