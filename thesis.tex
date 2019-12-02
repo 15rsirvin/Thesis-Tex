@@ -39,6 +39,7 @@
 \usepackage{natbib}
 \usepackage{changepage}
 \usepackage{algorithmic}
+\usepackage{tikz}
 
 \graphicspath{./diagrams/}
 % Comment out the natbib line above and uncomment the following two lines to use the new 
@@ -49,7 +50,7 @@
 
 % \usepackage{times} % other fonts are available like times, bookman, charter, palatino
 
-\title{My Final College Paper}
+\title{Simulating Auctions}
 \author{Robert S. Irvin}
 % The month and year that you submit your FINAL draft TO THE LIBRARY (May or December)
 \date{May 2020}
@@ -81,7 +82,7 @@
 % Acknowledgements (Acceptable American spelling) are optional
 % So are Acknowledgments (proper English spelling)
     \chapter*{Acknowledgements}
-	The cat, Grindle.
+	The cat, Pinoe.
 
 % The preface is optional
 % To remove it, comment it out or delete it.
@@ -136,16 +137,60 @@
 % \onehalfspacing
 % \doublespacing
 	
-	Welcome to the \LaTeX\ thesis template. If you've never used \TeX\ or \LaTeX\ before, you'll have an initial learning period to go through, but the results of a nicely formatted thesis are worth it for more than the aesthetic benefit: markup like \LaTeX\ is more consistent than the output of a word processor, much less prone to corruption or crashing and the resulting file is smaller than a Word file. While you may have never had problems using Word in the past, your thesis is going to be about twice as large and complex as anything you've written before, taxing Word's capabilities. If you're still on the fence about  using \LaTeX, read the Introduction to LaTeX on the CUS site as well as skim the following template and give it a few weeks. Pretty soon all the markup gibberish will become second nature.
+	Left blank for Draft
 
-\section{Why use it?}
+\chapter{Computational Economics and Auctions}
+	Within the last three decades, computational economics has been on the rise. This branch of economic research encompasses two major ideas. One is that the increasing power of computers can help solve and understand classical economic problems through increasingly more complex simulations and numerical analysis. Two, that the mathematical methods developed in the field of theoretical computer science can be used to gain better understanding of existing models in terms of their algorithmic and computational complexity properties. This chapter will briefly introduce both of these ideas as they come to bear on understanding auctions.
+
+\section{Auctions, Equillibria, and Anarchy}
+It is perhaps obvious why economists would be inserted in studying auctions. Auctions are one of the most basic market structures that have roots going back to at least the ancient greeks and still exist today in places such as art auctions and Ebay (TODO CITE). But in the past 15 years, economists have been joined by computer scientists who are increasingly interested in the strategic interactions of agents within this setting. Christos Papadimitriou said in a 2015 lecture at the Simons institute that it was the advent of the internet, an artifact out of their control, that turned theoretical computer science into a 'physical science.' Now computer scientists had to "approach the internet with the same humility that economists approach the market..." He went on to say that "it also turned us (computer science) into a social science. It was obviously about people and incentives. Without understanding this, you cannot understand the internet" (Papadimitriou Citation needed). It is within this framework that computer scientists first began to study auctions generally as they existed on the internet. At first this meant trying to understand the auctions present on the internet, Ebay and Googles sponserd search auction. But now, more generally this can be seen as taking the mathematical tools of theoretical computer science and applying them as a lens to understand and explain the world beyond just the scope of the internet. This field of research is generally known as algorithmic game theory, the study of the algorithms and complexity of strategic interactions. For economists, this can be thought of as a new toolbox for unpacking and understanding the models and structures that already dominate the field. For example, in the case of a Walsarian auctioneer who calculates the clearing price of an auction, this problem was shown to be NP-complete, a complexity class usually called 'intractable' due to the time it takes to solve these problems (the best algorithms here are generally guess and check, which gets out of hand for large inputs). 
+
+Another idea that has come out of algorithmic game theory is the price of anarchy (POA), a mathematical way of showing the difference between the social welfare in the optimal case and in the worst case equilibrium for a game. More formally, the price of anarchy for a game is the ratio of the best possible social welfare in a game over the minimum possible welfare for equillibria of the game. An illustrative example of the price of anarchy can be seen in selfish routing games such as the one pictured below in figure \ref{braess}. 
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.4]{braess}
+	\caption{Routing game from s to t. Strategic interaction will make everyone worse off.}
+	\label{braess}
+\end{figure}
+In this game, each player chooses which edges to take from the source $s$ to reach the terminal $t$ and try to do it in the least time, total weight of edges taken, as possible. For the edges labeled x, x is equal to the proportion of players who take the route. For example if $50 \%$ of the players take that edge then $x=0.5$. This can be seen as analogous to traffic when driving a car, the more people take a road, the slower the traffic goes and the longer it takes to get somewhere. Knowing this, each player must choose which path to take to get to their destination as quickly as possible. As you can quickly verify, the best solution for society, minimizing the total driving time for all, is when half of the drivers take the top route, and half of the drivers take the bottom route taking in total 1.5 for each driver. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.4]{braess_2}
+	\caption{Socially optimal route: half taking top, half taking bottom}
+	\label{braess2}
+\end{figure}
+
+However, this is not an equilibrium. The drivers taking the top route have incentive to instead take the middle edge to try and lower their total time traveled. In fact, the Nash equillibrium will end up with all of the drivers taking the top x, going through the middle, and then the bottom x. Only then will no players have reason to deviate. This however, produces a worse outcome for all players. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.4]{braess_3}
+	\caption{Route under strategic interaction}
+	\label{braess3}
+\end{figure}
+
+Now, it take time 2 for each player to reach the terminal. Thus, under strategic interaction we see that the equilibrium is sub-optimal for society, and in this case all players as well. In this case, the price of anarchy can be computed as $$POA = 2/3$$ (cite Roughgarden lectures)
+
+This framework of the price of anarchy is now being applied to understand auctions by researchers in the algorithmic game theory field. Where for selfish routing games, the price of anarchy has been shown to have a tight bound of 1.5, the question for single price auctions only has approximate upper and lower bounds set on it, and is not known at all for double auctions. Before exploring this further, we should set up the mathematical framework of auctions that is necessary to compute such bounds. An \textbf{auction} is a market mechanism, operating under specific rules that determines to whom one or more items will be awarded and at what price. For a bidder in an auction, the \textbf{value} $v_i$ is the maximum price that bidder $i$ is willing to pay for an item. This is sometimes called a $private valuation$ as this value is generally unknown by the other participants in the auction. The \textbf{bid}, $b_i$, is the off that bidder $i$ submits for for an item. \textbf{Sincere bidding} is when $v_i = b_i$, \textbf{underbidding} is when $v_i > b_i$, and \textbf{overbidding} is when $v_i < b_i$. The highest bid made by any bidder is denoted $b^*$, and is the winning bid (if multiple bids equal the winning bid, then some tie-breaking rule must be used). The \textbf{selling price}, $p^*$ is the final price that the bidder actually pays for the item (which depending on the auction type need not equal $b^*$). Under the \textbf{first-price} rule, the bid submitted by the winner is equal to the selling price. Before the auction begins, each bidder know their personal or private value for the item. An auction consists of a set of bidders, $I = (1,2, ...,N)$ and a seller. After the auction, the bidder $i$ wins the item if their bid is higher than the bid placed by any other bidder $k$ $b_i > max_{k \neq b_k}$. In a single unit auction, the \textbf{income of the bidder} $i$ is equal to their value of the item: $$ \Gamma_i^* = v_i$$ and the \textbf{surplus of the bidder} $i$ is equal to the difference between income and cost $$ \Pi_i^* = \Gamma_i^* - p^*$$. If a bid placed by a bidder is less than the winning bid, they do not win anything and their income and surplus are both zero. The \textbf{sellers revenue} in a single unit auction is equal to the price paid by the winning bidder $$ R^* = p^*.$$ 
+
+Pricing rules in an auction. \textbf{First-Price}: the winning bidder pays the amount of their bid, which is the highest bid of the auction: $p^* = b^*$. Also called \textbf{pay-what-you-bid} (PWYB). \textbf{Second-price}: the winning bidder pays an amount that is equal to the second highest bid for the awarded item. First price auctions will make people tend to bid lower than their private valuation since if they bid that value their profit is zero. Under this rule the item could be awarded to someone who value the item less. Second price auctions encourages bidder to bid their true values (as they will gain positive profits if they win no matter the second highest bid). This encourages an efficient allocation of items (CITE MOSHAN, bibtex error). For the moment we will confine ourselves to first price auctions as this is where most of the strong results in POA analysis of auctions currently are. 
+
+Syrgkanis and Tardos proved in 2013 that the price of anarchy in first price, single item auctions is at least $1 - \frac{1}{e} \approx 0.63$. The exact upper bound on the price of anarchy for single payer, first price auctions remains unknown in the general case. 
+
+This answers the question for what is the price of anarchy at equilibrium, but these results do not pay attention to how the players arrive at there. In real world applications, we expect that players might play repeatedly in the same auction and learn as they play rather than come in with pre-computed strategies. This is especially true for when computing the equilibrium is computationally hard and the stakes of each individual auction is small. Given these observations, it is natural to ask questions about how the efficiency results carry over to adaptive game environments. The model for learning agents that is commonly used in the field is \textbf{no regret learning}. An algorithm for a player satisfies the no-regret condition if, in the limit as the number of times the game is played goes to infinity, the average reward of the algorithm is at least as good as the average reward for the best fixed action in hindsight (assuming the sequence of actions for the other players remains unchanged). If each player  incorporates this kind of learning algorithm, then it has been shown that these can converge to a larger class of equilibrium called correlated equilibrium where each player conditions their response on the expected action of the other player. Now, we can use the following theorem: If an auction is $(\lambda, \mu)$-smooth, then for every valuation profile $\textbf{v}$, every vanishing regret sequence has expected welfare at least $\frac{\lambda}{\mu} \cdot OPT(\textbf{v})$ as $T \rightarrow \infty$. Because we know that a first price single payer auction is a smooth..... \cite{Roughgarden2017} (need to find source finishing jump from POA to no regret learning and giving bounds for single item, first bidder auctions)
+
+With all of this set up, we now state our goal: to simulate no-regret learning algorithms for agents in a first price, single payer auction to see how well the price of anarchy holds. We also want to compare this with other learning algorithms that aren't no regret to see if this framework of using these algorithms is appropriate for making generalizations about equilibrium under learning.
+
 	
-\LaTeX\ does a great job of formatting tables and paragraphs. Its line-breaking algorithm was the subject of a PhD.\thinspace thesis. It does a fine job of automatically inserting ligatures, and to top it all off it is the only way to typeset good-looking mathematics.
+\section{Simulated Agents and Simulated Economies}
+The use of computers in economics goes back all of the way to general purpose computers being invented in the 1940's. Wassily Leontif used a computer to invert a 39 x 39 matrix to help solve his input output model. Since then, computers use in economics has exploded. With computers economists are able to solve bigger matrices, do Monte-Carlo simulations, create multinomial probit models, and use full information maximum likelihood estimation \cite{Backhouse2016}. While one branch of computational economics is focused on creating stronger and stronger calculators to facilitate empirical research, another branch has focused on creating simulated economies that allow economists to construct a blended version of theory and research within a computer program. Within these simulated economies, theories can be coded into the simulation which when run can allow the researcher to conduct experiments that might not be practical (or ethical) to conduct in the real world. 
 
-\section{Who should use it?}
+One kind of a simulation that can be run is what is an agent-based model (ABM), a simulated system of autonomous decision makers called agents. These models are able to generate complex behavior even if only simple assumptions are made about the behavior of the coded agents. That is, these agents interacting with each other in complex ways are able to produce emergent phenomena in the macro structure of the system that are interesting
 
-Anyone who needs to use math, tables, a lot of figures, complex cross-references, IPA or who just cares about the final appearance of their document should use \LaTeX. At Reed, math majors are required to use it, most physics majors will want to use it, and many other science majors may want it also.
+For example, in the 1970's Thomas Schilling created a computer simulation to try and understand how and why self segregated neighborhoods formed. Thus, he coded a virtual environment where agents were given preferences to not be a minority where they ended up and move otherwise. From this,  
 
+ 
 \chapter{Literature Review}
 	This "chapter" is my attempt to get words on a page in the process of writing the literature review. It is also an attempt to structure my thought process on what I have read and what questions I want to answer. In general, the proceeding sections would like to answer the following questions:
 	

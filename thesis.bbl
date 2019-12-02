@@ -1,4 +1,4 @@
-\begin{thebibliography}{13}
+\begin{thebibliography}{17}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -14,6 +14,20 @@ Auchincloss, A.~H., \& Garcia, L. M.~T. (2015).
 Axtell, R. (2005).
 \newblock {The complexity of exchange}.
 \newblock {\em Economic Journal\/}, {\em 115\/}(504), 193--210.
+
+\bibitem[{Backhouse \& Cherrier(2016)}]{Backhouse2016}
+Backhouse, R., \& Cherrier, B. (2016).
+\newblock {'It's Computerization, Stupid!' The Spread of Computers and the
+  Changing Roles of Theoretical and Applied Economics}.
+\newblock {\em SSRN Electronic Journal\/}, (pp. 1--36).
+
+\bibitem[{Blume et~al.(2015)Blume, Easley, Kleinberg, Kleinberg, \&
+  Tardos}]{Blume2015}
+Blume, L., Easley, D., Kleinberg, J., Kleinberg, R., \& Tardos, {\'{E}}.
+  (2015).
+\newblock {Introduction to computer science and economic theory}.
+\newblock {\em Journal of Economic Theory\/}, {\em 156\/}(November), 1--13.
+\urlprefix\url{http://dx.doi.org/10.1016/j.jet.2014.11.002}
 
 \bibitem[{Bonabeau(2002)}]{Bonabeau2002}
 Bonabeau, E. (2002).
@@ -41,6 +55,18 @@ Jamal, K., Maier, M., \& Sunder, S. (2017).
 MacAl, C.~M., \& North, M.~J. (2010).
 \newblock {Tutorial on agent-based modelling and simulation}.
 \newblock {\em Journal of Simulation\/}, {\em 4\/}(3), 151--162.
+
+\bibitem[{Mochon \& Saez(2015)}]{Mochon2015}
+Mochon, A., \& Saez, Y. (2015).
+\newblock {\em {Understanding Auctions}\/}.
+\newblock Springer International Publishing Switzerland.
+
+\bibitem[{Roughgarden et~al.(2017)Roughgarden, Syrgkanis, \&
+  Tardos}]{Roughgarden2017}
+Roughgarden, T., Syrgkanis, V., \& Tardos, {\'{E}}. (2017).
+\newblock {The price of anarchy in auctions}.
+\newblock {\em Journal of Artificial Intelligence Research\/}, {\em 59\/},
+  59--101.
 
 \bibitem[{Russel \& Norvig(2010)}]{Russel2010}
 Russel, S.~J., \& Norvig, P. (2010).
