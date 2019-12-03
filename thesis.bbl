@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{19}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -60,6 +60,16 @@ MacAl, C.~M., \& North, M.~J. (2010).
 Mochon, A., \& Saez, Y. (2015).
 \newblock {\em {Understanding Auctions}\/}.
 \newblock Springer International Publishing Switzerland.
+
+\bibitem[{Papadimitriou(2015)}]{Papadimitriou2015}
+Papadimitriou, C. (2015).
+\newblock {On Algorithmic Game Theory I}.
+\urlprefix\url{https://www.youtube.com/watch?v=ggi2PZbO0oQ{\&}t=814s}
+
+\bibitem[{Roughgarden(2016)}]{Roughgarden2016}
+Roughgarden, T. (2016).
+\newblock {\em {Twenty lectures on algorithmic game theory}\/}.
+\newblock Cambridge University Press.
 
 \bibitem[{Roughgarden et~al.(2017)Roughgarden, Syrgkanis, \&
   Tardos}]{Roughgarden2017}
