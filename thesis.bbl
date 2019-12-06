@@ -1,4 +1,4 @@
-\begin{thebibliography}{19}
+\begin{thebibliography}{20}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
@@ -111,5 +111,13 @@ Tesfatsion, L. (2005).
   ECONOMIC THEORY 18 December 2005}.
 \newblock {\em Computational Economics\/}, {\em 2\/}(October 2003), 831--880.
 \urlprefix\url{http://linkinghub.elsevier.com/retrieve/pii/S1574002105020162}
+
+\bibitem[{Vickrey(1961)}]{Vickrey1961}
+Vickrey, W. (1961).
+\newblock {American Finance Association Counterspeculation , Auctions , and
+  Competitive Sealed Tenders Author ( s ): William Vickrey Source : The Journal
+  of Finance , Vol . 16 , No . 1 ( Mar ., 1961 ), pp . 8-37 Published by :
+  Wiley for the American Finance Associat}.
+\newblock {\em 16\/}(1), 8--37.
 
 \end{thebibliography}

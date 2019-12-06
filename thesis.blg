@@ -5,45 +5,46 @@ The style file: APA/apa-good.bst
 Database file #1: thesis.bib
 Warning--can't use both author and editor fields in Russel2010
 Warning--empty journal in Sargent2019
-You've used 19 entries,
+Warning--empty journal in Vickrey1961
+You've used 20 entries,
             2804 wiz_defined-function locations,
-            716 strings with 7803 characters,
-and the built_in function-call counts, 9784 in all, are:
-= -- 807
-> -- 346
-< -- 16
-+ -- 130
-- -- 111
-* -- 708
-:= -- 1563
-add.period$ -- 54
-call.type$ -- 19
-change.case$ -- 132
-chr.to.int$ -- 19
-cite$ -- 21
-duplicate$ -- 734
-empty$ -- 752
-format.name$ -- 170
-if$ -- 1891
+            723 strings with 8109 characters,
+and the built_in function-call counts, 10262 in all, are:
+= -- 847
+> -- 356
+< -- 17
++ -- 134
+- -- 114
+* -- 739
+:= -- 1638
+add.period$ -- 57
+call.type$ -- 20
+change.case$ -- 138
+chr.to.int$ -- 20
+cite$ -- 23
+duplicate$ -- 773
+empty$ -- 793
+format.name$ -- 174
+if$ -- 1983
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 151
-newline$ -- 102
-num.names$ -- 76
-pop$ -- 300
+missing$ -- 159
+newline$ -- 107
+num.names$ -- 80
+pop$ -- 314
 preamble$ -- 1
-purify$ -- 113
+purify$ -- 118
 quote$ -- 0
-skip$ -- 285
+skip$ -- 300
 stack$ -- 0
-substring$ -- 429
-swap$ -- 367
+substring$ -- 456
+swap$ -- 387
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 162
-warning$ -- 2
-while$ -- 78
+type$ -- 171
+warning$ -- 3
+while$ -- 83
 width$ -- 0
-write$ -- 242
-(There were 2 warnings)
+write$ -- 254
+(There were 3 warnings)
