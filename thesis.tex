@@ -30,6 +30,7 @@
 % Chemistry (chemtex), screenplays, you name it.
 % Check out CTAN to see: http://www.ctan.org/
 %%
+\input{cryptomacros}
 \usepackage{graphicx,latexsym} 
 \usepackage{amssymb,amsthm,amsmath}
 \usepackage{longtable,booktabs,setspace} 
@@ -39,6 +40,7 @@
 \usepackage{natbib}
 \usepackage{changepage}
 \usepackage{algorithmic}
+\usepackage{amsthm}
 \usepackage{tikz}
 \usepackage [english]{babel}
 \usepackage [autostyle, english = american]{csquotes}
@@ -248,6 +250,37 @@ Agent based modeling has been used to build and understand much more complicated
 The authors of Santa Fe Stock Market paper at the time suggested that this was one of many algorithms that could be used to stand in for human behavior saying that reinforcement learning or deep learning could also be used to stand in for human intelligence\footnote{Reinforcement learning is when an algorithm plays a game repeatedly and updates its beliefs about what actions will lead to the best payoff. Deep learning uses deep neural networks to try and estimate the best outcomes in a fashion similar to regression.} (CITATION NEEDED, This was in Shareen Joshi's thesis and in one of their papers, but I am having trouble tracking down the quote. Will use her thesis to find original source or remove reference). Recent research in the field as well as in the field of multi-agent systems, a similar branch of computer science suggest that this is not the case. Because these simulations have agents competing in non-stationary environments that are changing from the perspective of any individual agent every time some other agent changes their behavior, the choice of algorithm dramatically changes how the system behaves (\cite{Rejeb2005}, \cite{Shoham2008}). Further, research that has compared the behavior of human agents in strategic settings to that of these algorithms have found that there is no general algorithm that best approximates human learning(\cite{Tesfatsion2002}). From situation to situation, different algorithms more appropriately behave like humans. This is a problem only assuming that you want your agents to in some way represent human behavior, we might simply want our agents to represent the "rational choice" in any given situation. These algorithms aren't necessarily doing that either. As Holland and Miller say in their 1991 paper "Artificial Adaptive Agents in Economic Theory", "Usually there is only one way to be fully rational, but there are many ways to be less rational." The way they suggest to get around this is to try and build models that have robust behavior across algorithm choice. This is probably not true for their own artificial stock market as it is not even robust across the choice of parameters to program the market. The literature of game theory provides a nice solution to this. The no-regret algorithms they use have the simple property of doing better in the long run than fixing their strategy randomly in the beginning. This is a simple learning requirement that means that this kind of algorithm should be more robust across representing human behavior. It also allows us to combine our simulated models and analytical models in a nice way as we can mathematically describe the processes of such algorithms behavior and we can code agents to use algorithms that have that behavior. This allows the learning process to be less of a black box and instead to be as simple and thus generalizable as possible.
 
 Moving forward this thesis aims to better understand the price of anarchy in auctions by simulating auctions using these no-regret learning algorithms\footnote{these will be discussed in chapter 2, but no-regret learning is a type of reinforcement learning that have certain convergence properties} and seeing how they behave compared to the socially optimal equilibrium. These simulations will try to answer two main questions, what equilibrium do these algorithms converge to (if they converge at all) and what is the calculated price of anarchy in these systems compared to the bounds that theory tells us should exist. Using this framework to explore auctions we will start with a single-item first price auction as it is the best understood theoretically and is the easiest to code. We will then move to simultaneous first price auctions for complementary goods as this is also relatively well understood in terms of the price of anarchy. Finally, time permitting, we will discuss the open question of the price of anarchy in double auctions and discuss how one might go about proving bounds for it.
+
+\chapter{Price of Anarchy in First Price Auctions}
+This chapter lays out the mathematical framework for modeling auctions as Bayesian games of incomplete information, formally defines the price of anarchy in auctions, and shows the bounds on the price of anarchy for first price, single payer auctions.
+
+\section{Auctions as Bayesian Games}
+
+\subsection{Bayesian Games}
+Bayesian games of incomplete information are games in which one or more of the players don't have full knowledge of the game that is being played. This type of game is commonly used to model auctions as they can capture the strategic interaction of bidders trying to decide how to place their bid without knowing the valuation that the other bidders have of the item. Formally, a Bayesian game is defined as follow.
+
+\begin{dfn}
+	A game with incomplete information, also known as a Bayesian game, $G = (\Theta, S, P, u)$ consists of:
+	\begin{enumerate}
+		\item A set $\Theta = \Theta_1 \times \ldots \times \Theta_I$, where $\Theta_i$ is the finite set of possible types for player $i$.
+		\item A set $S = S_1 \times \ldots \times S_I$, where $S_i$ is the set of possible strategies for player $i$
+		\item A joint probability distribution $p(\theta_1, \dots , \theta_I)$ over types. For finite type space, assume that $p(\theta_i) > 0$ for all $\theta_i \in \Theta_i$
+		\item Payoff functions $u_i : S \times \Theta \rightarrow \mathbb{R}$
+	\end{enumerate} 
+\end{dfn}
+
+Using this definition to model our auction the types of players will consist of the publically known distribution from which they are drawing their valuation. That is, our auction will consist of bidders who know their own valuation of the item being bidded on, and the distribution from which each of the other players is drawing their own valuations.
+
+Now, we need a notion of the strategies of the bidders in question. 
+
+\begin{dfn}
+	A Bayesian pure strategy for player $i$ in $G$ is a function $f_i : \Theta_i \rightarrow \Sigma_i$. 
+\end{dfn}
+
+\begin{dfn}
+	A Bayesian strategy profile $(f_1, \ldots, f_I)$ is a Bayesian Nash Equilibrium if for all $i, \theta_i$, and $s_i$ :
+	$$ \sum_{\theta_{-i} \in \Theta_{-i}} u_i(f_i(\theta_i), f_{-i}(\theta_{-i}), \theta_i, \theta_{-i})p(\theta_{-i} \ | \ \theta_i) \geq \sum_{\theta_{-i} \in \Theta_{-i}} u_i(s_i, f_{-i}(\theta_{-i}), \theta_i, \theta_{-i})p(\theta_{-i} \ | \ \theta_i)$$
+\end{dfn}
 
  
 \chapter{Literature Review}
