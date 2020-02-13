@@ -254,463 +254,105 @@ Moving forward this thesis aims to better understand the price of anarchy in auc
 \chapter{Price of Anarchy in First Price Auctions}
 This chapter lays out the mathematical framework for modeling auctions as Bayesian games of incomplete information, formally defines the price of anarchy in auctions, and shows the bounds on the price of anarchy for first price, single payer auctions.
 
-\section{Auctions as Bayesian Games}
+\section{Auctions as Bayesian Game}
+Auctions are typically modeled as Bayesian games also known as games with incomplete information. While it is obvious why an auction consisting of the strategic interaction of bidders could be modeled as a game, how it should be modeled requires some thought. After all, while each bidder knows their own valuation of the item being sold, unless for some reason (and against their own interest) the other players announced their valuation of the item before the auction began our bidder will not know how the other players value the item. In fact, it is persicly this lack of information that makes auctions interesting! If all players came into an auction knowing the valuation of other players, for first price, single item auctions the bidder with the highest value would always bid slightly higher than the next highest valuation and win the item (or bid their own valuation if there is a tie for first). Rather it is the uncertainty that players face about the valuation of other players that make things interesting as players must guess how much they should shade their bid (as again no player will ever bid above their valuation) based off of what they know about other players. 
 
+What can we say that bidders know about the valuations of other bidders? Certainly they do not know nothing as we all have reasonable expectations about what some item is worth to others. No one will value a candy bar at a million dollars. But a collector of candy bars might value it at a higher value than an ordinary person who just want to eat the candy bar. For each, could say that this bidder has a probability distribution from which they are drawing their valuation from that is know to the other bidders. For example we might expect normal people valuation of candy bars to be a normal distribution centered at \$1, but the collectors value might be a leplacian distribution (allowing for more black swan events) centered at \$5. This sort of strategic interaction where the players know the distributions that parameters of the game are drawn from are typically called games of incomplete information, or Bayesian games.
+ 
 \subsection{Bayesian Games}
-Bayesian games of incomplete information are games in which one or more of the players don't have full knowledge of the game that is being played. This type of game is commonly used to model auctions as they can capture the strategic interaction of bidders trying to decide how to place their bid without knowing the valuation that the other bidders have of the item. Formally, a Bayesian game is defined as follow.
+Bayesian games of incomplete information are games in which one or more of the players don't have "full knowledge" of the game that is being played. Introduced by John C. Harsanyi in 1967, rather than players knowing every parameter of the game situation such as utility functions, possible strategies, and information held by other players, each player knows a probability distribution from which these will be drawn. In his paper, Harsanyi says that this type of game can be thought of as a normal game, where "nature" goes first drawing from these probability distributions and assigning values before play begins without the players knowing which specific variation of the game they are playing (TODO CITE Harsanyi). Importantly, each player does know the probability distributions from which each value is selected. Formally such games are defined as follows, 
 
 \begin{dfn}
-	A game with incomplete information, also known as a Bayesian game, $G = (\Theta, S, P, u)$ consists of:
+	A game with incomplete information, also known as a Bayesian game where there are $I$ players, $G = (\Theta, S, P, u)$ consists of:
 	\begin{enumerate}
 		\item A set $\Theta = \Theta_1 \times \ldots \times \Theta_I$, where $\Theta_i$ is the finite set of possible types for player $i$.
 		\item A set $S = S_1 \times \ldots \times S_I$, where $S_i$ is the set of possible strategies for player $i$
 		\item A joint probability distribution $p(\theta_1, \dots , \theta_I)$ over types. For finite type space, assume that $p(\theta_i) > 0$ for all $\theta_i \in \Theta_i$
 		\item Payoff functions $u_i : S \times \Theta \rightarrow \mathbb{R}$
 	\end{enumerate} 
-\end{dfn}
+\end{dfn} (TODO CITE Levin)
 
-Using this definition to model our auction the types of players will consist of the publically known distribution from which they are drawing their valuation. That is, our auction will consist of bidders who know their own valuation of the item being bidded on, and the distribution from which each of the other players is drawing their own valuations.
+Using this definition to model our auction the types of players will consist of the publically known distribution from which they are drawing their valuation. That is, our auction will consist of bidders who know their own valuation of the item being bidded on, and the distribution from which each of the other players is drawing their own valuations. In a first price, single item auction if player $i$ wins with bid $b_i$, we define their payoff the winner to be $u_i = v_i - b_i$, the difference between their valuation and their bid and the losers all get $u_i = 0$ since they did not receive the item. Now, a strategy for a player is a function $s_i \in S_i$ that maps a valuation $v_i$ in support of $\Theta_i$ to a bid $s_i(v_i)$. 
 
-Now, we need a notion of the strategies of the bidders in question. 
-
-\begin{dfn}
-	A Bayesian pure strategy for player $i$ in $G$ is a function $f_i : \Theta_i \rightarrow \Sigma_i$. 
-\end{dfn}
+Now, we move to the idea of equilibrium in this system. In games of complete information the central equilibrium concept is usually a Nash equilibrium, the set of strategies for all players in which each individual player cannot increase their utility by deviating from their strategy given the strategy of all the other players. This concept is now updated to give us a Bayes-Nash equilibrium where we must also incorporate the distributions for which players are drawing from. 
 
 \begin{dfn}
-	A Bayesian strategy profile $(f_1, \ldots, f_I)$ is a Bayesian Nash Equilibrium if for all $i, \theta_i$, and $s_i$ :
-	$$ \sum_{\theta_{-i} \in \Theta_{-i}} u_i(f_i(\theta_i), f_{-i}(\theta_{-i}), \theta_i, \theta_{-i})p(\theta_{-i} \ | \ \theta_i) \geq \sum_{\theta_{-i} \in \Theta_{-i}} u_i(s_i, f_{-i}(\theta_{-i}), \theta_i, \theta_{-i})p(\theta_{-i} \ | \ \theta_i)$$
+	A strategy profile constitutes a Bayes-Nash equilibrium if for every player $i$ and every valuation $v_i$ that the player might have, the player chooses a bid $s_i(v_i)$ that maximizes her conditional expected utility where the expectation is over the valuations of the other players, conditioned on a bidder i's valuation being $v_i$. We express that as an equation below.
 \end{dfn}
 
+\subsection{Formally Defining First Price Auctions}
+NOTE: This section needs cleaning up since it is going to give a lot of duplicate information or redefine things slightly differently from previous sources.
+
+To analyze an first price auction as a game, we give the notation we will be using. This notation comes from Roughgarden et. al 's 2018 (TODO check date) survey of the subject of the price of anarchy in auctions. For a bid profile $\textbf{b} = (b_1, \ldots, b_n)$, we let 
+\[
+	x_i(\textbf{b}) =
+	\begin{cases}
+		1 & \text{if player $i$ is the winner} \\
+		0 & \text{otherwise}
+	\end{cases}
+\].
+
+We let $p(\textbf{b}) = \max_{i \in \{1, \ldots, n\} } b_i$ denote the selling price. The utility that a player $i$ receives when their valuation is $v_i$ is 
+$$u_i(\textbf{b}; v_i) = (v_i - b_i) \cdot x_i(\textbf{b})$$. 
+
+Now, for a strategy profile $\textbf{s} = (s_1, \ldots, s_n)$, where each $s_i$ is a function for player $i$'s valuation $v_i$ to their bid. We let $\textbf{s}(\textbf{v})$ denote the strategy vector resulting from the vector of valuations $\textbf{v}$. For any given vector $\textbf{x}$, we use $\textbf{x}_{-i}$ to denote the vector $\textbf{x}$ with the $i$th element removed. 
+
+Now, for a first price auction we can say that a strategy profile $\textbf{s} = (s_1, \ldots s_n)$ is a Bayes-Nash equilibrium if and only if 
+$$ \mathbb{E}_{\textbf{v}_{-i}} [u_i(\textbf{s} (\textbf{v}); v_i) \ | \ v_i] \geq \EXP_{\valuations_{-i}} [u_i(b^{'}_i, \strategies_{-i}(\valuations_{-i}); v_i) \ | \ v_i] $$.
+
+(TODO cite Roughgarden et al)
+
+\subsection{Example Auction}
+We now turn to an example auction to clarify what has just been laid out. In this example we analyze the an auction between two players, Alice and Bob who are bidding on a candy bar where each select their valuations from the uniform distribution $[0,1]$. This is a first price, sealed bid auction where they each submit a bid for the candy bar simultaneously. How are Bob and Alice supposed to decide what to bid on this auction? 
+
+\begin{prop}
+	In the first price, sealed bid auction with valuation distributed on $[0,1]$, the unique Bayesian-Nash equilibrium is $\strategies = (s_1(v_1) = v_1 / 2, s_2(v_2) = v_2 / 2)$.
+\end{prop}
+
+To show this first, we show that each player is using a best response. First, we note that We calculate that the expected value for player one is,
+
+\begin{align*}
+	\EXP_{\valuations_{-1}} [u_1(\strategies(\valuations); v_1 \ | \ v_1)] &= \EXP_{v_2}[u_1( \ s_1(v_1), s_2(v_2); \ v_1 \ | \ v_1)] \\
+	&= (v_1 - b_1) \Pr[s_2(v_2) < b_1] + \frac{1}{2}(v_1 - b_1)\Pr[s_2(v_2) = b_1].
+\end{align*}
+
+since player expect to get their full utility with the probability that they outbid the other player, and expect to get one half that if they tie with the other bidder (since ties are broken with a coin toss). Now, assuming that player one does not over bid, we know that $b_1 \in [0, \frac{1}{2}]$.
+
+... I'm not sure if I need this
+
+\subsection{Efficiency of First Price Auctions}
+Examples of the Bayes-Nash equilibrium have been solved for various combinations of the number of players and distributions from which they draw their valuations. With $n$ bidders it has been shown that the Bayes-Nash equilibrium strategy vector is $s_i(v) = \frac{n-1}{n} v$ for all players. Here the equilibrium is easy to calculate and efficient (meaning that the item will always be allocated to the player with the highest valuation). This is however not always the case. For example if we conduct an auction with two bidders, one choosing from the uniform distribution $[0,1]$ and the other from the uniform distribution $[0,2]$ it has been shown that the Bayes-Nash equilibrium for this auction is:
+\begin{align*}
+	&s_1(v_1) = \frac{4}{3 v_1} \left(1 - \sqrt{1 - \frac{3v_1^2}{4}}\right)\\
+	&s_2(v_2) = \frac{4}{3 v_1} \left(\sqrt{1 + \frac{3v_1^2}{4}} - 1 \right)\\
+\end{align*}
  
-\chapter{Literature Review}
-	This "chapter" is my attempt to get words on a page in the process of writing the literature review. It is also an attempt to structure my thought process on what I have read and what questions I want to answer. In general, the proceeding sections would like to answer the following questions:
-	
-	\begin{itemize}
-		\item Why Multi-Agent Simulations?
-		\item How do the agents model people, what are the assumptions?
-		\item How does learning affect these simulations?
-		\item Does the non-stationarity of multi-agent systems make learning techniques invalid as models of human behavior?
-	\end{itemize}
-	
-	Because this is a cursory document it will move back and forth between detailed notes on a single paper and a more structured literature review where I feel stronger on the material.
-	
-\section{Why use Agent Based Modeling?}
-	Tries to answer :
-	\begin{itemize}
-		\item What questions do Agent Based Models (ABM) try to answer?
-		\item What are their strengths?
-		\item What are their shortcomings?
-		\item Examples and results?
-	\end{itemize}
+(CITE Krishna, 2002):
 
-\subsection{The Logic of Agent Based Simulations}
+Here bidder one knows that bidder two is more likely to to have a higher valuation than them and thus bid higher and so they shade their bid less than bidder two. This can lead to bidder one drawing a lower valuation than bidder two, but outbidding them regardless getting the item. This is inefficient. More over, it has been shown that solving many of these asymmetric Bayes-Nash equilibrium requires finding a solution to a system of partial differential equations many of which have no closed-form solution (CITE Roughgarden). This means that if we expect bidders to do their homework before an auction and choosing their bidding strategy they might not know what to do. Given this, it is extremely hard to characterize or say things about what these solutions look like. However, just because we are not able to give a closed form to what all of these equillibria look like, that does not mean we aren't able to say anything about them. 
 
-From "Agent-based modeling: Methods and techniques for simulating human systems" \cite{Bonabeau2002}: \\
+\subsection{Price of Anarchy in First Price Auctions}  
+To try and get a sense of how inefficient these auctions can be, computer scientists have been applying a concept known as the price of anarchy to analyze these systems. The price of anarchy is a way to compare the social welfare of a system or a game at its best possible value to that of its worst possible equilibrium under strategic play. In the case of an auction the social welfare is the sum of the utilities of the players plus the revenue of the auctioneer.
 
-Agent-based modeling (ABM) is a technique that models a system as a computer simulation of autonomous decision making entities that we call agents. The agents behavior and decision making process should in some way represent the behavior of the system they are supposed to model. Models are able to produce complex behavior from even relatively simple assumptions about agents that may be insightful for understanding the system they are trying to simulate. "Sophisticated ABM sometimes incorporates neural networks, evolutionary algorithms, or other learning techniques to allow realistic learning and adaptation." The main idea of ABM's is "describing a system from the prospective of its constituent units." 
+\begin{dfn}
+	The \textit{social welfare} of a bid profile $\bidders$ when the valuation profile is $\valuations = (v_1, \ldots, v_n)$ is 
+	$$ SW(\bidders;\valuations) = \sum_{i=1}^{n} v_i \cdot x_i (\bidders)$$
+\end{dfn}
 
-"The benefits of ABM over other modeling techniques can be captured in three statements: (i)  ABM captures emergent phenomena; (ii) ABM provides a natural description of a system; and (iii) ABM is flexible." The main benefit from this list being that ABM captures emergent phenomena that result from the interaction of individual agents. Example given is Traffic Jam that is result of car agents, but the traffic jam moves in the opposite direction of the cars and the traffic jam is itself an emergent behavior from the Car agents. One reason to use and ABM model is if there may be emergent phenomena; " when (i) Individual behavior is nonlinear and can be characterized by thresholds, if-then rules, or nonlinear coupling. (ii) Individual behavior exhibits memory, path dependence, and hysteresis, non-markovian behavior, or temporal correlations including learning and adaptation. (iii) Agent interactions are heterogeneous and can generate network effects. (iv) Averages will not work. Aggergate DEQ's tent to smooth out fluctuations, not ABM, which is important because under certain conditions, fluctuations can be amplified."
+The winning bid does not appear in this equation since the winning bidder is paying exactly as much as the auctioneer is getting and this term cancels out of the social welfare function. This means that welfare is maximized when the bidder with the highest valuation is winner. Thus, if we let $x^*_i(\valuations)$ be an indicator variable for whether or not a player $i$ is the player with the highest valuation (ties broken arbitrarily), the maximum possible social welfare in a single-item auction is 
+$$ \OPT(\valuations) = \sum_{i=1}^{n} v_i \cdot x^*_i (\bidders)$$.
 
-ABM is natural for explaining a system of behavioral entities such as traffic jams, stock markets, voters, or the inter-workings of an organization. Modeling Markets: Markets, and stock markets specifically have their resulting dynamics come from the interaction of many agents. This can be understood using ABM. NASDAQ used a an ABM to make decision about mechanism changes where there are many agents who learn via reinforcement learning and neural networks with the goal not being to emulate human behavior, but all possible behavior in regards to the change in mechanism. Found that decreasing tick-size actually increased ask-bid spread and made price discovery harder for agents. Another use is modeling auctions. EBAY lets people build agents to automate the bidding process. \textbf{important to thesis below:} "ultimately, transactions among economic software agents will constitute an essential and perhaps even dominant portion of the world economy." People at IBM have been exploring impact of shopbots on market dynamics with simulated shopbot economies of buyers and sellers. Economists have studied phenomena such as price dispersion by using ABM models where the goal is to design economic software agents. "In particular, they have been examining agent economies in which (i)search costs are nonlinear; (ii) some portion of the buyer population makes no use of search mechanisms; and (iii) shopbots are economically motivated strategically pricing their services so as to maximize their own profits." These stratagies of ABM techniques can also be applied to studying many agents playing an economic game. Author calls this "Game Theory without the theory." and says "Game theory is a great framework, but game theorists suffer from self-imposed constrains: being able to prove their theorems puts severe limitations to what is possible" in particular he argues it is impossible to model realistic games within their framework.
+Now, that we mathematically describe the social welfare in our system, we can define the price of anarchy. 
 
-The author describes the following issues with ABM. Like all models (in social sciences especially) the model must serve a purpose and cannot be a general-purpose model. \textbf{important:} 
-"Another issue has to do with the very nature of the systems one is modeling with ABM in social sciences: they most often involve human agents, with potentially irrational behavior, subjective choices, and complex psychology--in other words, soft factors, difficult to quantify, calibrate, and sometimes justify." Should only use ABM to justify qualitative results (not quantitative) due to the varying degrees of accuracy input into the simulation. 
-\cite{Bonabeau2002} \\
+\begin{dfn}
+	The \textit{price of anarchy} of an auction, with a valuation distribution $\mathcal{F}$ (TODO reconcile notation), is the smallest value of the ratio
+	$$ \frac{\EXP_{\valuations} [SW(\strategies(\valuations);\valuations)]}{\EXP_{\valuations}[\OPT(\valuations)]}$$,
+	ranging over all Bayes-Nash equilibrium $\strategies$ of the auction.
+\end{dfn}
 
-\textbf{How this applies to Thesis:} This goes in depth on the "why" of Agent based modeling, specifically justifying it for bottom up modeling in the cases where that may be the best way to model something in the social sciences. The really interesting parts to me was about markets which highlights more or less exactly what I want to do, looking at markets composed of heterogeneous agents that learn via methods in AI. Some of these models are not even trying to emulate human behavior but just study the dynamics of competitive computer agents in a market setting (or how to build the best agents). The real issue I seem to be focusing in on is, what results can we get from such AI agent models when we know that different learning algorithms behave differently within the context of a non-stationary learning environment. As noted in my notes from a different section, when multiple agents are interacting and learning together they inherently create a non-stationary environment (constantly changing). This constant changing means that only under very specific circumstances and with certain algorithms can it be proved the agents will converge to an (optimal) equilibrium. Can a neural net be said to approximate a humans learning? Probably not, but many simulations use it anyway. Does changing the composition of agents of each learning algorithm change the resulting dynamic in a meaningful way? If so, like I suspect, what can one even learn from such a simulation that generalizes at all to markets of agents artificial or otherwise?  \\  
+The price of anarchy for the first price auction format is then the worst possible price of anarchy for any choice of the number of players $n$ or valuation distributions $\mathcal{F}$ (TODO: reconcile notation). We can see that the price of anarchy is a number between $0$ and $1$, and that the closer it is to one, the "better" we can guarantee the system's social welfare will be\footnote{Much of the literature for POA (including the paper introducing the idea) defines it as the opposite ratio, Optimal/Worst-EQ where smaller values indicate better systems. For some reason the auction literature defines it in the way I did, so I will remain consistent with them.}.
 
-\textbf{Artificial Adaptive Agents in Economic Theory}, by John H. Holland and John H. Miller.\\
-
-Recent (as of 1991) advances in machine learning offer the possibility of creating artificial adaptive agents (AAA) that can be tested in a wide variety of environments. Creates a complex adaptive system. Subjects that economists study can be classified as complex adaptive systems with networks of interacting agents and dynamic aggregate behavior. Agents in this system are adaptive if they are given some performance measure such as a utility function that they try to maximize over time. AAA models don't require that agents perform technically demanding computations and derivations to optimize their behavior such as classical models imply. 
-
-II Current techniques. AAA can be created using algorithms such as classifier systems, genetic algorithms, neural networks, and reinforcement learning. Wondering how much to outcomes of a system are tied to the learning algorithms used confronts the rationality postulates. "Usually there is only one way to be fully rational, but there are many ways to be less rational." When building theory off of AAA, want robust behavior across algorithm choice. \cite{Holland1991} \\
-
-\textbf{Agent-Based Computational Economics: Growing Economies from the Bottom Up}, by Leigh Tesfastsion 2002
-Market economies are complex adaptive systems consisting of a large number of adaptive agents. Local interactions between these agents give rise to macro behavior of the markets which then feedback into the nature of the local interactions. Agent based models give a way to deal with the dual feedback mechanisms between micro and macro economics. Economists have used ABMs to model complex emergent phenomenons such as inductive learning, imperfect competition, endogenous trade network formation, and co-evolution of individual behaviors and economic institutions. Author calls this agent-based computational economics (ACE) (everyone seems to have a different work/ acronym for these). Can think of these models as laboratories to study economies under controlled experimentation. One aspect they study is emergent behaviors and structures in the economy such as they have formed in real life, without top down planning. Another aspect studied with these is mechanism design, what are the effects of certain rules or regulations on the emergent behavior (think of the NASDAQ example in Bonabeau). While we think of these models being purely representative, the advent of the internet and shopbots is blurring these lines as 'real' economies are developing around artificial agents. ACE researches have used many algorithms to represent the learning process of computational agents. Earliest example was genetic algorithms, but now there is also Q-learning, classifier systems. These learning algorithms were initially developed by computer scientists for optimal performance. This is appropriate  for automated economic processes, but might not be for other social simulations. It might even be appropriate for the agents to jointly learn (shared learning / strategy formulation) to improve market conditions. To model humans and real-world economies, the learning algorithm will actually need to incorporate salient characteristics of actual human making. Might have neighborhoods of agents independently co-evolve their strategies. Aware of this, researchers are doing more systematic evaluations of each learning algorithm, and for example Dawid (citation needed) showed that in dynamic multi-agent economies learning via genetic algorithms, the precise parameter configuration can have a large impact on the long run behavior of the economy. The learning study by Rust et al. showed that of thirty computational trading algorithms submitted to a double-auction tournament at the Santa Fe Institute, the winner was a very simple sniping algorithm that would bid at the last minute beating out algorithms that were at the cutting edge of AI. Gode and Sunder (citation needed) did research into continuous double-actions with computational agents found that the efficacy of this market type were derived largely from its structure and not from the learning of the agents (Good Mechanism Design!). Market efficiency levels close to 100 percent were obtained with agents who submitted bids and asks at random. An open question, is how to model the minds of computational agents. Should they only be viewed as logic machines or as controllers for embodied activity? For automated markets, there is no reason that the agents created have to mimic humans, but for modeling real markets, it is crucial to model humans for it to have predictive power. Observed evidence suggests no algorithm performs best in all circumstances, and no algorithm best replicates human behavior. \cite{Tesfatsion2002} \\
-
-\textbf{Agent-Based Computational Economics: A Constructive Approach To Economic Theory} by Leigh Tesfatsion. Published 2005.
-
-This paper goes through an extended example of an agent based simulation of a Walrasian Auctioneer market to show the benefits and drawbacks of the agent based approach. Not finished reading yet, quite long.
-\cite{Tesfatsion2005} \\
-
-\textbf{The Complexity of Exchange} by Robert Axtell
-Computational complexity of two classes of market mechanisms are compared: the Walrasian market where prices are determined by a central auctioneer and decentralized markets with concurrent exchange between coalitions of agents. An important aspect of agent based models of markets is the price formation process. Through interaction, the prices \textit{emerge} whether through a market maker, or not. Talks about how agent based models don't really try to model equilibrium in the economy, but complexity. Have ecologies of strategies among agents that when tipped in one direction rapidly evolve to a new quasi-equilibrium. 
-
-The complexity of Walrasian Exchange is in NP (Nondeterministic Polynomial time), and is computationally infeasible to be a mechanism for an actual market. (This result is cited)
-
-Complexity of k-lateral exchange equillibria is in P (polynomial time) This result is proved and is the bulk of the paper. Shows that distributed interaction models are easier to compute and represent a better way of being a mechanism for determining prices.
-\cite{Axtell2005}\\
-
-
-
-
-\subsection{Game Theory and Computation}
-\textbf{Computer Science and Game Theory} by Yoav Shoham (same author as Multi Agent Systems book) Game theory, while initially developed within the discipline of economics has within the beginning part of the 20th century become more and more relevant to computer science. It is integral to artificial intelligence, e-commerce, networking, and other areas of computer science (including cryptography, where Adam Groce uses it). The internet is the main reason that it has become so central as it deals with multiple agents interacting, each with their own information and interests. It is interesting to note that both game theory and computer science grew up at the same time and in the same place in particular with John Von Neumann at Princeton in the 1950s. The area started with exploring the algorithmic complexity of playing and solving games, but also dealt with multi-person operations research and bounded rationality. In modern research, the area of multi-agent learning has received much attention and is called interactive learning in the game theory literature. This is important particularly in the field of AI which is trying to move from learning in a single agent context to learning in a multi-agent environment. When multiple agents learn concurrently, one cannot distinguish between leaning and teaching. In this environment, the 'optimal learning' is no longer well defined. Most game theorists assume agents with an infinite ability to reason. 'Bounded Rationality' however, is an area of research that involves games played by automata. In this context, the author questions if the idea of equilibrium as central in game theory needs to be reconsidered in light of competitions involving agents in markets that performed better when not considering this concept. Most of the effort that goes into making a good, competitive AI goes into thinking about making a good heuristic function, and searching and planning; not reasoning about the opponents behavior. \cite{Shoham2008a}
-
-
-\subsection{Example: Schelling's Segregation Model}
-
-Schelling's Segregation model is an example of a ABM designed in 1969 by Thomas C. Shelling to try and explain racial segregation. Example of how agent preferences can lead to interesting aggregate structure. This model is presented in the lecture notes of Thomas Sargent and I recreated the model in python. The model is as follows: \\
-
-There are two kinds of agents, orange and green of which there are 250 of each type living in on a unit square. The agents each have a location, a point on the square, $(x,y)$, where $0 < x,y,<1$. The agents are \textit{happy} if half of its neighbors, the ten closest agents in euclidean distance, are of the same type. If the agent is not \textit{happy} then the agent is said to be \textit{unhappy}. Initially, the agents are randomly assigned a point on the unit square i.e. each is initially assigned a point drawn from a bi-variate uniform distribution $ S = (0,1)^2$. Cycling though each agent, each agent is given a choice to stay or to move. If the agent is happy, then they stay otherwise they move according to the following procedure:
-
-\begin{adjustwidth}{1cm}{}
-	\textbf{1.} Draw a random location in $S$ \\
-	\textbf{2.} If happy at new location, move there\\
-	\textbf{3.} Else, go to step 1
-\end{adjustwidth}
-
-Continue this cycle, moving through the agents until everyone is happy and does not wish to move.\\
-
-The results are shown in the following figures: 
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{segregation_1}
-	\caption{Schelling's Segregation Model: Cycle 1}
-	\label{SSM1}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{segregation_2}
-	\caption{Schelling's Segregation Model: Cycle 2}
-	\label{SSM2}
-\end{figure}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{segregation_3}
-	\caption{Schelling's Segregation Model: Cycle 3}
-	\label{SSM3}
-\end{figure}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{segregation_4}
-	\caption{Schelling's Segregation Model: Cycle 4}
-	\label{SSM4}
-\end{figure}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.5]{segregation_5}
-	\caption{Schelling's Segregation Model: Cycle 5}
-	\label{SSM5}
-\end{figure}
-
-As can be seen, in cycle 1 (Figure \ref{SSM1}), the agents are well distributed among each other, but as they move in cycles 2-5, they become progressively more segregated. After 5 cycles all agents are happy and the simulation terminates. This example highlights the benefits of using an ABM. With very few assumptions about the agents preferences (wanting half or more of their neighbors to be the same type as them), we can see the resulting emergent behavior of segregated neighborhoods in the system as a whole.
-
-
-\chapter{Auctions and Markets}
-This chapter is about auctions, and artificial simulations in auctions. It will specifically cover what I am reading with reference to the double auction simulation I hope to make. This is separated from the literature review for organizational purposes as I collect my notes, but will be moved there in the future.
-
-\subsection{Basic Notation and Ideas}
-
-From "Understanding Auctions" by Asuncion Mochon and Yago Saez. (TODO: Add citation manually)\\
-An \textbf{auction} is a market mechanism, operating under specific rules, that determines to whom one or more items will be awarded and at what price. They are important to environments in which it is difficult to set a market price. For a bidder in an auction, the \textbf{value}, $v_i$ is the maximum price that bidder $i$ is willing to pay for an item. The \textbf{bid}, $b_i$ is the offer that bidder $i$ submits for an item. \textbf{Sincere bidding} is when $v_i = b_i$, \textbf{underbidding} is when $v_i > b_i$, and \textbf{overbidding} is when $v_i < b_i$. The highest bid made by any bidder is denoted $b^*$, and is the winning bid (if multiple bids equal the winning bid, then some tie-breaking rule must be used). The \textbf{selling price}, $p^*$ is the final price that the bidder actually pays for the item (which depending on the auction type need not equal $b^*$). Under the \textbf{first-price} rule, the bid submitted by the winner is equal to the selling price. Before the auction begins, each bidder know their personal or private value for the item. The term \textbf{winner's curse} refers to the idea that the bidder who wins may have paid to much for the item in the sense that no one else was willing to pay near that much for the item. That is, in a first price auction the winner paid extra the difference between their bid and the second highest bid. In some experimental work by Thaler, people tend to respond to the risk of overpaying by decreasing bids with respect to their values. 
-
-An auction consists of a set of bidders, $I = (1,2, ...,N)$ and a seller. After the auction, the bidder $i$ wins the item if their bid is higher than the bid placed by any other bidder $k$ $b_i > max_{k \neq b_k}$. In a single unit auction, the \textbf{income of the bidder} $i$ is equal to their value of the item: $$ \Gamma_i^* = v_i$$ and the \textbf{surplus of the bidder} $i$ is equal to the difference between income and cost $$ \Pi_i^* = \Gamma_i^* - p^*$$. If a bid placed by a bidder is less than the winning bid, they do not win anything and their income and surplus are both zero. The \textbf{sellers revenue} in a single unit auction is equal to the price paid by the winning bidder $$ R^* = p^*.$$ 
-
-Pricing rules in an auction. \textbf{First-Price}: the winning bidder pays the amount of their bid, which is the highest bid of the auction: $p^* = b^*$. Also called \textbf{pay-what-you-bid} (PWYB). \textbf{Second-price}: the winning bidder pays an amount that is equal to the second highest bid for the awarded item. First price auctions will make people tend to bid lower than their private valuation since if they bid that value their profit is zero. Under this rule the item could be awarded to someone who value the item less. Second price auctions encourages bidder to bid their true values (as they will gain positive profits if they win no matter the second highest bid). This encourages an efficient allocation of items.
-
-\textbf{Optimal Auctions} are those that maximize the expected revenue for the seller.
-\textbf{Efficient Auctions} are those that the items are awarded to the bidders who most value them.
-These goals are often conflicting.
-
-\textbf{Double Auctions} The main characteristic of a double auction is that multiple buyers and sellers interact, making it a two sided auction. In a double auction, buyers submit bids for the amount they are willing to pay, and sellers make offers, asks, for the price they are willing to sell. A synchronized continuous double auction is composed of $r$ rounds, which are divided into $s$ periods. In each period, there are a fixed number of $t$ steps which alternate steps in which buy and sell orders are placed. Each step $t$ begins with a bid/ask step in which, simultaneously, the buyers indicate the prices that they are willing to pay per unit, and the sellers indicate the prices at which they are willing to sell. \\
- 
-
-Notes for "The Double Auction Market: Institutions, Theories, and Evidence. Edited by Daniel Friedman and John Rut"\\
-
-Ch. 1 "The Double Auction Market Institution: A survey" by Daniel Friedman \\
-
-The continuous double auction allows traders to make offers to buy or sell and accept other traders' offers at any moment during a trading period. For past 100 years NY, London, and Chicago exchanges all operate under some form of double auction rules. Laboratory experiments show that double auctions continuously produce very efficient prices and allocations, more so than theory would suggest.\\
-
-Notes from "Bidding Strategies in Agent-Based Continuous Double Auctions" by Huiye Ma and Ho-fung Leung
-
-In continuous double auctions (CDA), buyers submit increasingly higher bids and sellers submit increasingly lower asks at any moment during a trading period and transactions occur when the highest bid is at least as high as the lowest ask. Auctions in general consist of two components: protocols and strategies. The former is the rules each agent must abide by in the auction and the latter is the way that the agent tries to achieve their means within that protocol.\\
-
-\textbf{Basic CDA Mechanisms}\\
-Is a marketplace where there are agents selling goods (sellers) and agents buying goods (buyers). The sellers and buyers trade homogeneous goods. The current lowest ask is called the outstanding ask, $oa$. The current highest bid is called the outstanding bid, $ob$. A valid bid is a bid higher than the current $ob$ and similarly a valid ask is any ask lower than current $oa$. Any invalid bid/ask is ignored by the market. Each buyer and seller has an acceptable price range $[]P_{ll}, P_{ul}$ for a CDA. $P_{ll}$ is the lowest acceptable price and $P_{ul}$ is the highest acceptable price. This range is formed on experience. Each buyer and seller has a reservation price that can be thought of as their valuation of the good. Buying a good for more then that or selling for less then that would cause the buyer/seller to lose profit. When the $ob$ is higher than or equal to the $oa$, the agents who submitted those bids and asks will make a transaction. When there is a transaction or a specified time has passed, the round is terminated. A new round can then begin. Only one unit of good is transacted per round. The demand is the total number of goods that buyers want to buy and the supply is the total number of goods that sellers want to sell.
-
-At this point the author lists an algorithm (in pseudo code) for running the market. The author then goes on to give basic trading strategies and their pseudo code for zero intelligence traders and the like.\\
-
-references to check:\\
-A Bannall: Autonomous adaptive agents for single seller sealed bid auctions.\\
-R. Das: Agent-human interactions in the continuous double auction.\\
-S. Gjerstad: Price formation in double auctions\\
-D.K. Gode: Allocative Efficiency of markets with zero-intelligence traders.\\
-M. He A fuzzy-logic based bidding strategy for autonomous agents in continuous double auctions.\\
-C. Preist: Economic Dynamics of agents in multiple auctions.\\
-C. Preist: Adaptive agents in a persistent shout double auction.\\
-V. Smith: an experimental study of competitive market behavior.\\
-M.P. Wellman: Empirical game-theoretic analysis of the tac market games.\\
-M.P. Wellman: Designing the market game for a trading agent competition.\\
-
-Simple Agents, Intelligent Markets by Karim Jamal\\
-Economics usually focuses in on equilibrium achieved by rational agents who optimize their utility functions. Exploration to th extent at which equilibrium arises from the characteristics of the environment have been limited.  Normally, representative agents in models have sophisticated computational abilities who solve for equilibrium. Plott and Sunder have shown that markets with uncertainty and asymmetrically distributed information disseminate information and converge near rational expectation equilibrium when populated with profit-motivated human traders. This paper shows that the same result can be achieved with minimally intelligent traders in a computer simulation. 
-\cite{Jamal2017}
-
-
-
-	
-\chapter{Agent Systems}
-   	This chapter lays out the background material of multi-agent systems--what they are, how they work, and why economists might be interested in them--that drives the rest of the thesis. 
-	
-\section{Agents}
-An \textbf{agent} is something that acts. This comes from the Latin word agere, to do. In general, anything might be considered an agent so long as it can perceive the environment and act upon it. A \textbf{rational agents} is something that acts to achieve the best outcome or with uncertainty, the best expected outcome in a given situation. For example we are agents, we have the ability to take an action and effect the world. We even might be considered rational since we are generally trying to navigate the world around us so as to try and lead to our preferred outcome. People are not the only agents, animals and machines are also agents capable of acting on the world around them. 
-
-\subsection{In Economics}
-In economics many of the models are constructed with utility maximizing agents in line with Decision Theory and Rational Choice Theory. Because economics seeks to understand the outcomes of peoples interactions, and perhaps how these outcomes could be improved, if people can be modeled as utility maximizers, it is then possible to analytically solve for this solution and see what the results are. 
-
-The primary purpose of constructing agents in economics is to see how their interactions play out in an economic setting that can not be solved analytically.  
- 
-\subsection{In Artificial Intelligence}\label{commands}
-In artificial intelligence, the primary purpose of understanding agents is to try and create the most effective artificial agents possible. This discipline cares deeply about how good the agents they are able to make are able to solve problems, either general or specific. To do this, they use much of the theory of agents with a deep emphasis on how a constructed agent can be taught or learn from its environment to achieve its goals.
-
-
-	
-\section{Formal Model of Agents}
-This section lays out a more formal definition of agents, specifically geared towards constructed or artificial agents such as we will be constructing. An \textbf{agent} is anything that can be viewed as perceiving its environment through sensors and acting upon its environment through actuators. A \textbf{precept} is a perceptual input to an agent, and a \textbf{precept sequence} is the complete history of everything the agent has ever perceived. The agent then has an \textbf{agent function} that maps these precepts to an action. In the case of an artificial agent this is done with an \textbf{agent program} that is the physical implementation of the agent function. In the case of an agent simulated on a computer, this will be the computer code that decides what action to take. The agents actions will then cause the environment to go through a series of states and the agent will measure the outcome with some \textbf{performance measure}.
-
-%\begin{figure}[h!]
-%	% the options are h = here, t = top, b = bottom, p = page of figures.
-%	% you can add an exclamation mark to make it try harder, and multiple
-%	% options if you have an order of preference, e.g.
-%	% \begin{figure}[h!tbp]
-%	
-%	\centering
-%	% DO NOT ADD A FILENAME EXTENSION TO THE GRAPHIC FILE
-%	\includegraphics[scale=0.05, angle=90]{utilityAgent}
-%	\caption{Utility Based Agent}
-%	\label{utility-agent-STOLEN}
-%\end{figure}
-
-For our purposes we focus on what are called \textbf{utility based agents}, where the agent has a utility function as an internalized performance measure and is able to numerically assign values of "goodness" to the outcome from the agents perspective. A rational agent will always try to maximize average expected utility over its lifetime as explained by decision theory.
-
-\subsection{Task Environment}
-The environment that an agent exists in and their relationship to it is critical for understanding the system as a whole. For example the environment can fully observable with the agent's sensors able to see the entire environment, or only partially observable to the agent. There can also be multiple agents within the system, each trying to maximize their own performance measure. This is called a \textbf{multi-agent system} and it will be a key aspect of all of the simulations we construct. It is important to note that the agents in the multi-agent system share no internal state and must communicate (if they so wish to do so) through the environment. The environment can also be deterministic or stochastic, either depending entirely upon its current state and the agents actions or contains randomness.
-	
-\subsection{Agents Who Learn}
-
-Learning is a critical part of being a rational agent. We expect that as agents interact with their environment, they should be able to adapt and change in order to continue to maximize their utility. The general model of an artificial agent who learns is as follows. 
-
-
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics[scale=0.05]{learningAgent}
-%	\caption{Model of Agent that Learns}
-%	\label{learning-agent-STOLEN}
-%\end{figure}
-
-First, the agent reprieves its environment and sends that information to the performance function that determines what it will do. There is now a critic that gives feedback for how the agent is doing based on aprori information and the observed state that sends feedback to a learning element that can change the behavior of the performance element. Based on what the learning element is trying improve, there is also a problem generator that suggests actions to the performance element so that different actions can be tested and evaluated. \cite{Russel2010}
-\chapter{Reinforcement Learning}	
-
-Reinforcement learning has become a popular way of teaching agents how to play games and interact with each other in Machine Learning (ML). Because the dynamics and behavior of a final simulation are determined by the learning algorithm used for its composing agents, we spend some time developing the ideas of reinforcement learning in both a single agent and multi-agent setting. 
-\section{Single Agent Learning}
-	Reinforcement learning is the area of machine learning where agents learn through repeated interactions with their dynamic environment. This section gives a brief overview of learning algorithms used by single agents with a focus on deep reinforcement learning. In general, reiforcment learning formalizes the interaction of agents and environment using a Markov decision process (MDP).\\
-	
-	\textbf{Definition:} Markov Decision Process \\
-	A Markov decision process is 5-tuple $ \langle \mathcal{S, A,} R, T, \gamma \rangle $ where, \\
-	\textbf{1.} $\mathcal{S}$ represents a finite set of states \\
-	\textbf{2.} $\mathcal{A}$ represents a finite set of actions \\
-	\textbf{3.} $T$ is a transition function $T: \mathcal{S} \times \mathcal{A} \times \mathcal{S} \rightarrow [0,1]$ that determines the probability of transitioning from any state $s \in \mathcal{S}$ to any state $s^{'} \in \mathcal{S}$ given any possible action $a \in A$\\
-	\textbf{4.} $R$ is the reward function $R: \mathcal{S} \times \mathcal{A} \times \mathcal{S} \rightarrow \mathbb{R}$\\
-	\textbf{5.} $\gamma \in [0,1]$ is the discount factor that balances immediate and future rewards
-	
-	
-\subsection{Q-Learning}
-Q-Learning is an an algorithm that has been developed for single-agent, fully observable environments with discrete actions. Q learning involves creating a table of expected payoffs for each action $a$ available at a state $s$ denoted $\hat{Q}(s,a)$. Each time the agent transitions from a state $s$ to a state $s^{'}$ taking an action $a$ and recieving payoff $r$, the $Q$ table is updated according to the following assignment:
-$$ \hat{Q}(s,a) \leftarrow \hat{Q}(s,a) + \alpha [(r + \gamma max_{a^{1}} \hat{Q}(s^{'}, a^{'})) - \hat{Q}(s,a)] $$
-
-where we pick $\alpha \in [0,1]$ which we call the learning rate.
-
-\subsection{Deep Reinforcement Learning}
-Using deep learning in the form of Neural Networks can be helpful for exploring large policy spaces efficiently. It also eliminates the need to hand design features to be optimized for the reinforcement learning process. \cite{Shoham2008} 
-
-
-
-\chapter{Tables and Graphics}
-
-\section{Tables}
-	The following section contains examples of tables, most of which have been commented out for brevity. (They will show up in the .tex document in red, but not at all in the .pdf). For more help in constructing a table (or anything else in this document), please see the LaTeX pages on the CUS site. 
-
-\begin{table}[htbp] % begins the table floating environment. This enables LaTeX to fit the table where it works best and lets you add a caption.
-\caption[Correlation of Inheritance Factors between Parents and Child]{Correlation of Inheritance Factors between Parents and Child} 
-% The words in square brackets of the caption command end up in the Table of Tables. The words in curly braces are the caption directly over the table.
-\begin{center} 
-% makes the table centered
-\begin{tabular}{c c c c} 
-% the tabular environment is used to make the table itself. The {c c c c} specify that the table will have four columns and they will all be center-aligned. You can make the cell contents left aligned by replacing the Cs with Ls or right aligned by using Rs instead. Add more letters for more columns, and pipes (the vertical line above the backslash) for vertical lines. Another useful type of column is the p{width} column, which forces text to wrap within whatever width you specify e.g. p{1in}. Text will wrap badly in narrow columns though, so beware.
-\toprule % a horizontal line, slightly thicker than \hline, depends on the booktabs package
-  Factors &  Correlation between Parents \& Child & Inherited \\ % the first row of the table. Separate columns with ampersands and end the line with two backslashes. An environment begun in one cell will not carry over to adjacent rows.
-  \midrule % another horizontal line
-	Education 				& -0.49 & Yes 	 \\ % another row
-	Socio-Economic Status 	& 0.28 	& Slight \\
-	Income 					& 0.08 	& No	 \\
-	Family Size 			& 0.19 	& Slight \\
-	Occupational Prestige 	& 0.21 	& Slight \\
-\bottomrule % yet another horizontal line
-\end{tabular}
-\end{center}
-\label{inheritance} % labels are useful when you have more than one table or figure in your document. See our online documentation for more on this.
-\end{table}
-
-	\clearpage 
-%% \clearpage ends the page, and also dumps out all floats. 
-%% Floats are things like tables and figures.
-
-If you want to make a table that is longer than a page, you will want to use the longtable environment. Uncomment the table below to see an example, or see our online documentation.
-
-%% An example of a long table, with headers that repeat on each subsequent page: Results from the summers of 1998 and 1999 work at Reed College done by Grace Brannigan, Robert Holiday and Lien Ngo in 1998 and Kate Brown and Christina Inman in 1999.
-
-	\begin{longtable}{||c|c|c|c||}
-	 	\caption[Chromium Hexacarbonyl Data Collected in 1998--1999]{Chromium Hexacarbonyl Data Collected in 1998--1999}\\ \hline
-	    	  \multicolumn{4}{||c||}{Chromium Hexacarbonyl} \\\hline
-		   State & Laser wavelength & Buffer gas & Ratio of $\frac{\textrm{Intensity
-at vapor pressure}}{\textrm{Intensity at 240 Torr}}$ \\ \hline
-		  \endfirsthead
-		\hline     State & Laser wavelength & Buffer gas & Ratio of
-$\frac{\textrm{Intensity at vapor pressure}}{\textrm{Intensity at 240 Torr}}$\\
-\hline
-		    \endhead
-
-	    $z^{7}P^{\circ}_{4}$ & 266 nm & Argon & 1.5 \\\hline
-	    $z^{7}P^{\circ}_{2}$ & 355 nm & Argon & 0.57 \\\hline
-	    $y^{7}P^{\circ}_{3}$ & 266 nm & Argon & 1 \\\hline
-	    $y^{7}P^{\circ}_{3}$ & 355 nm & Argon & 0.14 \\\hline
-	    $y^{7}P^{\circ}_{2}$ & 355 nm & Argon & 0.14 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 266 nm & Argon & 1.2 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 355 nm & Argon & 0.04 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 355 nm & Helium & 0.02 \\\hline
-	    $z^{5}P^{\circ}_{2}$ & 355 nm & Argon & 0.07 \\\hline
-	    $z^{5}P^{\circ}_{1}$ & 355 nm & Argon & 0.05 \\\hline
-	    $y^{5}P^{\circ}_{3}$ & 355 nm & Argon & 0.05, 0.4 \\\hline
-	    $y^{5}P^{\circ}_{3}$ & 355 nm & Helium & 0.25 \\\hline
-	    $z^{5}F^{\circ}_{4}$ & 266 nm & Argon & 1.4 \\\hline
-	    $z^{5}F^{\circ}_{4}$ & 355 nm & Argon & 0.29 \\\hline
-	    $z^{5}F^{\circ}_{4}$ & 355 nm & Helium & 1.02 \\\hline
-	    $z^{5}D^{\circ}_{4}$ & 355 nm & Argon & 0.3 \\\hline
-	    $z^{5}D^{\circ}_{4}$ & 355 nm & Helium & 0.65 \\\hline
-	    $y^{5}H^{\circ}_{7}$ & 266 nm & Argon & 0.17 \\\hline
-	    $y^{5}H^{\circ}_{7}$ & 355 nm & Argon & 0.13 \\\hline
-	    $y^{5}H^{\circ}_{7}$ & 355 nm & Helium & 0.11 \\\hline
-	    $a^{5}D_{3}$ & 266 nm & Argon & 0.71 \\\hline
-	    $a^{5}D_{2}$ & 266 nm & Argon & 0.77 \\\hline
-	    $a^{5}D_{2}$ & 355 nm & Argon & 0.63 \\\hline
-	    $a^{3}D_{3}$ & 355 nm & Argon & 0.05 \\\hline
-	    $a^{5}S_{2}$ & 266 nm & Argon & 2 \\\hline
-	    $a^{5}S_{2}$ & 355 nm & Argon & 1.5 \\\hline
-	    $a^{5}G_{6}$ & 355 nm & Argon & 0.91 \\\hline
-	    $a^{3}G_{4}$ & 355 nm & Argon & 0.08 \\\hline
-	    $e^{7}D_{5}$ & 355 nm & Helium & 3.5 \\\hline
-	    $e^{7}D_{3}$ & 355 nm & Helium & 3 \\\hline
-	    $f^{7}D_{5}$ & 355 nm & Helium & 0.25 \\\hline
-	    $f^{7}D_{5}$ & 355 nm & Argon & 0.25 \\\hline
-	    $f^{7}D_{4}$ & 355 nm & Argon & 0.2 \\\hline
-	    $f^{7}D_{4}$ & 355 nm & Helium & 0.3 \\\hline
-	    \multicolumn{4}{||c||}{Propyl-ACT} \\\hline
-%	    State & Laser wavelength & Buffer gas & Ratio of $\frac{\textrm{Intensity
-%at vapor pressure}}{\textrm{Intensity at 240 Torr}}$\\ \hline
-	    $z^{7}P^{\circ}_{4}$ & 355 nm & Argon & 1.5 \\\hline
-	    $z^{7}P^{\circ}_{3}$ & 355 nm & Argon & 1.5 \\\hline
-	    $z^{7}P^{\circ}_{2}$ & 355 nm & Argon & 1.25 \\\hline
-	    $z^{7}F^{\circ}_{5}$ & 355 nm & Argon & 2.85 \\\hline
-	    $y^{7}P^{\circ}_{4}$ & 355 nm & Argon & 0.07 \\\hline
-	    $y^{7}P^{\circ}_{3}$ & 355 nm & Argon & 0.06 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 355 nm & Argon & 0.12 \\\hline
-	    $z^{5}P^{\circ}_{2}$ & 355 nm & Argon & 0.13 \\\hline
-	    $z^{5}P^{\circ}_{1}$ & 355 nm & Argon & 0.14 \\\hline
-	    \multicolumn{4}{||c||}{Methyl-ACT} \\\hline
-%	    State & Laser wavelength & Buffer gas & Ratio of $\frac{\textrm{Intensity
-% at vapor pressure}}{\textrm{Intensity at 240 Torr}}$\\ \hline
-	    $z^{7}P^{\circ}_{4}$ & 355 nm & Argon & 1.6, 2.5 \\\hline
-	    $z^{7}P^{\circ}_{4}$ & 355 nm & Helium & 3 \\\hline
-	    $z^{7}P^{\circ}_{4}$ & 266 nm & Argon & 1.33 \\\hline
-	    $z^{7}P^{\circ}_{3}$ & 355 nm & Argon & 1.5 \\\hline
-	    $z^{7}P^{\circ}_{2}$ & 355 nm & Argon & 1.25, 1.3 \\\hline
-	    $z^{7}F^{\circ}_{5}$ & 355 nm & Argon & 3 \\\hline
-	    $y^{7}P^{\circ}_{4}$ & 355 nm & Argon & 0.07, 0.08 \\\hline
-	    $y^{7}P^{\circ}_{4}$ & 355 nm & Helium & 0.2 \\\hline
-	    $y^{7}P^{\circ}_{3}$ & 266 nm & Argon & 1.22 \\\hline
-	    $y^{7}P^{\circ}_{3}$ & 355 nm & Argon & 0.08 \\\hline
-	    $y^{7}P^{\circ}_{2}$ & 355 nm & Argon & 0.1 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 266 nm & Argon & 0.67 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 355 nm & Argon & 0.08, 0.17 \\\hline
-	    $z^{5}P^{\circ}_{3}$ & 355 nm & Helium & 0.12 \\\hline
-	    $z^{5}P^{\circ}_{2}$ & 355 nm & Argon & 0.13 \\\hline
-	    $z^{5}P^{\circ}_{1}$ & 355 nm & Argon & 0.09 \\\hline
-	    $y^{5}H^{\circ}_{7}$ & 355 nm & Argon & 0.06, 0.05 \\\hline
-	    $a^{5}D_{3}$ & 266 nm & Argon & 2.5 \\\hline
-	    $a^{5}D_{2}$ & 266 nm & Argon & 1.9 \\\hline
-	    $a^{5}D_{2}$ & 355 nm & Argon & 1.17 \\\hline
-	    $a^{5}S_{2}$ & 266 nm & Argon & 2.3 \\\hline
-	    $a^{5}S_{2}$ & 355 nm & Argon & 1.11 \\\hline
-	    $a^{5}G_{6}$ & 355 nm & Argon & 1.6 \\\hline
-	    $e^{7}D_{5}$ & 355 nm & Argon & 1 \\\hline
-
-		\end{longtable}
-
-   
-   \section{Figures}
-   
-	If your thesis has a lot of figures, \LaTeX\ might behave better for you than that other word processor.  One thing that may be annoying is the way it handles ``floats'' like tables and figures. \LaTeX\ will try to find the best place to put your object based on the text around it and until you're really, truly done writing you should just leave it where it lies.   There are some optional arguments to the figure and table environments to specify where you want it to appear; see the comments in the first figure.
-
-	If you need a graphic or tabular material to be part of the text, you can just put it inline. If you need it to appear in the list of figures or tables, it should be placed in the floating environment. 
-	
-	To get a figure from StatView, JMP, SPSS or other statistics program into a figure, you can print to pdf or save the image as a jpg or png. Precisely how you will do this depends on the program: you may need to copy-paste figures into Photoshop or other graphic program, then save in the appropriate format.
-	
-	Below we have put a few examples of figures. For more help using graphics and the float environment, see our online documentation.
-	
-	And this is how you add a figure with a graphic:
-	\begin{figure}[h]
-	% the options are h = here, t = top, b = bottom, p = page of figures.
-	% you can add an exclamation mark to make it try harder, and multiple
-	% options if you have an order of preference, e.g.
-	% \begin{figure}[h!tbp]
-	   
-	       \centering
-	    % DO NOT ADD A FILENAME EXTENSION TO THE GRAPHIC FILE
-	    \includegraphics{subdivision}
-	     \caption{A Figure}
-	 \label{subd}
-	\end{figure}
-
-\clearpage %% starts a new page and stops trying to place floats such as tables and figures
-
-\section{More Figure Stuff}
-You can also scale and rotate figures.
- 	\begin{figure}[h!]
-	   
-	       \centering
-	    % DO NOT ADD A FILENAME EXTENSION TO THE GRAPHIC FILE
-	    \includegraphics[scale=0.5,angle=180]{subdivision}
-	    % if your figure shows up not where you want it, it may just be too big to fit. You can use the scale argument to shrink it, e.g. scale=0.85 is 85 percent of the original size. 
-	     \caption{A Smaller Figure, Flipped Upside Down}
-	 \label{subd2}
-	\end{figure}
-
-\section{Even More Figure Stuff}
-With some clever work you can crop a figure, which is handy if (for instance) your EPS or PDF is a little graphic on a whole sheet of paper. The viewport arguments are the lower-left and upper-right coordinates for the area you want to crop.
-
- 	\begin{figure}[h!]
-	    	       \centering
-	    % DO NOT ADD A FILENAME EXTENSION TO THE GRAPHIC FILE
-	   \includegraphics[clip=true, viewport=.0in .0in 1in 1in]{subdivision}
-	    \caption{A Cropped Figure}
-	 \label{subd3}
-	\end{figure}
-	
-      \subsection{Common Modifications}
-      The following figure features the more popular changes thesis students want to their figures. This information is also on the web at \url{web.reed.edu/cis/help/latex/graphics.html}.
-    %\renewcommand{\thefigure}{0.\arabic{figure}} 	% Renumbers the figure to the type 0.x
-    %\addtocounter{figure}{4} 						% starts the figure numbering at 4
-    \begin{figure}[htbp]
-    \begin{center}
-   \includegraphics[scale=0.5]{subdivision}
-    \caption[Subdivision of arc segments]{\footnotesize{Subdivision of arc segments. You can see that $ p_3 = p_6^\prime$.}} %the special ToC caption is in square brackets. The \footnotesize makes the figure caption smaller
-    \label{barplot}
-    \end{center}
-    \end{figure} 
+Incredibly, bounds on the price of anarchy for the format of first-price auctions have been found. Again, this allows us to characterize how much worse the social welfare for the system could be at (Bayes-Nash) equilibrium no matter how many players we have or what distributions they are choosing their valuations from. This sort of guarantee is incredible, especially for systems where we may not want, or it may not be feasible to have a central authority pre-calculate the way to optimize social welfare in a system. Rather, we can trust that the system will perform at least so well under strategic interaction.
 
 \chapter*{Conclusion}
          \addcontentsline{toc}{chapter}{Conclusion}
