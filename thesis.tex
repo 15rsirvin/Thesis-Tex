@@ -36,10 +36,11 @@
 \usepackage{longtable,booktabs,setspace} 
 \usepackage{chemarr} %% Useful for one reaction arrow, useless if you're not a chem major
 \usepackage[hyphens]{url}
+\urlstyle{same}
 \usepackage{rotating}
 \usepackage{natbib}
 \usepackage{changepage}
-\usepackage{algorithmic}
+\usepackage[vlined]{algorithm2e}
 \usepackage{amsthm}
 \usepackage{tikz}
 \usepackage [english]{babel}
@@ -251,39 +252,41 @@ The authors of Santa Fe Stock Market paper at the time suggested that this was o
 
 Moving forward this thesis aims to better understand the price of anarchy in auctions by simulating auctions using these no-regret learning algorithms\footnote{these will be discussed in chapter 2, but no-regret learning is a type of reinforcement learning that have certain convergence properties} and seeing how they behave compared to the socially optimal equilibrium. These simulations will try to answer two main questions, what equilibrium do these algorithms converge to (if they converge at all) and what is the calculated price of anarchy in these systems compared to the bounds that theory tells us should exist. Using this framework to explore auctions we will start with a single-item first price auction as it is the best understood theoretically and is the easiest to code. We will then move to simultaneous first price auctions for complementary goods as this is also relatively well understood in terms of the price of anarchy. Finally, time permitting, we will discuss the open question of the price of anarchy in double auctions and discuss how one might go about proving bounds for it.
 
-\chapter{Price of Anarchy in First Price Auctions}
-This chapter lays out the mathematical framework for modeling auctions as Bayesian games of incomplete information, formally defines the price of anarchy in auctions, and shows the bounds on the price of anarchy for first price, single payer auctions.
+\chapter{Price of Anarchy in First-Price Auctions}
+This chapter lays out the mathematical framework for modeling auctions as Bayesian games of incomplete information, formally defines the price of anarchy in auctions and shows the bounds on the price of anarchy for first price, single payer auctions. It then follows up on this framework of analysis to show how these bounds can be extended to agents competing in auctions using learning algorithm's with a property called "no-regret" learning. This chapter primarily follows from the work of Tim Roughgarden, Vasilis Syrgkanis, and \'Eva Tardos who not only are all individually active in the field of algorithmic game theory and auctions, but also jointly authored the 2017 paper "The Price of Anarchy in Auctions" that is a survey of the entire topic (\cite{Roughgarden2017}). This chapter will be giving the important theorems and ideas that primarily come from this work and the individual work of these three authors, explaining them, demonstrating proofs where appropriate (I need to talk about where proof is appropriate with both advisors after you read this. I did not prove anything and am just citing/reconstructing results), and reconstruct the results that we will demonstrate with a simulation.   
 
 \section{Auctions as Bayesian Game}
-Auctions are typically modeled as Bayesian games also known as games with incomplete information. While it is obvious why an auction consisting of the strategic interaction of bidders could be modeled as a game, how it should be modeled requires some thought. After all, while each bidder knows their own valuation of the item being sold, unless for some reason (and against their own interest) the other players announced their valuation of the item before the auction began our bidder will not know how the other players value the item. In fact, it is persicly this lack of information that makes auctions interesting! If all players came into an auction knowing the valuation of other players, for first price, single item auctions the bidder with the highest value would always bid slightly higher than the next highest valuation and win the item (or bid their own valuation if there is a tie for first). Rather it is the uncertainty that players face about the valuation of other players that make things interesting as players must guess how much they should shade their bid (as again no player will ever bid above their valuation) based off of what they know about other players. 
+Auctions are typically modeled as Bayesian games also known as games with incomplete information. While it is obvious why an auction consisting of the strategic interaction of bidders could be modeled as a game, how it should be modeled requires some thought. After all, while each bidder knows their own valuation of the item being sold, unless for some reason (and against their own interest) the other players announced their valuation of the item before the auction began our bidder will not know how the other players value the item. In fact, it is precisely this lack of information in sealed bid auctions that makes them interesting! If all players came into an auction knowing the valuation of other players, for first-price, single-item auctions assuming there was no tie, the bidder with the highest value would always win by bidding the valuation of the next highest bidder. Rather it is the uncertainty that players face about the valuation of other players that make things interesting as players must guess how much they should shade their bid (as again no player will ever bid above their valuation) based off of what they know about other players. 
 
-What can we say that bidders know about the valuations of other bidders? Certainly they do not know nothing as we all have reasonable expectations about what some item is worth to others. No one will value a candy bar at a million dollars. But a collector of candy bars might value it at a higher value than an ordinary person who just want to eat the candy bar. For each, could say that this bidder has a probability distribution from which they are drawing their valuation from that is know to the other bidders. For example we might expect normal people valuation of candy bars to be a normal distribution centered at \$1, but the collectors value might be a leplacian distribution (allowing for more black swan events) centered at \$5. This sort of strategic interaction where the players know the distributions that parameters of the game are drawn from are typically called games of incomplete information, or Bayesian games.
+What can we say that bidders know about the valuations of other bidders? Certainly they do not know nothing as we all have reasonable expectations about what some item is worth to others. No one will value a candy bar at a million dollars. But a collector of candy bars might value it at a higher value than an ordinary person who just want to eat the candy bar. For each bidder, we could say that this bidder has a probability distribution from which they are drawing their valuation from that is know to the other bidders. As an example we might expect normal people's valuations of candy bars to be a normal distribution centered at \$1, but the collectors value might be a leplacian distribution (allowing for more black swan events) centered at \$5. This sort of strategic interaction where the players know the distributions that parameters of the game are drawn from are typically called games of incomplete information, or Bayesian games.
  
 \subsection{Bayesian Games}
 Bayesian games of incomplete information are games in which one or more of the players don't have "full knowledge" of the game that is being played. Introduced by John C. Harsanyi in 1967, rather than players knowing every parameter of the game situation such as utility functions, possible strategies, and information held by other players, each player knows a probability distribution from which these will be drawn. In his paper, Harsanyi says that this type of game can be thought of as a normal game, where "nature" goes first drawing from these probability distributions and assigning values before play begins without the players knowing which specific variation of the game they are playing (TODO CITE Harsanyi). Importantly, each player does know the probability distributions from which each value is selected. Formally such games are defined as follows, 
 
 \begin{dfn}
-	A game with incomplete information, also known as a Bayesian game where there are $I$ players, $G = (\Theta, S, P, u)$ consists of:
+	A game with incomplete information, also known as a Bayesian game where there are $n$ players, $G = (\F, S, P, u)$ %(TODO check if P or p)% 
+	consists of:
 	\begin{enumerate}
-		\item A set $\Theta = \Theta_1 \times \ldots \times \Theta_I$, where $\Theta_i$ is the finite set of possible types for player $i$.
-		\item A set $S = S_1 \times \ldots \times S_I$, where $S_i$ is the set of possible strategies for player $i$
-		\item A joint probability distribution $p(\theta_1, \dots , \theta_I)$ over types. For finite type space, assume that $p(\theta_i) > 0$ for all $\theta_i \in \Theta_i$
-		\item Payoff functions $u_i : S \times \Theta \rightarrow \mathbb{R}$
+		\item A set $\F = \F_1 \times \ldots \times \F_n$, where $\F_i$ is the finite set of possible types for player $i$.
+		\item A set $S = S_1 \times \ldots \times S_n$, where $S_i$ is the set of possible strategies for player $i$
+		\item A joint probability distribution $p(\F_1, \dots , \F_i)$ over types. For finite type space, assume that $p(\F_i) > 0$ for all $\F_i \in \F$
+		\item Payoff functions $u_i : S \times \F \rightarrow \mathbb{R}$
 	\end{enumerate} 
 \end{dfn} (TODO CITE Levin)
 
-Using this definition to model our auction the types of players will consist of the publically known distribution from which they are drawing their valuation. That is, our auction will consist of bidders who know their own valuation of the item being bidded on, and the distribution from which each of the other players is drawing their own valuations. In a first price, single item auction if player $i$ wins with bid $b_i$, we define their payoff the winner to be $u_i = v_i - b_i$, the difference between their valuation and their bid and the losers all get $u_i = 0$ since they did not receive the item. Now, a strategy for a player is a function $s_i \in S_i$ that maps a valuation $v_i$ in support of $\Theta_i$ to a bid $s_i(v_i)$. 
+Using this definition to model our auction the types of players will consist of the publicly known distribution from which they are drawing their valuation. That is, our auction will consist of bidders who know their own valuation of the item being bidded on, and the distribution from which each of the other players is drawing their own valuations. In a first-price, single item auction if player $i$ wins with bid $b_i$, we define their payoff the winner to be $u_i = v_i - b_i$, the difference between their valuation and their bid and the losers all get $u_i = 0$ since they did not receive the item. Now, a strategy for a player is a function $s_i \in S_i$ that maps a valuation $v_i$ in support of $\F$ to a bid $s_i(v_i)$ (i.e. taking into account the probability distribution for the other players). 
 
-Now, we move to the idea of equilibrium in this system. In games of complete information the central equilibrium concept is usually a Nash equilibrium, the set of strategies for all players in which each individual player cannot increase their utility by deviating from their strategy given the strategy of all the other players. This concept is now updated to give us a Bayes-Nash equilibrium where we must also incorporate the distributions for which players are drawing from. 
+Now, we move to the idea of equilibrium in this system. In games of complete information the central equilibrium concept is usually a Nash equilibrium, the set of strategies for all players in which each individual player cannot increase their utility by deviating from their strategy fixing the strategy of all the other players. That is, for every player if no one else changes strategy, their best option is to stay where they are, hence an equilibrium. This concept is now updated to give us a Bayes-Nash equilibrium where we must also incorporate the distributions for which players are drawing from. 
 
 \begin{dfn}
-	A strategy profile constitutes a Bayes-Nash equilibrium if for every player $i$ and every valuation $v_i$ that the player might have, the player chooses a bid $s_i(v_i)$ that maximizes her conditional expected utility where the expectation is over the valuations of the other players, conditioned on a bidder i's valuation being $v_i$. We express that as an equation below.
+	A strategy profile constitutes a Bayes-Nash equilibrium if for every player $i$ and every valuation $v_i$ that the player might have, the player chooses a bid $s_i(v_i)$ that maximizes her conditional expected utility where the expectation is over the valuations of the other players, conditioned on a bidder i's valuation being $v_i$. 
 \end{dfn}
+%TODO: confusing use of dfn environment
 
-\subsection{Formally Defining First Price Auctions}
+\subsection{Formally Defining First-Price Auctions}
 NOTE: This section needs cleaning up since it is going to give a lot of duplicate information or redefine things slightly differently from previous sources.
 
-To analyze an first price auction as a game, we give the notation we will be using. This notation comes from Roughgarden et. al 's 2018 (TODO check date) survey of the subject of the price of anarchy in auctions. For a bid profile $\textbf{b} = (b_1, \ldots, b_n)$, we let 
+To analyze an first-price auction as a game, we give the notation we will be using. This notation comes from Roughgarden et. al 's 2017 survey of the subject of the price of anarchy in auctions. For a bid profile $\textbf{b} = (b_1, \ldots, b_n)$, we let 
 \[
 	x_i(\textbf{b}) =
 	\begin{cases}
@@ -297,16 +300,16 @@ $$u_i(\textbf{b}; v_i) = (v_i - b_i) \cdot x_i(\textbf{b})$$.
 
 Now, for a strategy profile $\textbf{s} = (s_1, \ldots, s_n)$, where each $s_i$ is a function for player $i$'s valuation $v_i$ to their bid. We let $\textbf{s}(\textbf{v})$ denote the strategy vector resulting from the vector of valuations $\textbf{v}$. For any given vector $\textbf{x}$, we use $\textbf{x}_{-i}$ to denote the vector $\textbf{x}$ with the $i$th element removed. 
 
-Now, for a first price auction we can say that a strategy profile $\textbf{s} = (s_1, \ldots s_n)$ is a Bayes-Nash equilibrium if and only if 
+Now, for a first-price auction we can say that a strategy profile $\textbf{s} = (s_1, \ldots s_n)$ is a Bayes-Nash equilibrium if and only if 
 $$ \mathbb{E}_{\textbf{v}_{-i}} [u_i(\textbf{s} (\textbf{v}); v_i) \ | \ v_i] \geq \EXP_{\valuations_{-i}} [u_i(b^{'}_i, \strategies_{-i}(\valuations_{-i}); v_i) \ | \ v_i] $$.
 
-(TODO cite Roughgarden et al)
+(\cite{Roughgarden2017})
 
 \subsection{Example Auction}
-We now turn to an example auction to clarify what has just been laid out. In this example we analyze the an auction between two players, Alice and Bob who are bidding on a candy bar where each select their valuations from the uniform distribution $[0,1]$. This is a first price, sealed bid auction where they each submit a bid for the candy bar simultaneously. How are Bob and Alice supposed to decide what to bid on this auction? 
+We now turn to an example auction to clarify what has just been laid out. In this example we analyze the an auction between two players, Alice and Bob who are bidding on a candy bar where each select their valuations from the uniform distribution $[0,1]$. This is a first-price, sealed bid auction where they each submit a bid for the candy bar simultaneously. How are Bob and Alice supposed to decide what to bid on this auction? 
 
 \begin{prop}
-	In the first price, sealed bid auction with valuation distributed on $[0,1]$, the unique Bayesian-Nash equilibrium is $\strategies = (s_1(v_1) = v_1 / 2, s_2(v_2) = v_2 / 2)$.
+	In the first-price, sealed bid auction with valuation distributed on $[0,1]$, the unique Bayesian-Nash equilibrium is $\strategies = (s_1(v_1) = v_1 / 2, s_2(v_2) = v_2 / 2)$.
 \end{prop}
 
 To show this first, we show that each player is using a best response. First, we note that We calculate that the expected value for player one is,
@@ -316,43 +319,305 @@ To show this first, we show that each player is using a best response. First, we
 	&= (v_1 - b_1) \Pr[s_2(v_2) < b_1] + \frac{1}{2}(v_1 - b_1)\Pr[s_2(v_2) = b_1].
 \end{align*}
 
-since player expect to get their full utility with the probability that they outbid the other player, and expect to get one half that if they tie with the other bidder (since ties are broken with a coin toss). Now, assuming that player one does not over bid, we know that $b_1 \in [0, \frac{1}{2}]$.
+since player expect to get their full utility with the probability that they outbid the other player, and expect to get one half that if they tie with the other bidder (since ties are broken with a coin toss). Now, assuming that player one bids, $b_1 \in [0, \frac{1}{2}]$.
 
-... I'm not sure if I need this
+... I'm not sure if I need this, leaving it out to write up more important parts.
 
-\subsection{Efficiency of First Price Auctions}
-Examples of the Bayes-Nash equilibrium have been solved for various combinations of the number of players and distributions from which they draw their valuations. With $n$ bidders it has been shown that the Bayes-Nash equilibrium strategy vector is $s_i(v) = \frac{n-1}{n} v$ for all players. Here the equilibrium is easy to calculate and efficient (meaning that the item will always be allocated to the player with the highest valuation). This is however not always the case. For example if we conduct an auction with two bidders, one choosing from the uniform distribution $[0,1]$ and the other from the uniform distribution $[0,2]$ it has been shown that the Bayes-Nash equilibrium for this auction is:
+\subsection{Efficiency of First-Price Auctions}
+Examples of the Bayes-Nash equilibrium have been solved for various combinations of the number of players and distributions from which they draw their valuations. With $n$ bidders it has been shown that the Bayes-Nash equilibrium strategy vector is composed of $s_i(v_i) = \frac{n-1}{n} v$ for all players $i$ (TODO: cite, find source). Here the equilibrium is easy to calculate and efficient (meaning that the item will always be allocated to the player with the highest valuation). Neither efficiency nor ease of calculation are guaranteed for Bayes-Nash equilibria in this auction format. For example if we conduct an auction with two bidders, one choosing from the uniform distribution $[0,1]$ and the other from the uniform distribution $[0,2]$ it has been shown that the Bayes-Nash equilibrium for this auction is:
 \begin{align*}
 	&s_1(v_1) = \frac{4}{3 v_1} \left(1 - \sqrt{1 - \frac{3v_1^2}{4}}\right)\\
-	&s_2(v_2) = \frac{4}{3 v_1} \left(\sqrt{1 + \frac{3v_1^2}{4}} - 1 \right)\\
+	&s_2(v_2) = \frac{4}{3 v_2} \left(\sqrt{1 + \frac{3v_2^2}{4}} - 1 \right)\\
 \end{align*}
  
 (CITE Krishna, 2002):
 
-Here bidder one knows that bidder two is more likely to to have a higher valuation than them and thus bid higher and so they shade their bid less than bidder two. This can lead to bidder one drawing a lower valuation than bidder two, but outbidding them regardless getting the item. This is inefficient. More over, it has been shown that solving many of these asymmetric Bayes-Nash equilibrium requires finding a solution to a system of partial differential equations many of which have no closed-form solution (CITE Roughgarden). This means that if we expect bidders to do their homework before an auction and choosing their bidding strategy they might not know what to do. Given this, it is extremely hard to characterize or say things about what these solutions look like. However, just because we are not able to give a closed form to what all of these equillibria look like, that does not mean we aren't able to say anything about them. 
+Here bidder one with the smaller valuation distribution knows that bidder two is more likely to to have a higher valuation than them. Thus player one must bid higher relative to their given valuation if they expect to win and so they shade their bid less than bidder two. This can lead to bidder one drawing a lower valuation than bidder two, but outbidding them regardless and winning the item. This is inefficient. More over, it has been shown that solving many of these asymmetric Bayes-Nash equilibrium requires finding a solution to a system of partial differential equations many of which have no closed-form solution (\cite{Roughgarden2017}). This means that if we expect bidders to do their homework before an auction and choosing their bidding strategy they might not know what to do. Given this, it is extremely hard to characterize or say things about what solutions to this format of auctions look like in general. However, just because we are not able to give a closed form for all of these equilibria, that does not mean we aren't able to say anything about them. 
 
-\subsection{Price of Anarchy in First Price Auctions}  
-To try and get a sense of how inefficient these auctions can be, computer scientists have been applying a concept known as the price of anarchy to analyze these systems. The price of anarchy is a way to compare the social welfare of a system or a game at its best possible value to that of its worst possible equilibrium under strategic play. In the case of an auction the social welfare is the sum of the utilities of the players plus the revenue of the auctioneer.
+\subsection{Price of Anarchy in First-Price Auctions}  
+To try and get a sense of how inefficient these auctions can be, computer scientists have been applying a concept known as the price of anarchy to analyze these systems\footnote{Not that economists were uninterested in these questions of efficiency and welfare analysis in auctions before the computer scientists started studying them.}. The price of anarchy is a way to compare the social welfare of a system or a game at its best possible value to that of its worst possible equilibrium under strategic play. We must first define these concepts and then move to the point at hand. In the case of an auction the social welfare is the sum of the utilities of the players plus the revenue of the auctioneer.
 
 \begin{dfn}
 	The \textit{social welfare} of a bid profile $\bidders$ when the valuation profile is $\valuations = (v_1, \ldots, v_n)$ is 
 	$$ SW(\bidders;\valuations) = \sum_{i=1}^{n} v_i \cdot x_i (\bidders)$$
 \end{dfn}
 
-The winning bid does not appear in this equation since the winning bidder is paying exactly as much as the auctioneer is getting and this term cancels out of the social welfare function. This means that welfare is maximized when the bidder with the highest valuation is winner. Thus, if we let $x^*_i(\valuations)$ be an indicator variable for whether or not a player $i$ is the player with the highest valuation (ties broken arbitrarily), the maximum possible social welfare in a single-item auction is 
+The price the winning bidder pays does not appear in this equation since the winning bidder is paying exactly as much as the auctioneer is getting and this term cancels out. This means that welfare is maximized when the bidder with the highest valuation is winner. Thus, if we let $x^*_i(\valuations)$ be an indicator variable for whether or not a player $i$ is the player with the highest valuation (ties broken arbitrarily), the maximum possible social welfare in a single-item auction is 
 $$ \OPT(\valuations) = \sum_{i=1}^{n} v_i \cdot x^*_i (\bidders)$$.
 
 Now, that we mathematically describe the social welfare in our system, we can define the price of anarchy. 
 
 \begin{dfn}
-	The \textit{price of anarchy} of an auction, with a valuation distribution $\mathcal{F}$ (TODO reconcile notation), is the smallest value of the ratio
-	$$ \frac{\EXP_{\valuations} [SW(\strategies(\valuations);\valuations)]}{\EXP_{\valuations}[\OPT(\valuations)]}$$,
+	The \textit{price of anarchy} of an auction, with a valuation distribution $\mathcal{F}$, is the smallest value of the ratio
+	$$ \frac{\EXP_{\valuations} [SW(\strategies(\valuations);\valuations)]}{\EXP_{\valuations}[\OPT(\valuations)]},$$
 	ranging over all Bayes-Nash equilibrium $\strategies$ of the auction.
 \end{dfn}
 
-The price of anarchy for the first price auction format is then the worst possible price of anarchy for any choice of the number of players $n$ or valuation distributions $\mathcal{F}$ (TODO: reconcile notation). We can see that the price of anarchy is a number between $0$ and $1$, and that the closer it is to one, the "better" we can guarantee the system's social welfare will be\footnote{Much of the literature for POA (including the paper introducing the idea) defines it as the opposite ratio, Optimal/Worst-EQ where smaller values indicate better systems. For some reason the auction literature defines it in the way I did, so I will remain consistent with them.}.
+The above definition applies to individual auctions dependent on choice  of $\F$ and $n$. We generally only discuss the price of anarchy for the format of the auction, in our case any possible first-price auction.  The price of anarchy for the first-price auction format is then the worst possible price of anarchy for any choice of the number of players $n$ or valuation distributions $\mathcal{F}$. Note that the price of anarchy (for either an individual auction or the format of auction) is a number between $0$ and $1$, and that the closer it is to one, the "better" we can guarantee the system's social welfare will be\footnote{Much of the literature for POA (including the paper introducing the idea) defines it as the opposite ratio, Optimal/Worst-EQ where smaller values indicate better systems. For some reason the auction literature defines it as Worst-EQ/Optimal, so I will remain consistent with them.}.
 
 Incredibly, bounds on the price of anarchy for the format of first-price auctions have been found. Again, this allows us to characterize how much worse the social welfare for the system could be at (Bayes-Nash) equilibrium no matter how many players we have or what distributions they are choosing their valuations from. This sort of guarantee is incredible, especially for systems where we may not want, or it may not be feasible to have a central authority pre-calculate the way to optimize social welfare in a system. Rather, we can trust that the system will perform at least so well under strategic interaction.
+
+\begin{thm}
+	The price of anarchy in first-price single-item auctions format is at least $1-\frac{1}{e} \approx 0.63$	
+\end{thm}
+
+(CITE: Syrgkanis \& Tardos 2013)(Possibly include: no bound better than $0.87$ is possible (CITE Hartline and Taggart 2014))
+
+(Possibly include below thm, might be referenced by later proofs)
+\begin{thm}
+	Every Bayes-Nash equilibrium of a first-price auction with correlated valuation distributions has expected social welfare at least $1 - \frac{1}{e}$ times the optimal welfare.
+\end{thm}
+
+(CITE: Syrgkanis, 2014) (Tight bound for above)
+
+Theorem 1 tells us that no matter  how many players we have or what weird distributions we try and give them, we cannot construct a first-price auction that will achieve less than $0.63$\% of the optimal social welfare at Bayes-Nash equilibrium.
+ 
+\section{Extending Results to No-Regret Agents}
+These results hold for simple first-price auctions, but it is natural to ask questions about how robust these results are. First of all, how do people arrive at a Bayes-Nash equilibria if there doesn't exist a closed form way to express it? Secondly, do these results hold for mixed Bayes-Nash equilibria (randomizing between bidding strategies) or other larger, more realistic equilibrium concepts? To address these questions, Roughgarden et al use a set of extension theorems that take us through a general mechanism design setting and allow the class of equilibria our bounds hold for to be expanded. This extension will take us to a concept of no-regret learning.
+
+\subsection{General Auction Mechanisms}
+
+In order to understand (or even state) the proofs and theorems required to take us to our expanded set of equilibria, we must introduce  more notation and the idea of a general mechanism design setting and a general auction setting (this is unfortunate for us due to an expansion of scope, but actually makes these theorems quite powerful!). In a general mechanism design setting, the auctioneer solicits an action $a_i$ from all of the players, $i$, from some action space $\mathcal{A} = \mathcal{A}_1 \times \cdots \times \mathcal{A}_n$. Given an action profile $\textbf{a} = (a_1, \dots, a_n) \in \mathcal{A}$, the auctioneer decides an outcome $o(\textbf{a})$ among the set of possible outcomes $\mathcal{O}$. This outcome includes a payment $p_i(o)$ that each player must give to the auctioneer. Denote the revenue of the auctioneer $\mathcal{R}(O) = \sum_i p_i(o)$. Players receive some utility as a function of their valuation, $v_i$ and the outcome which we write $u_i(o;v_i)$. Let $\mathcal{V} = \mathcal{V}_1 \times \cdots \times \mathcal{V}_n$. Now with this new notation out of the way, we move to the concept of a smooth auction.
+
+\subsection{Smooth Auctions}
+
+\begin{dfn}
+	For parameters $\lambda \geq 0$ and $\mu \geq 1$, an auction is $(\lambda, \mu)$-smooth if for every valuation profile $\valuations \in \mathcal{V}$ there exist action distribution $D_1^{*}(\valuations), \ldots , D_n^*(\valuations)$ over $\mathcal{A}_1, \cdots, \mathcal{A}_n$ such that for every action profile \textbf{a},
+	$$ \sum_i \EXP_{a_i^* \sim D_i^*(\valuations)}[u_i(a^*, \textbf{a}_{-i};v_i)] \geq \lambda \OPT(\valuations) - \mu \mathcal{R}(\textbf{a})$$
+\end{dfn}
+
+\begin{thm}
+	If an auction is $(\lambda, \mu)$-smooth, then for every profile $\mathcal{F}_1, \ldots, \mathcal{F}_n$ of independent valuation distributions over $\mathcal{V}_1, \ldots, \mathcal{V}_n$, every Bayes-Nash equilibrium of the auction has expected welfare at least $\frac{\lambda}{\mu} \cdot \EXP_{\valuations \sim \mathcal{F}}[\OPT(\valuations)]$.
+\end{thm}  
+(\cite{Roughgarden2017})
+
+\subsection{No-Regret Learning}
+Consider an auction with $n$ players that is repeated for $T$ time steps. At each iteration $t$, bidder $i$ draws a valuation $v_i$ from $\mathcal{F}_i$ and chooses an action $a_i^t$ which can depend on the history of play. After each iteration, the players observes the actions taken by the other players (TODO: potentially can be relaxed to only need to see utility for their own action, which makes simulating easier. Need to follow up on source). A player $i$ is said to use a no-regret learning algorithm if, in hindsight their average regret (difference between average utility of strategy vs algorithm) for any alternative strategy $a_i^{'}$ goes to zero or becomes negative as $T \rightarrow \infty$. When all players use this algorithm it results in a vanishing regret sequence.
+
+\begin{dfn}
+	A sequence of action profiles $\actions^1 , \actions^2, \ldots, a^T$ is a \textit{vanishing regret sequence} if for every player $i$ and action $a_i^{'} \in \mathcal{A}_i$,
+	$$ \lim\limits_{T \rightarrow \infty} \frac{1}{T} \sum_{t=1}^{T}(u_i(a_i^{'}, \actions_{-i}^{t};v_i) - u_i(\actions^t; v_i)) \leq 0$$ 
+\end{dfn}
+
+\begin{thm}
+	If an auction is ($\lambda, \mu$)-smooth, then for every valuation profile $\valuations$, every vanishing regret sequence of the auction has expected welfare at least $\frac{\lambda}{\mu} \cdot \OPT(\valuations)$ as $T \rightarrow \infty$.  
+\end{thm}
+
+(\cite{Roughgarden2017}) (TODO: add second source)\\
+
+The end result is that since single-payer first-price auctions are $(1-\frac{1}{e}, 1)$ smooth (TODO, demonstrate that), we know that this bound will hold for auctions with no regret learning agents. Thus, we will try and build a simulation that uses one of the algorithms that fulfills this property and demonstrate that for any arbitrary number of players and distributions from which they pick their valuations from, they converge to an equilibrium social welfare greater than $1-\frac{1}{e}$.
+
+\chapter{Simulating the Price of Anarchy}
+
+This chapter constructs a novel simulation of first-price single-payer auctions to demonstrate that the ratio of actual social welfare to optimal social welfare is within the bounds of the price of anarchy. First, construction of the simulation is discussed. Next, we demonstrate the results of running the simulation on bidders using known Bayes-Nash equilibrium strategies and arbitrary bidders. Finally, we demonstrate that these bounds also hold for no-regret learning agents in a fixed action variation of the first-price auction.
+
+\section{The Simulated Auction Environment}
+
+To simulate a sequential first-price auctions, we construct a program in python that allows us to set up an arbitrary number of bidders each with valuation distributions of our choice who are each simultaneously bidding for the same item for some number of rounds. At the beginning of each round, every bidder is assigned a valuation sampled from their distribution. The bidders then each simultaneously submit a bid to the auction and the winner is determined by the highest bid where ties are broken with equal probability among those with the same bid. After the winner is selected, they are given utility $u(v, b) = v - b$, the difference between their valuation and bid that round. At each round the total social welfare is $v_i$, the valuation of the winning bidder as per definition 3. (TODO add internal ref). The total social welfare generated across each sequential auction is tracked by sequentially adding up the social welfare for each round. Similarly we keep track of the total optimal social welfare by summing them across rounds. The optimal social welfare at any given round is the highest valuation held by any bidder that round. This is laid out in the pseudo-code version of the sequential auction below where we use the super script $t$ to denote which round each variable is from\footnote{The "$\leftarrow$" symbol used in the algorithm means assignment of value. For example $x \leftarrow 1$ is the variable $x$ is assigned a value of $1$. This reduces the ambiguity of using the "$=$" statement which could be also be a statement or proposition in pseudo-code.}.\\
+
+\begin{algorithm}[H]
+	Initialize $SW$ and $OW$ to zero\\
+	\For{$t = 1, \ldots, T$}
+	{
+		Each bidder draws their valuation $v^t_i$ from their distribution $F_i$\;
+		Each bidder uses their strategy $s^t_i$ to submit a bid\;
+		The highest bidder is assgined the object and they pay their bid, if tie, a winner is choosen randomly among them\;
+		Each player has their utilites updated according to if they won the object\;
+		\If{player $i$ wins the auction}{
+			$SW \leftarrow SW + v^t_i$
+		}
+		\If{player $j$ has the highest valuation}{
+			$OW \leftarrow OW + v^t_j$
+		}
+	\caption{Sequential First-Price Single-Item Auction}
+	}
+\end{algorithm}
+
+
+\subsection{Simulating Bayes-Nash Equilibria}
+Using the simulation outlined above, we first demonstrate that bidders using known Bayes-Nash equilibrium strategies have an average price of anarchy greater than $0.66$. First, we simulate the case of two bidders each drawing their valuation from the uniform distribution between $0$ and $1$. We are using the hard coded strategies that $s(v^t_i) = \frac{v^t_i}{2}$ for each bidder which was shown to be the unique Bayes-Nash Equilibrium in chapter 2.The results are shown in table \ref{table:1} below.
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |c|c| }
+	\hline
+	Round & POA \\
+	\hline
+	1 & 1.0000 \\
+	10 & 1.0000 \\
+	1,000 & 1.0000 \\
+	10,000 & 1.0000 \\
+	100,000 & 1.0000 \\
+	\hline
+\end{tabular}
+\caption{Price of anarchy in two player symmetric auction}
+\label{table:1}
+\end{center} 
+\end{table}
+
+As can be seen this example is somewhat silly to simulate since this equilibrium is fully efficient. Since each player is bidding half of their valuation, the winner is always the player with the highest valuation so the actual social welfare is always the same as the optimal social welfare making $$\frac{SW(\strategies(\valuations); \valuations)}{\OPT(\valuations)} = 1.$$
+
+We now move to simulate the more interesting example of two bidders with asymmetric distributions. Specifically for one bidder with valuation chosen from the uniform distribution over the interval $[ 0,1]$ and the other from the uniform distribution on the interval $[0,2]$. As stated in chapter 2, the unique Bayes-Nash equilibrium for this auction is:
+
+\begin{align*}
+&s_1(v_1) = \frac{4}{3 v_1} \left(1 - \sqrt{1 - \frac{3v_1^2}{4}}\right)\\
+&s_2(v_2) = \frac{4}{3 v_2} \left(\sqrt{1 + \frac{3v_2^2}{4}} - 1 \right)\\
+\end{align*}
+
+Again, this auction is not fully efficient as the bidder who is drawing their valuation from the smaller distribution has to shade their bid less (bid higher relative to their valuation) in this equilibrium. We simulate this sequentially 100,000 times and get the following results as shown in table \ref{table:2}:
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{ |c|c| }
+			\hline
+			Round & POA \\
+			\hline
+			1 & 1.0000 \\
+			10 & 1.0000 \\
+			1,000 & 0.9919 \\
+			10,000 & 0.9924 \\
+			100,000 & 0.9935 \\
+			\hline
+		\end{tabular}
+		\caption{Price of anarchy in two player asymmetric auction}
+		\label{table:2}
+	\end{center} 
+\end{table}
+
+While this auction is not fully efficient, it is highly efficient. The price of anarchy in this auction never drops below 0.99. The main reason this happens is that while it is possible for the bidder drawing from the smaller distribution to win even if they have the smaller valuation, this only occurs when their two valuations are relatively close. This means that the social welfare lost in this case is not much even if it is not fully efficient. In both of these auction we see that they are well above the $0.66$ lower bound guaranteed for all first-price single-item auction formats.
+
+\subsection{Minimal Intelligence Bidders}
+Before going on to simulate the auction using no-regret learning bidders, it is important to establish some sort of baseline for how well each auction setting performs with agents that are not learning. To do this we construct agents that bid randomly between zero and their valuation every round i.e. each players bid is chosen uniformly from the distribution $[0,v^t]$. We call these agents minimally intelligent since they are not overbidding, but they are also clearly using a nonsensical strategy for an auction. One should note that while this is a bad strategy, it is possible to formulate much worse strategies for our bidders from both utility maximization and efficiency standpoints \footnote{It's rather fun to think up such strategies! For example, if each bidder shaded little when they had a low draw and shaded a lot when they had a high valuation, this can lead to highly inefficient outcomes}. This rather is a baseline for agents who are incapable of learning or doing their homework and thus randomly select from all options. The results for 2, 10, and 100 agents using this strategy are shown in the table \ref{table:zero_int_symmetric} below.
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{ |c|c|c|c| }
+			\hline
+			Round & 2 Agent POA & 10 Agent POA & 100 Agent POA \\
+			\hline
+			1 & 0.9000 & 0.8410 & 0.9859\\
+			10 & 0.9312 & 0.8987 & 0.9419\\
+			1,000 & 0.9279 & 0.8812 & 0.9480\\
+			10,000 & 0.9150 & 0.8880 & 0.9467\\
+			100,000 & 0.9164 & 0.8887 & 0.9470\\
+			\hline
+		\end{tabular}
+		\caption{Price of anarchy in two player asymmetric auction}
+		\label{table:zero_int_symmetric}
+	\end{center} 
+\end{table}
+
+This gives us something of a baseline for the efficiency of single-item sealed bid auctions when all of the players are symmetric and based off of the number of players. We see two things, one is that when all bidders are drawing from the same uniform distribution the market is incredibly efficient regardless of how smart the bidders are when choosing their strategy. That is, even when their strategies are arbitrary, this auction still performs reasonably well. The second thing to note is that in this setting, as the number of bidders increases the social welfare also increases. This makes sense as we would expect the probability of a reasonably high valuation winning to increase as there are  more valuations per round. 
+
+We now conduct a similar simulation but in the case of asymmetric bidders. In this case Half of the bidders are drawing uniformly from $[0,1]$ and half from $[0,2]$. The results are shown in table \ref{table:zero_int_asymmetric}. 
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{ |c|c|c|c| }
+			\hline
+			Round & 2 Agent POA & 10 Agent POA & 100 Agent POA \\
+			\hline
+			1 & 0.1.000 & 1.0000 & 0.9726\\
+			10 & 0.9115 & 0.8178 & 0.9331\\
+			1,000 & 0.9054 & 0.8658 & 0.9310\\
+			10,000 & 0.9092 & 0.8630 & 0.9297\\
+			100,000 & 0.9112 & 0.8640 & 0.9304\\
+			\hline
+		\end{tabular}
+		\caption{Price of anarchy in two player asymmetric auction}
+		\label{table:zero_int_asymmetric}
+	\end{center} 
+\end{table}
+
+Again we see that the market is quite efficient in this case regardless of how smart the bidders are. We again also see that it seems to converge to optimal (i.e. to 1) as the number of bidders increases.
+
+Note that the baseline price of anarchy for minimal-intelligence agent auctions changes as we change the distributions. While the format seems quite efficient and well above the price of anarchy bounds (which again are only guaranteed for equilibria which this is not) even with agents following these minimally intelligent strategies, we have no guarantee that there is not someway to construct this that these agents wouldn't do much worse. Given that it seems as the number of agents increases, the efficiency also seems to increase, one would expect that this would need to be done by picking more interesting distributions for the bidders to choose from and only having two bidders. (NOTE: I am trying to find scenarios that do just that)
+
+\section{Simulating No-Regret Bidders}
+With the results from the Bayes-Nash equilibrium demonstrated and a baseline established, we move on simulating the bounds of coarse correlated equilibria in first-price auctions. Again, this is the equilibria we expect auctions to converge to if each agent is using a no-regret learning algorithm. To use these algorithms we do however have to make a concession to the environment we are simulating: we must now simulate an auction where the bidders are only allowed a finite number of actions.
+
+\subsection{Multiplicative Weights Algorithm}
+The no-regret learning algorithm we will use to train our bidders is called the multiplicative weights algorithm. It has been shown by (TODO, add all sources) to satisfy the no-regret property and thus if each of our bidders use it our auction should converge to a coarse correlated equilibrium. 
+
+Before giving the algorithm, a few words are probably necessary to understand where it comes from and what it is trying to do. First, this algorithm is what is called an \textit{online} algorithm. That is an algorithm that takes its inputs sequentially as it goes rather than getting all of its inputs up front. Next, this algorithm and many other algorithms for players learning in games are abased around the player only having a fixed number of actions they can choose from. For each round in the game, the player gets outside advice from "experts" who recommend to the player what to do at each round and the player picks among them to decide what to do. For us, these experts are our strategies that will map a valuation to a bid. At each time step, the player picks the action to play and then after that, some adversary picks the utilities to assign for each action that could have been taken. For us, the adversary is the cumulative action of the other players, where the highest bid determines which strategies (if any) the player could have taken and won.\\
+
+\begin{algorithm}[H]
+	Initialize $w^1(a) = 1$ for every $a\in A$\\
+	\For{$t = 1, 2, \ldots, T$}{
+		use ditribution $p^t = \frac{w^t}{\sum_{a \in A} w^t(a)}$ over actions to pick $a \in A$ and output $a$.\\
+		Given the utility vector $u^t$, for every action $a \in A$ use the formula $w^{t+1}(a) = w^t(a) \cdot (1 - \eta u^t(a))$ to update its weight.\\
+		\caption{Multiplicative Weights (MW) Algorithm}
+	}
+\end{algorithm}
+\vspace{1cm}
+The logic of this algorithm is rather simple, at each time step we see how well each of the possible actions performed and increase the weight, or probability of selecting that action in the future proportionally to how well it did as determined by the outside parameter $\eta$, the \textit{learning rate}. As demonstrated in (CITE Roughgarden lecture notes), the MW algorithm is no-regret if $\eta = \sqrt{(\ln n) / T}$.
+
+This algorithm fulfills our purpose of simulating agents learning in auctions, but in some sense it is unsatisfying that the learning algorithm requires a finite set of actions that the bidder does not even get to choose. It would be more interesting if we were able to give our agents some reasonable algorithm that allowed them to formulate their own strategies or mappings between their valuation and their bid. This introduces a whole host of other problems from the reasonableness of expect agents to implement such algorithms to the ability to prove that such algorithms converge to an equilibria. Part of the beauty of using multiplicative weights is that it is simple and had nice mathematical properties. In order to explore more interesting learning techniques both of these properties might be lost and then we would have to more and more wonder what our simulation is really showing\footnote{This thesis grew out of an interest in doing just that, throwing "smarter" algorithms such as neural networks and machine learning into existing multi-agent simulations. It becomes hard to tell what the point of such simulations are when the dynamics might just be properties of the interaction of the specific algorithms used and not of the system itself.}?
+
+\subsection{Uniform Distribution Simulations}
+The first simulation we run is a repeat of the symmetric auction setting, but now using agents learning with the multiplicative weights algorithm. We create 101 strategies that bidders can choose from to shade their bid, from bidding zero percent of their valuation with one percent increases up to bidding 100 percent of their valuation. that is $S = \{ 0, 0.01 \cdot v_i, 0.02 \cdot v_i, \ldots, 0.99 \cdot v_i, v_i \}$. First, we run the simulation with two symmetric bidders each choosing their valuation from the uniform distribution over $[0,1]$. The results are shown below in table \ref{table:3}
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{ |c|c| }
+			\hline
+			Round & POA \\
+			\hline
+			1 & 1.0000 \\
+			10 & 0.9517 \\
+			1,000 & 0.9129 \\
+			10,000 & 0.9578 \\
+			100,000 & 0.9947 \\
+			\hline
+		\end{tabular}
+		\caption{Price of anarchy in two player asymmetric auction with no-regret learning}
+		\label{table:3}
+	\end{center} 
+\end{table}
+
+Here we can see that after 100,000 rounds the price of anarchy converges to 0.99 and near perfect efficiency as the agents learn how to play the game. we now repeat this using 10, 1000, and 1,000 agents, each the symmetric and drawing from a uniform $[0,1]$ as above. This gives us the following results as shown  below in table \ref{table:4}:
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{ |c|c|c|c| }
+			\hline
+			Round & 10 Agent POA & 1,000 Agent POA\\
+			\hline
+			1 & 0.9261 & (TODO, run on faster computer)\\
+			10 & 0.9393 & \\
+			1,000 & 0.9475 & \\
+			10,000 & 0.9485 &\\
+			100,000 & 0.9613 & \\
+			\hline
+		\end{tabular}
+		\caption{Price of anarchy in two player asymmetric auction with no-regret learning}
+		\label{table:4}
+	\end{center} 
+\end{table}
+
+As we can see, the more agents we have,the closer the price of anarchy moves to 1.00 without having to learn. This is simply because the more agents we have, the more we expect someone with a high valuation to win the auction no matter what strategy each bidder is using.
+
+Finally, we simulate the case of having two bidders with asymmetric valuation distributions where one draws uniformly from $[0,1]$ and the other draws from $[0,2]$. We can see the result of simulating this 100,000 times in table \ref{table:5} below.
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{ |c|c| }
+			\hline
+			Round & POA \\
+			\hline
+			1 & 1.0000 \\
+			10 & 0.8901 \\
+			1,000 & 0.9314 \\
+			10,000 & 0.9770 \\
+			100,000 & 0.9961 \\
+			\hline
+		\end{tabular}
+		\caption{Price of anarchy in two player asymmetric auction with no-regret learning}
+		\label{table:5}
+	\end{center} 
+\end{table}
+
+Here we see the agents converge to a very good efficiency similar to the behavior we saw when using the Bayes-Nash equilibrium for this setting and better than in the two bidder minimum-intelligence case.
+
 
 \chapter*{Conclusion}
          \addcontentsline{toc}{chapter}{Conclusion}
@@ -391,7 +656,7 @@ And here's some other random info: the first paragraph after a chapter title or 
 %  \bibliographystyle{plainnat}
 % replace ``plainnat'' with the style of choice. You can refer to files in the bsts or APA 
 % subfolder, e.g. 
- \bibliographystyle{APA/apa-good}  % or
+ \bibliographystyle{APA/reedecon}  % or
  \bibliography{thesis}
  % Comment the above two lines and uncomment the next line to use biblatex-chicago.
  %\printbibliography[heading=bibintoc]

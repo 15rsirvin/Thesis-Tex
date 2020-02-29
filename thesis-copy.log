@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.11.4)  13 FEB 2020 21:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2019.11.4)  28 FEB 2020 16:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**thesis_with_notes.tex
-(./thesis_with_notes.tex
+**thesis-copy.tex
+(./thesis-copy.tex
 LaTeX2e <2018-12-01>
 (./reedthesis.cls
 Document Class: reedthesis 2004/01/27 The Reed College Thesis Class
@@ -275,15 +275,6 @@ Package: changepage 2009/10/20 v1.0c check page and change page layout
 \cp@tempcnt=\count122
 LaTeX Info: Redefining \checkoddpage on input line 59.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/algorithms/algorithmic.sty
-Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
-\c@ALC@unique=\count123
-\c@ALC@line=\count124
-\c@ALC@rem=\count125
-\c@ALC@depth=\count126
-\ALC@tlm=\skip85
-\algorithmicindent=\skip86
-)
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
@@ -329,14 +320,14 @@ ex
 \pgf@yd=\dimen145
 \w@pgf@writea=\write3
 \r@pgf@reada=\read1
-\c@pgf@counta=\count127
-\c@pgf@countb=\count128
-\c@pgf@countc=\count129
-\c@pgf@countd=\count130
+\c@pgf@counta=\count123
+\c@pgf@countb=\count124
+\c@pgf@countc=\count125
+\c@pgf@countd=\count126
 \t@pgf@toka=\toks33
 \t@pgf@tokb=\toks34
 \t@pgf@tokc=\toks35
-\pgf@sys@id@count=\count131
+\pgf@sys@id@count=\count127
  (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2019/05/09 v3.1.3 (3.1.3)
 )
@@ -352,8 +343,8 @@ File: pgfsys-common-pdf.def 2019/05/09 v3.1.3 (3.1.3)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.
 tex
 File: pgfsyssoftpath.code.tex 2019/05/09 v3.1.3 (3.1.3)
-\pgfsyssoftpath@smallbuffer@items=\count132
-\pgfsyssoftpath@bigbuffer@items=\count133
+\pgfsyssoftpath@smallbuffer@items=\count128
+\pgfsyssoftpath@bigbuffer@items=\count129
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.
 tex
@@ -383,7 +374,7 @@ Package: pgfcore 2019/05/09 v3.1.3 (3.1.3)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
 \pgfmath@dimen=\dimen146
-\pgfmath@count=\count134
+\pgfmath@count=\count130
 \pgfmath@box=\box43
 \pgfmath@toks=\toks36
 \pgfmath@stack@operand=\toks37
@@ -407,7 +398,7 @@ tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerari
 thmetics.code.tex)))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count135
+\c@pgfmathroundto@lastzeros=\count131
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.te
@@ -446,7 +437,7 @@ File: pgfcorescopes.code.tex 2019/05/09 v3.1.3 (3.1.3)
 \pgfpic=\box44
 \pgf@hbox=\box45
 \pgf@layerbox@main=\box46
-\pgf@picture@serial@count=\count136
+\pgf@picture@serial@count=\count132
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.c
 ode.tex
@@ -479,8 +470,8 @@ File: pgfcorearrows.code.tex 2019/05/09 v3.1.3 (3.1.3)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
 File: pgfcoreshade.code.tex 2019/05/09 v3.1.3 (3.1.3)
 \pgf@max=\dimen170
-\pgf@sys@shading@range@num=\count137
-\pgf@shadingcount=\count138
+\pgf@sys@shading@range@num=\count133
+\pgf@shadingcount=\count134
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
 File: pgfcoreimage.code.tex 2019/05/09 v3.1.3 (3.1.3)
@@ -540,7 +531,7 @@ Package: tikz 2019/05/09 v3.1.3 (3.1.3)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2019/05/09 v3.1.3 (3.1.3)
-\pgf@plot@mark@count=\count139
+\pgf@plot@mark@count=\count135
 \pgfplotmarksize=\dimen175
 )
 \tikz@lastx=\dimen176
@@ -553,18 +544,18 @@ File: pgflibraryplothandlers.code.tex 2019/05/09 v3.1.3 (3.1.3)
 \tikz@figbox@bg=\box50
 \tikz@tempbox=\box51
 \tikz@tempbox@bg=\box52
-\tikztreelevel=\count140
-\tikznumberofchildren=\count141
-\tikznumberofcurrentchild=\count142
-\tikz@fig@count=\count143
+\tikztreelevel=\count136
+\tikznumberofchildren=\count137
+\tikznumberofcurrentchild=\count138
+\tikz@fig@count=\count139
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2019/05/09 v3.1.3 (3.1.3)
-\pgfmatrixcurrentrow=\count144
-\pgfmatrixcurrentcolumn=\count145
-\pgf@matrix@numberofcolumns=\count146
+\pgfmatrixcurrentrow=\count140
+\pgfmatrixcurrentcolumn=\count141
+\pgf@matrix@numberofcolumns=\count142
 )
-\tikz@expandcount=\count147
+\tikz@expandcount=\count143
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
@@ -581,11 +572,11 @@ Language: english 2017/06/06 v3.3r English support from the babel system
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
 File: babel.def 2019/06/03 3.32 Babel common definitions
-\babel@savecnt=\count148
+\babel@savecnt=\count144
 \U@D=\dimen182
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
-\bbl@dirlevel=\count149
+\bbl@dirlevel=\count145
 )
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
@@ -596,14 +587,14 @@ Package: csquotes 2019/05/10 v5.2e context-sensitive quotations (JAW)
 
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count150
+\etb@tempcnta=\count146
 )
-\csq@reset=\count151
-\csq@gtype=\count152
-\csq@glevel=\count153
-\csq@qlevel=\count154
-\csq@maxlvl=\count155
-\csq@tshold=\count156
+\csq@reset=\count147
+\csq@gtype=\count148
+\csq@glevel=\count149
+\csq@qlevel=\count150
+\csq@maxlvl=\count151
+\csq@tshold=\count152
 \csq@ltx@everypar=\toks41
 
 (/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.def
@@ -622,37 +613,34 @@ Package csquotes Info: Allocating character ".
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 
-(./thesis_with_notes.aux
+(./thesis-copy.aux)
+\openout1 = `thesis-copy.aux'.
 
-LaTeX Warning: Label `SSM5' multiply defined.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
+LaTeX Font Info:    ... okay on input line 82.
 
-)
-\openout1 = `thesis_with_notes.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
-LaTeX Font Info:    ... okay on input line 81.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count157
+\scratchcounter=\count153
 \scratchdimen=\dimen183
 \scratchbox=\box53
-\nofMPsegments=\count158
-\nofMParguments=\count159
+\nofMPsegments=\count154
+\nofMParguments=\count155
 \everyMPshowfont=\toks42
-\MPscratchCnt=\count160
+\MPscratchCnt=\count156
 \MPscratchDim=\dimen184
-\MPnumerator=\count161
-\makeMPintoPDFobject=\count162
+\MPnumerator=\count157
+\makeMPintoPDFobject=\count158
 \everyMPtoPDFconversion=\toks43
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -706,18 +694,18 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-Package csquotes Info: Making character " active on input line 81.
-LaTeX Font Info:    Try loading font information for U+msa on input line 83.
+Package csquotes Info: Making character " active on input line 82.
+LaTeX Font Info:    Try loading font information for U+msa on input line 84.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 83.
+LaTeX Font Info:    Try loading font information for U+msb on input line 84.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 83.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 84.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -742,22 +730,22 @@ Non-PDF special ignored!
 
 ] [5] [6
 
-] (./thesis_with_notes.toc [7])
+] (./thesis-copy.toc)
 \tf@toc=\write4
-\openout4 = `thesis_with_notes.toc'.
+\openout4 = `thesis-copy.toc'.
 
- [8] (./thesis_with_notes.lot)
+ [7] [8
+
+] (./thesis-copy.lot)
 \tf@lot=\write5
-\openout5 = `thesis_with_notes.lot'.
+\openout5 = `thesis-copy.lot'.
 
+ [9] [10
 
-[9
-
-] [10
-
-] (./thesis_with_notes.lof)
+]
+(./thesis-copy.lof)
 \tf@lof=\write6
-\openout6 = `thesis_with_notes.lof'.
+\openout6 = `thesis-copy.lof'.
 
  [11] [12
 
@@ -775,7 +763,7 @@ Chapter 1.
 <braess.png, id=80, 607.725pt x 407.8875pt>
 File: braess.png Graphic file (type png)
 <use braess.png>
-Package pdftex.def Info: braess.png  used on input line 159.
+Package pdftex.def Info: braess.png  used on input line 160.
 (pdftex.def)             Requested size: 243.0857pt x 163.1521pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -791,12 +779,12 @@ This may cause the page layout to be inconsistent, however.
 <braess_2.png, id=97, 605.535pt x 463.185pt>
 File: braess_2.png Graphic file (type png)
 <use braess_2.png>
-Package pdftex.def Info: braess_2.png  used on input line 167.
+Package pdftex.def Info: braess_2.png  used on input line 168.
 (pdftex.def)             Requested size: 242.2097pt x 185.2707pt.
 <braess_3.png, id=98, 605.535pt x 463.185pt>
 File: braess_3.png Graphic file (type png)
 <use braess_3.png>
-Package pdftex.def Info: braess_3.png  used on input line 176.
+Package pdftex.def Info: braess_3.png  used on input line 177.
 (pdftex.def)             Requested size: 242.2097pt x 185.2707pt.
 
 
@@ -813,12 +801,12 @@ Underfull \vbox (badness 3407) has occurred while \output is active []
 <segregation_1.png, id=124, 693.792pt x 316.5426pt>
 File: segregation_1.png Graphic file (type png)
 <use segregation_1.png>
-Package pdftex.def Info: segregation_1.png  used on input line 216.
+Package pdftex.def Info: segregation_1.png  used on input line 217.
 (pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
 <segregation_2.png, id=125, 693.792pt x 316.5426pt>
 File: segregation_2.png Graphic file (type png)
 <use segregation_2.png>
-Package pdftex.def Info: segregation_2.png  used on input line 223.
+Package pdftex.def Info: segregation_2.png  used on input line 224.
 (pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
 
 
@@ -827,7 +815,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <segregation_3.png, id=126, 693.792pt x 316.5426pt>
 File: segregation_3.png Graphic file (type png)
 <use segregation_3.png>
-Package pdftex.def Info: segregation_3.png  used on input line 229.
+Package pdftex.def Info: segregation_3.png  used on input line 230.
 (pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -835,7 +823,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <segregation_4.png, id=127, 693.792pt x 316.5426pt>
 File: segregation_4.png Graphic file (type png)
 <use segregation_4.png>
-Package pdftex.def Info: segregation_4.png  used on input line 235.
+Package pdftex.def Info: segregation_4.png  used on input line 236.
 (pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -843,7 +831,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <segregation_5.png, id=128, 693.792pt x 316.5426pt>
 File: segregation_5.png Graphic file (type png)
 <use segregation_5.png>
-Package pdftex.def Info: segregation_5.png  used on input line 241.
+Package pdftex.def Info: segregation_5.png  used on input line 242.
 (pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -858,290 +846,109 @@ Underfull \vbox (badness 7613) has occurred while \output is active []
  [15]
 [16]
 Chapter 2.
-[17
 
-] [18] [19] [20]
-Chapter 3.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 289.
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 289.
- [21
+ [17
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
+Underfull \vbox (badness 1609) has occurred while \output is active []
 
- []
-
-[22]
+ [18]
+[19] [20] [21]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [23]
-Underfull \hbox (badness 10000) in paragraph at lines 316--319
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 320--321
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [24]
-Underfull \hbox (badness 10000) in paragraph at lines 322--323
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 326--327
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 328--330
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [25]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [26]
-Underfull \hbox (badness 10000) in paragraph at lines 333--335
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [27]
-Underfull \hbox (badness 10000) in paragraph at lines 341--343
+ [22]
+[23] [24] [25] [26] [27]
+Underfull \hbox (badness 10000) in paragraph at lines 406--407
 
  []
 
 [28]
-Underfull \hbox (badness 10000) in paragraph at lines 353--354
+Chapter 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 416--417
 
  []
 
-[29]
-Underfull \hbox (badness 10000) in paragraph at lines 363--364
-
- []
-
-File: segregation_1.png Graphic file (type png)
-<use segregation_1.png>
-Package pdftex.def Info: segregation_1.png  used on input line 369.
-(pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
-File: segregation_2.png Graphic file (type png)
-<use segregation_2.png>
-Package pdftex.def Info: segregation_2.png  used on input line 376.
-(pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
-File: segregation_3.png Graphic file (type png)
-<use segregation_3.png>
-Package pdftex.def Info: segregation_3.png  used on input line 382.
-(pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-File: segregation_4.png Graphic file (type png)
-<use segregation_4.png>
-Package pdftex.def Info: segregation_4.png  used on input line 388.
-(pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-File: segregation_5.png Graphic file (type png)
-<use segregation_5.png>
-Package pdftex.def Info: segregation_5.png  used on input line 394.
-(pdftex.def)             Requested size: 346.89514pt x 158.2709pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[30] [31] [32
+[29
 
 ]
-Chapter 4.
 
-Underfull \vbox (badness 1365) has occurred while \output is active []
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \vbox (badness 1383) has occurred while \output is active []
+
+ [30]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \vbox (badness 1033) has occurred while \output is active []
+
+ [31]
+Underfull \hbox (badness 10000) in paragraph at lines 494--495
+
+ []
+
+[32]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [33]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[34] [35
 
- [34]
-Underfull \hbox (badness 10000) in paragraph at lines 418--419
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 421--422
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 423--424
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 425--426
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [35]
-Underfull \hbox (badness 10000) in paragraph at lines 429--430
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [36]
-Underfull \hbox (badness 10000) in paragraph at lines 434--435
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 436--447
-
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [37]
-[38]
-Chapter 5.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [39
-
-]
-[40] [41] [42]
-Chapter 6.
-
-Underfull \hbox (badness 10000) in paragraph at lines 509--510
-
- []
-
-[43
-
-] [44]
-Chapter 7.
-[45
-
-] [46
-
-] [47]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [48]
-<subdivision.pdf, id=257, 220.825pt x 89.33376pt>
-File: subdivision.pdf Graphic file (type pdf)
-<use subdivision.pdf>
-Package pdftex.def Info: subdivision.pdf  used on input line 672.
-(pdftex.def)             Requested size: 220.82445pt x 89.33353pt.
-
-[49 <./subdivision.pdf>]
-File: subdivision.pdf Graphic file (type pdf)
-<use subdivision.pdf>
-Package pdftex.def Info: subdivision.pdf  used on input line 685.
-(pdftex.def)             Requested size: 110.41222pt x 44.66676pt.
-File: subdivision.pdf Graphic file (type pdf)
-<use subdivision.pdf>
-Package pdftex.def Info: subdivision.pdf  used on input line 697.
-(pdftex.def)             Requested size: 72.26979pt x 72.26979pt.
-File: subdivision.pdf Graphic file (type pdf)
-<use subdivision.pdf>
-Package pdftex.def Info: subdivision.pdf  used on input line 708.
-(pdftex.def)             Requested size: 110.41222pt x 44.66676pt.
- [50
-
-] [51
-
-] [52
+] [36
 
 ]
 Appendix A.
-[53] [54
+[37] [38
 
 ]
 Appendix B.
-[55] [56
+[39] [40
 
-] (./thesis_with_notes.bbl
-Underfull \hbox (badness 6825) in paragraph at lines 8--13
-[]\OT1/cmr/m/n/12 Arthur, W. B. (1992).  On Learn-ing and Adap-ta-tion in the E
-con-
+] (./thesis-copy.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 7--12
+\OT1/cmr/m/n/12 URL $http : / / ideas . repec . org / p / qed / wpaper / 854 . 
+html\OMS/cmsy/m/n/12 fn \OT1/cmr/m/n/12 % []5Cnpapers2 :
  []
 
+[41
 
-Underfull \hbox (badness 4341) in paragraph at lines 8--13
-\OT1/cmr/m/n/12 omy.  \OT1/cmr/m/it/12 Queen's Uni-ver-sity, De-part-ment of Ec
-o-nomics, Work-ing Pa-pers\OT1/cmr/m/n/12 ,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 8--13
-\OT1/cmr/m/n/12 (854). $\OT1/cmtt/m/n/12 http : / / ideas . repec . org / p / q
-ed / wpaper / 854 . html{\ % }5Cnpapers2 :
- []
-
-[57
-
-] [58]
-Underfull \hbox (badness 1077) in paragraph at lines 137--142
-[]\OT1/cmr/m/n/12 Tesfatsion, L. (2005).  AGENT-BASED COM-PU-TA-TIONAL ECO-NOMI
-CS :
- []
-
-) [59] (./thesis_with_notes.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] [42]) [43] (./thesis-copy.aux) ) 
 Here is how much of TeX's memory you used:
- 16277 strings out of 492609
- 301485 string characters out of 6131462
- 411466 words of memory out of 5000000
- 19755 multiletter control sequences out of 15000+600000
- 13612 words of font info for 56 fonts, out of 8000000 for 9000
+ 16152 strings out of 492609
+ 299699 string characters out of 6131462
+ 379120 words of memory out of 5000000
+ 19634 multiletter control sequences out of 15000+600000
+ 15842 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,12n,48p,3539b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
-7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/symbols/msbm10.pfb>
-Output written on thesis_with_notes.pdf (79 pages, 815613 bytes).
+ 55i,13n,48p,2922b,458s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmbx8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/c
+mex8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on thesis-copy.pdf (63 pages, 791381 bytes).
 PDF statistics:
- 387 PDF objects out of 1000 (max. 8388607)
- 260 compressed objects within 3 object streams
+ 313 PDF objects out of 1000 (max. 8388607)
+ 208 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 64 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 
