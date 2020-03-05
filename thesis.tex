@@ -87,13 +87,13 @@
 
 % Acknowledgements (Acceptable American spelling) are optional
 % So are Acknowledgments (proper English spelling)
-    \chapter*{Acknowledgements}
+    \chapter*{Acknowledgments}
 	The cat, Pinoe.
 
 % The preface is optional
 % To remove it, comment it out or delete it.
     \chapter*{Preface}
-	This is an example of a thesis setup to use the reed thesis document class.
+	"For if we could suppose a great multitude of men to consent in the observation of justice and other laws of nature without a common power to keep them in awe, we might as well suppose all mankind to do the same; and then there neither would be, nor need to be, any civil government or commonwealth at all, because there would be peace without subjection." -Thomas Hobbes (Leviathan, chapter XVII)
 	
 	
 
@@ -411,12 +411,12 @@ The end result is that since single-payer first-price auctions are $(1-\frac{1}{
 
 This chapter constructs a novel simulation of first-price single-payer auctions to demonstrate that the ratio of actual social welfare to optimal social welfare is within the bounds of the price of anarchy. First, construction of the simulation is discussed. Next, we demonstrate the results of running the simulation on bidders using known Bayes-Nash equilibrium strategies and arbitrary bidders. Finally, we demonstrate that these bounds also hold for no-regret learning agents in a fixed action variation of the first-price auction.
 
-\section{The Simulated Auction Environment}
+\section{A Simulated Auction Environment}
 
-To simulate a sequential first-price auctions, we construct a program in python that allows us to set up an arbitrary number of bidders each with valuation distributions of our choice who are each simultaneously bidding for the same item for some number of rounds. At the beginning of each round, every bidder is assigned a valuation sampled from their distribution. The bidders then each simultaneously submit a bid to the auction and the winner is determined by the highest bid where ties are broken with equal probability among those with the same bid. After the winner is selected, they are given utility $u(v, b) = v - b$, the difference between their valuation and bid that round. At each round the total social welfare is $v_i$, the valuation of the winning bidder as per definition 3. (TODO add internal ref). The total social welfare generated across each sequential auction is tracked by sequentially adding up the social welfare for each round. Similarly we keep track of the total optimal social welfare by summing them across rounds. The optimal social welfare at any given round is the highest valuation held by any bidder that round. This is laid out in the pseudo-code version of the sequential auction below where we use the super script $t$ to denote which round each variable is from\footnote{The "$\leftarrow$" symbol used in the algorithm means assignment of value. For example $x \leftarrow 1$ is the variable $x$ is assigned a value of $1$. This reduces the ambiguity of using the "$=$" statement which could be also be a statement or proposition in pseudo-code.}.\\
+To simulate sequential first-price auctions, we construct a program in python that allows us to set up an arbitrary number of bidders each with valuation distributions of our choice who simultaneously bid on the item being auctioned that round for as many rounds as we choose. Since these are sequential auctions, each round represents an auction for a new item; however the valuation distributions remain the same for each auction and the utility is cumulative across all auctions. Hence, at the beginning of each round, every bidder is assigned a valuation sampled from their distribution. The bidders then each simultaneously submit a bid to the auction and the winner is determined by the highest bid where ties are broken with equal probability among those with the same bid. After the winner is selected, they are given utility $u(v, b) = v - b$, the difference between their valuation and bid that round. At each round the total social welfare is $v_i$, the valuation of the winning bidder as per definition 3. (TODO add internal ref). The total social welfare generated across each sequential auction is tracked by sequentially adding up the social welfare for each round. Similarly we keep track of the total optimal social welfare by summing them across rounds. The optimal social welfare at any given round is the highest valuation held by any bidder that round. This is laid out in the pseudo-code version of the sequential auction below where we use the super script $t$ to denote which round each variable is from\footnote{The "$\leftarrow$" symbol used in the algorithm means assignment of value. For example $x \leftarrow 1$ is the variable $x$ is assigned a value of $1$. This reduces the ambiguity of using the "$=$" symbol which could be also be a statement or proposition in pseudo-code.}.\\
 
 \begin{algorithm}[H]
-	Initialize $SW$ and $OW$ to zero\\
+	Initialize $SW$, $OW$, and $POA$ to zero\\
 	\For{$t = 1, \ldots, T$}
 	{
 		Each bidder draws their valuation $v^t_i$ from their distribution $F_i$\;
@@ -429,13 +429,16 @@ To simulate a sequential first-price auctions, we construct a program in python 
 		\If{player $j$ has the highest valuation}{
 			$OW \leftarrow OW + v^t_j$
 		}
+	
+		$POA \leftarrow \frac{SW}{OW}$	
 	\caption{Sequential First-Price Single-Item Auction}
 	}
 \end{algorithm}
 
 
 \subsection{Simulating Bayes-Nash Equilibria}
-Using the simulation outlined above, we first demonstrate that bidders using known Bayes-Nash equilibrium strategies have an average price of anarchy greater than $0.66$. First, we simulate the case of two bidders each drawing their valuation from the uniform distribution between $0$ and $1$. We are using the hard coded strategies that $s(v^t_i) = \frac{v^t_i}{2}$ for each bidder which was shown to be the unique Bayes-Nash Equilibrium in chapter 2.The results are shown in table \ref{table:1} below.
+Using the simulation outlined above, we first demonstrate that bidders using known Bayes-Nash equilibrium strategies have an average price of anarchy greater than $0.66$. First, we simulate the case of two bidders each drawing their valuation from the uniform distribution between $0$ and $1$. We are using the hard coded strategies that $s(v^t_i) = \frac{v^t_i}{2}$ for each bidder which was shown to be the unique Bayes-Nash Equilibrium in chapter 2.The results are shown in table \ref{table:1} below where the cumulative price of anarchy is given up to the specified round specified \footnote{The POA is calculated as per algorithm 1. %(TODO Fix manual ref).
+}
 
 \begin{table}[h!]
 \begin{center}
@@ -445,6 +448,7 @@ Using the simulation outlined above, we first demonstrate that bidders using kno
 	\hline
 	1 & 1.0000 \\
 	10 & 1.0000 \\
+	100 & 1.000 \\
 	1,000 & 1.0000 \\
 	10,000 & 1.0000 \\
 	100,000 & 1.0000 \\
@@ -455,16 +459,16 @@ Using the simulation outlined above, we first demonstrate that bidders using kno
 \end{center} 
 \end{table}
 
-As can be seen this example is somewhat silly to simulate since this equilibrium is fully efficient. Since each player is bidding half of their valuation, the winner is always the player with the highest valuation so the actual social welfare is always the same as the optimal social welfare making $$\frac{SW(\strategies(\valuations); \valuations)}{\OPT(\valuations)} = 1.$$
+As can be seen this example is somewhat silly to simulate since this equilibrium is fully efficient. As each player bids half their valuation, the winner is always the player with the highest valuation. Hence the actual social welfare is always the same as the optimal social welfare: $$\frac{SW(\strategies(\valuations); \valuations)}{\OPT(\valuations)} = 1.$$
 
-We now move to simulate the more interesting example of two bidders with asymmetric distributions. Specifically for one bidder with valuation chosen from the uniform distribution over the interval $[ 0,1]$ and the other from the uniform distribution on the interval $[0,2]$. As stated in chapter 2, the unique Bayes-Nash equilibrium for this auction is:
+We now move to simulate the more interesting example of two bidders with asymmetric distributions. We let bidder one chose their valuation from the uniform distribution over the interval $[ 0,1]$ and bidder two chooses their valuation from from the uniform distribution on the interval $[0,2]$. As stated in chapter 2, the unique Bayes-Nash equilibrium for this auction is:
 
 \begin{align*}
 &s_1(v_1) = \frac{4}{3 v_1} \left(1 - \sqrt{1 - \frac{3v_1^2}{4}}\right)\\
 &s_2(v_2) = \frac{4}{3 v_2} \left(\sqrt{1 + \frac{3v_2^2}{4}} - 1 \right)\\
 \end{align*}
 
-Again, this auction is not fully efficient as the bidder who is drawing their valuation from the smaller distribution has to shade their bid less (bid higher relative to their valuation) in this equilibrium. We simulate this sequentially 100,000 times and get the following results as shown in table \ref{table:2}:
+As stated in chapter 2, this auction is not fully efficient as the bidder who is drawing their valuation from the smaller distribution has to shade their bid less (bid higher relative to their valuation) in this equilibrium. We simulate this sequentially 100,000 times and get the following results as shown in table \ref{table:2}:
 \begin{table}[h!]
 	\begin{center}
 		\begin{tabular}{ |c|c| }
@@ -486,7 +490,7 @@ Again, this auction is not fully efficient as the bidder who is drawing their va
 While this auction is not fully efficient, it is highly efficient. The price of anarchy in this auction never drops below 0.99. The main reason this happens is that while it is possible for the bidder drawing from the smaller distribution to win even if they have the smaller valuation, this only occurs when their two valuations are relatively close. This means that the social welfare lost in this case is not much even if it is not fully efficient. In both of these auction we see that they are well above the $0.66$ lower bound guaranteed for all first-price single-item auction formats.
 
 \subsection{Minimal Intelligence Bidders}
-Before going on to simulate the auction using no-regret learning bidders, it is important to establish some sort of baseline for how well each auction setting performs with agents that are not learning. To do this we construct agents that bid randomly between zero and their valuation every round i.e. each players bid is chosen uniformly from the distribution $[0,v^t]$. We call these agents minimally intelligent since they are not overbidding, but they are also clearly using a nonsensical strategy for an auction. One should note that while this is a bad strategy, it is possible to formulate much worse strategies for our bidders from both utility maximization and efficiency standpoints \footnote{It's rather fun to think up such strategies! For example, if each bidder shaded little when they had a low draw and shaded a lot when they had a high valuation, this can lead to highly inefficient outcomes}. This rather is a baseline for agents who are incapable of learning or doing their homework and thus randomly select from all options. The results for 2, 10, and 100 agents using this strategy are shown in the table \ref{table:zero_int_symmetric} below.
+Before going on to simulate the auction using no-regret learning bidders, it is important to establish some sort of baseline for how well each auction setting performs with agents that are not learning. To do this we construct agents that bid randomly between zero and their valuation every round i.e. each players bid is chosen uniformly from the distribution $[0,v^t]$. We call these agents minimally intelligent since they are not overbidding, but they are also clearly using a nonsensical strategy for an auction. One should note that while this is a bad strategy, it is possible to formulate much worse strategies for our bidders from both utility maximization and efficiency standpoints \footnote{It's rather fun to think up such strategies! For example, if each bidder shaded little when they had a low draw and shaded a lot when they had a high valuation, this can lead to highly inefficient outcomes}. This rather is a baseline for agents who are incapable of learning or doing their homework and thus randomly select from all options. Since this is a baseline we also want to see how this auction format behaves as we add more agents or bidders to each round. The results for simulating sequential first price auctions with 2, 10, and 100 agents using this strategy are shown in the table \ref{table:zero_int_symmetric} below.
 
 \begin{table}[h!]
 	\begin{center}
@@ -506,7 +510,7 @@ Before going on to simulate the auction using no-regret learning bidders, it is 
 	\end{center} 
 \end{table}
 
-This gives us something of a baseline for the efficiency of single-item sealed bid auctions when all of the players are symmetric and based off of the number of players. We see two things, one is that when all bidders are drawing from the same uniform distribution the market is incredibly efficient regardless of how smart the bidders are when choosing their strategy. That is, even when their strategies are arbitrary, this auction still performs reasonably well. The second thing to note is that in this setting, as the number of bidders increases the social welfare also increases. This makes sense as we would expect the probability of a reasonably high valuation winning to increase as there are  more valuations per round. 
+This gives us something of a baseline for the efficiency of single-item sealed bid auctions when all of the players are symmetric and at these number of players. We see three things, one is that when all bidders are drawing from the same uniform distribution the market is incredibly efficient regardless of how smart the bidders are when choosing their strategy. That is, even when their strategies are arbitrary, this auction still performs reasonably well. The second thing to note is that in this setting, as the number of bidders increases the social welfare also increases. This makes sense as we would expect the probability of a reasonably high valuation winning to increase as there are  more valuations per round. The third thing we notice, and most surprising of all, is that the increase in the price of anarchy as the number of players increases is not monotonic. (TODO: Graph for 2-100 agents on IMC comp)
 
 We now conduct a similar simulation but in the case of asymmetric bidders. In this case Half of the bidders are drawing uniformly from $[0,1]$ and half from $[0,2]$. The results are shown in table \ref{table:zero_int_asymmetric}. 
 
@@ -528,7 +532,7 @@ We now conduct a similar simulation but in the case of asymmetric bidders. In th
 	\end{center} 
 \end{table}
 
-Again we see that the market is quite efficient in this case regardless of how smart the bidders are. We again also see that it seems to converge to optimal (i.e. to 1) as the number of bidders increases.
+Again we see that the market is quite efficient in this case regardless of how smart the bidders are. We again also see that it seems to converge to optimal (i.e. to 1) as the number of bidders increases but non-monotonically. (TODO: GRAPH for 2 to 100)
 
 Note that the baseline price of anarchy for minimal-intelligence agent auctions changes as we change the distributions. While the format seems quite efficient and well above the price of anarchy bounds (which again are only guaranteed for equilibria which this is not) even with agents following these minimally intelligent strategies, we have no guarantee that there is not someway to construct this that these agents wouldn't do much worse. Given that it seems as the number of agents increases, the efficiency also seems to increase, one would expect that this would need to be done by picking more interesting distributions for the bidders to choose from and only having two bidders. (NOTE: I am trying to find scenarios that do just that)
 
@@ -538,7 +542,7 @@ With the results from the Bayes-Nash equilibrium demonstrated and a baseline est
 \subsection{Multiplicative Weights Algorithm}
 The no-regret learning algorithm we will use to train our bidders is called the multiplicative weights algorithm. It has been shown by (TODO, add all sources) to satisfy the no-regret property and thus if each of our bidders use it our auction should converge to a coarse correlated equilibrium. 
 
-Before giving the algorithm, a few words are probably necessary to understand where it comes from and what it is trying to do. First, this algorithm is what is called an \textit{online} algorithm. That is an algorithm that takes its inputs sequentially as it goes rather than getting all of its inputs up front. Next, this algorithm and many other algorithms for players learning in games are abased around the player only having a fixed number of actions they can choose from. For each round in the game, the player gets outside advice from "experts" who recommend to the player what to do at each round and the player picks among them to decide what to do. For us, these experts are our strategies that will map a valuation to a bid. At each time step, the player picks the action to play and then after that, some adversary picks the utilities to assign for each action that could have been taken. For us, the adversary is the cumulative action of the other players, where the highest bid determines which strategies (if any) the player could have taken and won.\\
+Before giving the algorithm, a few words are probably necessary to understand where it comes from and what it is trying to do. First, this algorithm is what is called an \textit{online} algorithm. That is an algorithm that takes its inputs sequentially as it goes rather than getting all of its inputs up front. Next, this algorithm and many other algorithms for players learning in games are based around the player only having a fixed number of actions they can choose from. For each round in the game, the player gets outside advice from "experts" who recommend to the player what to do at each round and the player picks among them to decide what to do. For us, these experts are our strategies that will map a valuation to a bid. At each time step, the player picks the action to play and then after that, some adversary picks the utilities to assign for each action that could have been taken. This is a stronger condition then we will need to use as the for us, the adversary is the cumulative action of the other players, where the highest bid determines which strategies (if any) the player could have taken and won. However, in the general case this algorithm has been shown to be no-regret in the face of an adversary directly picking the utilities the learning agent receives.\\
 
 \begin{algorithm}[H]
 	Initialize $w^1(a) = 1$ for every $a\in A$\\
@@ -549,7 +553,7 @@ Before giving the algorithm, a few words are probably necessary to understand wh
 	}
 \end{algorithm}
 \vspace{1cm}
-The logic of this algorithm is rather simple, at each time step we see how well each of the possible actions performed and increase the weight, or probability of selecting that action in the future proportionally to how well it did as determined by the outside parameter $\eta$, the \textit{learning rate}. As demonstrated in (CITE Roughgarden lecture notes), the MW algorithm is no-regret if $\eta = \sqrt{(\ln n) / T}$.
+The logic of this algorithm is rather simple, at each time step we see how well each of the possible actions performed and increase the weight, or probability of selecting that action in the future proportionally to how well it did as determined by the outside parameter $\eta$, the \textit{learning rate}. As demonstrated in (CITE Roughgarden lecture notes), the MW algorithm is no-regret if $\eta = \sqrt{(\ln n) / T}$ where $n$ is the number of actions that this agent can choose from, and $T$ is the number of rounds that will be played (yes this assumes that the player know that up front).
 
 This algorithm fulfills our purpose of simulating agents learning in auctions, but in some sense it is unsatisfying that the learning algorithm requires a finite set of actions that the bidder does not even get to choose. It would be more interesting if we were able to give our agents some reasonable algorithm that allowed them to formulate their own strategies or mappings between their valuation and their bid. This introduces a whole host of other problems from the reasonableness of expect agents to implement such algorithms to the ability to prove that such algorithms converge to an equilibria. Part of the beauty of using multiplicative weights is that it is simple and had nice mathematical properties. In order to explore more interesting learning techniques both of these properties might be lost and then we would have to more and more wonder what our simulation is really showing\footnote{This thesis grew out of an interest in doing just that, throwing "smarter" algorithms such as neural networks and machine learning into existing multi-agent simulations. It becomes hard to tell what the point of such simulations are when the dynamics might just be properties of the interaction of the specific algorithms used and not of the system itself.}?
 
@@ -574,13 +578,13 @@ The first simulation we run is a repeat of the symmetric auction setting, but no
 	\end{center} 
 \end{table}
 
-Here we can see that after 100,000 rounds the price of anarchy converges to 0.99 and near perfect efficiency as the agents learn how to play the game. we now repeat this using 10, 1000, and 1,000 agents, each the symmetric and drawing from a uniform $[0,1]$ as above. This gives us the following results as shown  below in table \ref{table:4}:
+Here we can see that after 100,000 rounds the price of anarchy converges to 0.99 and near perfect efficiency as the agents learn how to play the game. It's important to point out here that the above table is not an average, but simply one run of the simulation. Since each time we run the simulation, it is possible for the bidders to learn to converge to a new equilibrium the POA values for each simulation can be different. Averages don't make sense in this context as we are more concerned with the lowest possible POA that the system converges too. We now repeat this using 2,10 and 100, and 1,000 agents, each symmetric and drawing from a uniform $[0,1]$ as above. This time however, we only report the minimum POA of running 100 simulations with that number of agents \footnote{This is a relatively small number, but necessarily chosen for the sake of computation time with 1,000 agents}. This gives us the following results as shown  below in table \ref{table:4} (TODO: this table is incomplete, and isn't minimums):
 
 \begin{table}[h!]
 	\begin{center}
 		\begin{tabular}{ |c|c|c|c| }
 			\hline
-			Round & 10 Agent POA & 1,000 Agent POA\\
+			Round & 10 Agent POA & 100 Agent POA\\
 			\hline
 			1 & 0.9261 & (TODO, run on faster computer)\\
 			10 & 0.9393 & \\
@@ -594,7 +598,7 @@ Here we can see that after 100,000 rounds the price of anarchy converges to 0.99
 	\end{center} 
 \end{table}
 
-As we can see, the more agents we have,the closer the price of anarchy moves to 1.00 without having to learn. This is simply because the more agents we have, the more we expect someone with a high valuation to win the auction no matter what strategy each bidder is using.
+As we can see, the more agents we have,the closer (non-monotonically) the price of anarchy moves to 1.00 without having to learn. This is simply because the more agents we have, the more we expect someone with a high valuation to win the auction no matter what strategy each bidder is using.
 
 Finally, we simulate the case of having two bidders with asymmetric valuation distributions where one draws uniformly from $[0,1]$ and the other draws from $[0,2]$. We can see the result of simulating this 100,000 times in table \ref{table:5} below.
 
