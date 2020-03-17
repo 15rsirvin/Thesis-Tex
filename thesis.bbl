@@ -1,4 +1,4 @@
-\begin{thebibliography}{25}
+\begin{thebibliography}{30}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -27,6 +27,10 @@ Backhouse, Roger, and Beatrice Cherrier. 2016.
   Changing Roles of Theoretical and Applied Economics}.
 \newblock \emph{SSRN Electronic Journal} 1--36.
 
+\bibitem[{Blum and Mansour(2007)}]{Blum2007}
+Blum, Avrim, and Yishay Mansour. 2007.
+\newblock \emph{{Learning, Regret Minimization, and Equillibria}}.
+
 \bibitem[{Blume et~al.(2015)Blume, Easley, Kleinberg, Kleinberg, and
   Tardos}]{Blume2015}
 Blume, Lawrence, David Easley, Jon Kleinberg, Robert Kleinberg, and {\'{E}}va
@@ -53,6 +57,22 @@ Harsanyi, John~C. 1967.
   I–III Part I. The Basic Model}.
 \newblock \emph{Management Science} 14(3): 159--182.
 
+\bibitem[{Hart and Mas-Colell(2000)}]{Hart2000}
+Hart, Sergiu, and Andreu Mas-Colell. 2000.
+\newblock {A simple adaptive procedure leading to correlated equilibrium}.
+\newblock \emph{Econometrica} 68(5): 1127--1150.
+
+\bibitem[{Hartline et~al.(2015)Hartline, Syrgkanis, and Tardos}]{Hartline2015}
+Hartline, Jason, Vasilis Syrgkanis, and {\'{E}}va Tardos. 2015.
+\newblock {No-regret learning in Bayesian games}.
+\newblock \emph{Advances in Neural Information Processing Systems} 2015-Janua:
+  3061--3069.
+
+\bibitem[{Hartline and Karlin(2007)}]{Hartline2007}
+Hartline, Jason~D., and Anna~R. Karlin. 2007.
+\newblock {Profit maximization in mechanism design}.
+\newblock In \emph{Algorithmic Game Theory}, vol. 9780521872, 331--362.
+
 \bibitem[{Holland and Miller(1991)}]{Holland1991}
 Holland, John, and John Miller. 1991.
 \newblock {Artificial Adaptive Agents in Economic Theory}.
@@ -67,6 +87,10 @@ Jamal, Karim, Michael Maier, and Shyam Sunder. 2017.
 LeBaron, Blake. 2002.
 \newblock {Building the Santa Fe artificial stock market}.
 \newblock \emph{Physica A} (June).
+
+\bibitem[{Lugosi(2006)}]{Lugosi2006}
+Lugosi, G{\'{a}}bor. 2006.
+\newblock \emph{{Prediction, learning, and games}}, vol. 9780521841.
 
 \bibitem[{MacAl and North(2010)}]{MacAl2010}
 MacAl, C.~M., and M.~J. North. 2010.
