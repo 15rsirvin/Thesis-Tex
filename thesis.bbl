@@ -1,7 +1,13 @@
-\begin{thebibliography}{30}
+\begin{thebibliography}{42}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
+
+\bibitem[{Arthur(1991)}]{Arthur1991}
+Arthur, W.~Brian. 1991.
+\newblock {Designing Economic Agents that act like Human Agents: A Behavioral
+  Approach to Bounded Rationality}.
+\newblock \emph{The American Economic Review} 81: 353--359.
 
 \bibitem[{Arthur(1992)}]{Arthur1992}
 Arthur, W~Brian. 1992.
@@ -29,7 +35,9 @@ Backhouse, Roger, and Beatrice Cherrier. 2016.
 
 \bibitem[{Blum and Mansour(2007)}]{Blum2007}
 Blum, Avrim, and Yishay Mansour. 2007.
-\newblock \emph{{Learning, Regret Minimization, and Equillibria}}.
+\newblock {Learning, Regret Minimization, and Equillibria}.
+\newblock In \emph{Algorithmic Game Theory}, edited by Noam Nisan, Tim
+  Roughgarden, and Vijay Vazirani, chap.~4, 79--100.
 
 \bibitem[{Blume et~al.(2015)Blume, Easley, Kleinberg, Kleinberg, and
   Tardos}]{Blume2015}
@@ -50,6 +58,18 @@ Bonabeau, Eric. 2002.
 Boutilier, Craig, Yoav Shoham, and Michael~P. Wellman. 1997.
 \newblock {Economic principles of multi-agent systems}.
 \newblock \emph{Artificial Intelligence} 94(1-2): 1--6.
+
+\bibitem[{Braess(1968)}]{Braess1968}
+Braess, D. 1968.
+\newblock {Uber ein paradoxen der verkehrsplanung}.
+\newblock \emph{Unternehmensforschung} 12: 258--268.
+\newline\urlprefix\url{http://homepage.ruhr-uni-bochum.de/Dietrich.Braess/paradox.pdf}
+
+\bibitem[{Chawla and Hartline(2013)}]{Chawla2013}
+Chawla, Shuchi, and Jason~D. Hartline. 2013.
+\newblock {Auctions with unique equilibria}.
+\newblock In \emph{Proceedings of the ACM Conference on Electronic Commerce},
+  vol.~1, 181--195.
 
 \bibitem[{Harsanyi(1967)}]{Harsanyi1967}
 Harsanyi, John~C. 1967.
@@ -83,10 +103,26 @@ Jamal, Karim, Michael Maier, and Shyam Sunder. 2017.
 \newblock {Simple Agents, Intelligent Markets}.
 \newblock \emph{Computational Economics} 49(4): 653--675.
 
+\bibitem[{Koutsoupias and Papadimitriou(1999)}]{Koutsoupias1999}
+Koutsoupias, Ellias, and Christos~H Papadimitriou. 1999.
+\newblock {Worst-case equilibria}.
+\newblock In \emph{16th Annual Symposium on Theoritical Aspects of Computer
+  Science}, 404--413.
+
+\bibitem[{Krishna(2002)}]{Krishna2002}
+Krishna, Vijay. 2002.
+\newblock \emph{{Auction Theory}}.
+\newblock Academic Press, 1 edn.
+
 \bibitem[{LeBaron(2002)}]{LeBaron2002}
 LeBaron, Blake. 2002.
 \newblock {Building the Santa Fe artificial stock market}.
 \newblock \emph{Physica A} (June).
+
+\bibitem[{Levin(2002)}]{Levin2002}
+Levin, Jonathan. 2002.
+\newblock {Games of Incomplete Information}.
+\newline\urlprefix\url{web.stanford.edu/{~}jdlevin/Econ 203/Bayesian.pdf}
 
 \bibitem[{Lugosi(2006)}]{Lugosi2006}
 Lugosi, G{\'{a}}bor. 2006.
@@ -102,10 +138,22 @@ Mochon, Asuncion, and Yago Saez. 2015.
 \newblock \emph{{Understanding Auctions}}.
 \newblock Springer International Publishing Switzerland.
 
+\bibitem[{Nisan(2007)}]{Nisan2007}
+Nisan, Noam. 2007.
+\newblock {Introduction to Mechanism Design (for Computer Scientists)}.
+\newblock In \emph{Algorithmic Game Theory}, edited by Noam Nisan, Tim
+  Roughgarden, Eva Tardos, and Vijay Vazirani, chap.~9, 209--241.
+
 \bibitem[{Papadimitriou(2015)}]{Papadimitriou2015}
 Papadimitriou, Christos. 2015.
 \newblock {On Algorithmic Game Theory I}.
 \newline\urlprefix\url{https://www.youtube.com/watch?v=ggi2PZbO0oQ{\&}t=814s}
+
+\bibitem[{Papadimitriou(2001)}]{Papadimitriou2001}
+Papadimitriou, Christos~H. 2001.
+\newblock {Algorithms , Games , and the Internet}.
+\newblock In \emph{Proceedings of the 33rd Annual ACM Symposium on Theory of
+  Computing}, 749--753.
 
 \bibitem[{Rejeb and Guessoum(2005)}]{Rejeb2005}
 Rejeb, Lilia, and Zahia Guessoum. 2005.
@@ -116,6 +164,12 @@ Rejeb, Lilia, and Zahia Guessoum. 2005.
 Roughgarden, Tim.
 \newblock {Beyond Worst-Case Analysis I}.
 \newline\urlprefix\url{https://www.youtube.com/watch?v=thHt1lhLqJA}
+
+\bibitem[{Roughgarden(2007)}]{Roughgarden2007}
+Roughgarden, Tim. 2007.
+\newblock {Routing games}.
+\newblock In \emph{Algorithmic Game Theory}, edited by Noam Nisan, Tim
+  Roughgarden, and Vijay Vazirani, 461--486.
 
 \bibitem[{Roughgarden(2016)}]{Roughgarden2016}
 Roughgarden, Tim. 2016.
@@ -137,6 +191,11 @@ Russel, Stuart~J, and Peter Norvig. 2010.
 Sargent, Thomas~J, and John Stachurski. 2019.
 \newblock {Lectures in Quantitative Economics} .
 
+\bibitem[{Schelling(1969)}]{Schelling1969}
+Schelling, Thomas. 1969.
+\newblock {Models of Segregation}.
+\newblock \emph{American Economic Review} 59: 488--93.
+
 \bibitem[{Shoham(2008)}]{Shoham2008a}
 Shoham, Yoav. 2008.
 \newblock {Computer science and game theory}.
@@ -150,6 +209,12 @@ Shoham, Yoav, and Kevin Leyton-Brown. 2008.
 \newblock \emph{Multiagent Systems: Algorithmic, Game-Theoretic, and Logical
   Foundations} 9780521899: 1--483.
 
+\bibitem[{Syrgkanis and Tardos(2013)}]{Syrgkanis2013}
+Syrgkanis, Vasilis, and {\'{E}}va Tardos. 2013.
+\newblock {Composable and efficient mechanisms}.
+\newblock In \emph{Proceedings of the Annual ACM Symposium on Theory of
+  Computing}, 211--220.
+
 \bibitem[{Tesfatsion(2002)}]{Tesfatsion2002}
 Tesfatsion, Leigh. 2002.
 \newblock {Agent-based computational economics: growing economies from the
@@ -161,6 +226,11 @@ Tesfatsion, Leigh. 2005.
   ECONOMIC THEORY 18 December 2005}.
 \newblock \emph{Computational Economics} 2(October 2003): 831--880.
 \newline\urlprefix\url{http://linkinghub.elsevier.com/retrieve/pii/S1574002105020162}
+
+\bibitem[{van~der Hoog(2016)}]{VanderHoog2016}
+van~der Hoog, Sander. 2016.
+\newblock {Deep Learning in Agent-Based Models: A Prospectus}.
+\newblock \emph{SSRN Electronic Journal} (02).
 
 \bibitem[{Vickrey(1961)}]{Vickrey1961}
 Vickrey, William. 1961.

@@ -5,53 +5,57 @@ The style file: APA/reedecon.bst
 Database file #1: thesis.bib
 Warning--there's a number but no volume in Arthur1992
 Warning--missing publisher in Blum2007
+Warning--can't use both volume and number fields in Chawla2013
 Warning--missing publisher in Hartline2007
 Warning--there's a number but no volume in LeBaron2002
 Warning--missing publisher in Lugosi2006
+Warning--missing publisher in Nisan2007
 Warning--missing publisher in Rejeb2005
 Warning--empty year in Roughgarden
+Warning--missing publisher in Roughgarden2007
 Warning--can't use both author and editor fields in Russel2010
 Warning--empty journal in Sargent2019
+Warning--there's a number but no volume in VanderHoog2016
 Warning--empty journal in Vickrey1961
-You've used 30 entries,
+You've used 42 entries,
             2807 wiz_defined-function locations,
-            790 strings with 9400 characters,
-and the built_in function-call counts, 15248 in all, are:
-= -- 1282
-> -- 563
-< -- 27
-+ -- 192
-- -- 162
-* -- 1062
-:= -- 2503
-add.period$ -- 112
-call.type$ -- 30
-change.case$ -- 206
-chr.to.int$ -- 30
-cite$ -- 40
-duplicate$ -- 1140
-empty$ -- 1118
-format.name$ -- 250
-if$ -- 2968
+            867 strings with 11059 characters,
+and the built_in function-call counts, 22301 in all, are:
+= -- 1909
+> -- 758
+< -- 42
++ -- 259
+- -- 217
+* -- 1492
+:= -- 3583
+add.period$ -- 160
+call.type$ -- 42
+change.case$ -- 296
+chr.to.int$ -- 42
+cite$ -- 56
+duplicate$ -- 1682
+empty$ -- 1681
+format.name$ -- 332
+if$ -- 4434
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 235
-newline$ -- 154
-num.names$ -- 120
-pop$ -- 406
+missing$ -- 337
+newline$ -- 216
+num.names$ -- 171
+pop$ -- 579
 preamble$ -- 1
-purify$ -- 174
+purify$ -- 237
 quote$ -- 0
-skip$ -- 444
+skip$ -- 703
 stack$ -- 0
-substring$ -- 709
-swap$ -- 550
-text.length$ -- 2
+substring$ -- 1132
+swap$ -- 830
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 255
-warning$ -- 10
-while$ -- 125
+type$ -- 363
+warning$ -- 14
+while$ -- 191
 width$ -- 0
-write$ -- 376
-(There were 10 warnings)
+write$ -- 535
+(There were 14 warnings)

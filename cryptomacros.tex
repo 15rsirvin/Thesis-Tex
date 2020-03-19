@@ -4,22 +4,26 @@
 \usepackage{amssymb} % \mathbb
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
 %\usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage[vlined]{algorithm2e}
 \RestyleAlgo{boxruled}
-
-\theoremstyle{definition}
-\newtheorem{dfn}{Definition}
 
 
 \theoremstyle{remark}
 \newtheorem*{rmk}{Remark}
 
 \theoremstyle{plain}
-\newtheorem{thm}{Theorem}
-\newtheorem{lem}{Lemma}
-\newtheorem{prop}{Propisition}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{dfn}[theorem]{Definition}
+
+\setcounter{equation}{0}
 
 
 \newcommand{\adv}{\mathcal{A}}
@@ -32,6 +36,7 @@
 \newcommand{\bidders}{\textbf{b}}
 \newcommand{\valuations}{\textbf{v}}
 \newcommand{\strategies}{\textbf{s}}
+\newcommand{\types}{\textbf{T}}
 \newcommand{\actions}{\textbf{a}}
 \newcommand{\OPT}{\text{OPT}}
 \newcommand{\F}{\mathcal{F}}
