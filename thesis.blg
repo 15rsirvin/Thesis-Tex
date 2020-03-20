@@ -6,56 +6,52 @@ Database file #1: thesis.bib
 Warning--there's a number but no volume in Arthur1992
 Warning--missing publisher in Blum2007
 Warning--can't use both volume and number fields in Chawla2013
-Warning--missing publisher in Hartline2007
 Warning--there's a number but no volume in LeBaron2002
-Warning--missing publisher in Lugosi2006
 Warning--missing publisher in Nisan2007
 Warning--missing publisher in Rejeb2005
 Warning--empty year in Roughgarden
 Warning--missing publisher in Roughgarden2007
 Warning--can't use both author and editor fields in Russel2010
 Warning--empty journal in Sargent2019
-Warning--there's a number but no volume in VanderHoog2016
-Warning--empty journal in Vickrey1961
-You've used 42 entries,
+You've used 35 entries,
             2807 wiz_defined-function locations,
-            867 strings with 11059 characters,
-and the built_in function-call counts, 22301 in all, are:
-= -- 1909
-> -- 758
-< -- 42
-+ -- 259
-- -- 217
-* -- 1492
-:= -- 3583
-add.period$ -- 160
-call.type$ -- 42
-change.case$ -- 296
-chr.to.int$ -- 42
-cite$ -- 56
-duplicate$ -- 1682
-empty$ -- 1681
-format.name$ -- 332
-if$ -- 4434
+            813 strings with 9449 characters,
+and the built_in function-call counts, 18092 in all, are:
+= -- 1539
+> -- 615
+< -- 36
++ -- 210
+- -- 175
+* -- 1193
+:= -- 2928
+add.period$ -- 134
+call.type$ -- 35
+change.case$ -- 244
+chr.to.int$ -- 35
+cite$ -- 45
+duplicate$ -- 1368
+empty$ -- 1367
+format.name$ -- 275
+if$ -- 3596
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 337
-newline$ -- 216
-num.names$ -- 171
-pop$ -- 579
+missing$ -- 271
+newline$ -- 180
+num.names$ -- 143
+pop$ -- 484
 preamble$ -- 1
-purify$ -- 237
+purify$ -- 195
 quote$ -- 0
-skip$ -- 703
+skip$ -- 591
 stack$ -- 0
-substring$ -- 1132
-swap$ -- 830
-text.length$ -- 5
+substring$ -- 866
+swap$ -- 658
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 363
-warning$ -- 14
-while$ -- 191
+type$ -- 300
+warning$ -- 10
+while$ -- 152
 width$ -- 0
-write$ -- 535
-(There were 14 warnings)
+write$ -- 440
+(There were 10 warnings)

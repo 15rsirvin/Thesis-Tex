@@ -1,4 +1,4 @@
-\begin{thebibliography}{42}
+\begin{thebibliography}{35}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\urlprefix}{URL }
@@ -14,24 +14,12 @@ Arthur, W~Brian. 1992.
 \newblock {On Learning and Adaptation in the Economy}.
 \newblock \emph{Queen's University, Department of Economics, Working Papers}
   (854).
-\newline\urlprefix\url{https://ideas.repec.org/p/qed/wpaper/854.html}
-
-\bibitem[{Auchincloss and Garcia(2015)}]{Auchincloss2015}
-Auchincloss, Amy~H., and Leandro Martin~Totaro Garcia. 2015.
-\newblock {Brief introductory guide to agent-based modeling and an illustration
-  from urban health research}.
-\newblock \emph{Cadernos de Sa{\'{u}}de P{\'{u}}blica} .
-
-\bibitem[{Axtell(2005)}]{Axtell2005}
-Axtell, Robert. 2005.
-\newblock {The complexity of exchange}.
-\newblock \emph{Economic Journal} 115(504): 193--210.
 
 \bibitem[{Backhouse and Cherrier(2016)}]{Backhouse2016}
 Backhouse, Roger, and Beatrice Cherrier. 2016.
 \newblock {'It's Computerization, Stupid!' The Spread of Computers and the
   Changing Roles of Theoretical and Applied Economics}.
-\newblock \emph{SSRN Electronic Journal} 1--36.
+\newblock \emph{SSRN Electronic Journal} .
 
 \bibitem[{Blum and Mansour(2007)}]{Blum2007}
 Blum, Avrim, and Yishay Mansour. 2007.
@@ -39,31 +27,10 @@ Blum, Avrim, and Yishay Mansour. 2007.
 \newblock In \emph{Algorithmic Game Theory}, edited by Noam Nisan, Tim
   Roughgarden, and Vijay Vazirani, chap.~4, 79--100.
 
-\bibitem[{Blume et~al.(2015)Blume, Easley, Kleinberg, Kleinberg, and
-  Tardos}]{Blume2015}
-Blume, Lawrence, David Easley, Jon Kleinberg, Robert Kleinberg, and {\'{E}}va
-  Tardos. 2015.
-\newblock {Introduction to computer science and economic theory}.
-\newblock \emph{Journal of Economic Theory} 156(November): 1--13.
-\newline\urlprefix\url{http://dx.doi.org/10.1016/j.jet.2014.11.002}
-
-\bibitem[{Bonabeau(2002)}]{Bonabeau2002}
-Bonabeau, Eric. 2002.
-\newblock {Agent-based modeling: Methods and techniques for simulating human
-  systems}.
-\newblock \emph{Proceedings of the National Academy of Sciences of the United
-  States of America} 99(SUPPL. 3): 7280--7287.
-
-\bibitem[{Boutilier et~al.(1997)Boutilier, Shoham, and Wellman}]{Boutilier1997}
-Boutilier, Craig, Yoav Shoham, and Michael~P. Wellman. 1997.
-\newblock {Economic principles of multi-agent systems}.
-\newblock \emph{Artificial Intelligence} 94(1-2): 1--6.
-
 \bibitem[{Braess(1968)}]{Braess1968}
 Braess, D. 1968.
 \newblock {Uber ein paradoxen der verkehrsplanung}.
 \newblock \emph{Unternehmensforschung} 12: 258--268.
-\newline\urlprefix\url{http://homepage.ruhr-uni-bochum.de/Dietrich.Braess/paradox.pdf}
 
 \bibitem[{Chawla and Hartline(2013)}]{Chawla2013}
 Chawla, Shuchi, and Jason~D. Hartline. 2013.
@@ -71,10 +38,14 @@ Chawla, Shuchi, and Jason~D. Hartline. 2013.
 \newblock In \emph{Proceedings of the ACM Conference on Electronic Commerce},
   vol.~1, 181--195.
 
+\bibitem[{Freund and Schapire(1999)}]{Freund1999}
+Freund, Yoav, and Robert~E. Schapire. 1999.
+\newblock {Adaptive Game Playing Using Multiplicative Weights}.
+\newblock \emph{Games and Economic Behavior} 29(1): 79--103.
+
 \bibitem[{Harsanyi(1967)}]{Harsanyi1967}
 Harsanyi, John~C. 1967.
-\newblock {Games with Incomplete Information Played by “Bayesian” Players,
-  I–III Part I. The Basic Model}.
+\newblock {Games with Incomplete Information Played by “Bayesian” Players}.
 \newblock \emph{Management Science} 14(3): 159--182.
 
 \bibitem[{Hart and Mas-Colell(2000)}]{Hart2000}
@@ -85,13 +56,6 @@ Hart, Sergiu, and Andreu Mas-Colell. 2000.
 \bibitem[{Hartline et~al.(2015)Hartline, Syrgkanis, and Tardos}]{Hartline2015}
 Hartline, Jason, Vasilis Syrgkanis, and {\'{E}}va Tardos. 2015.
 \newblock {No-regret learning in Bayesian games}.
-\newblock \emph{Advances in Neural Information Processing Systems} 2015-Janua:
-  3061--3069.
-
-\bibitem[{Hartline and Karlin(2007)}]{Hartline2007}
-Hartline, Jason~D., and Anna~R. Karlin. 2007.
-\newblock {Profit maximization in mechanism design}.
-\newblock In \emph{Algorithmic Game Theory}, vol. 9780521872, 331--362.
 
 \bibitem[{Holland and Miller(1991)}]{Holland1991}
 Holland, John, and John Miller. 1991.
@@ -112,7 +76,7 @@ Koutsoupias, Ellias, and Christos~H Papadimitriou. 1999.
 \bibitem[{Krishna(2002)}]{Krishna2002}
 Krishna, Vijay. 2002.
 \newblock \emph{{Auction Theory}}.
-\newblock Academic Press, 1 edn.
+\newblock Academic Press.
 
 \bibitem[{LeBaron(2002)}]{LeBaron2002}
 LeBaron, Blake. 2002.
@@ -124,14 +88,15 @@ Levin, Jonathan. 2002.
 \newblock {Games of Incomplete Information}.
 \newline\urlprefix\url{web.stanford.edu/{~}jdlevin/Econ 203/Bayesian.pdf}
 
+\bibitem[{Littlestone and Warmuth(1994)}]{Littlestone1994}
+Littlestone, N., and M.~K. Warmuth. 1994.
+\newblock {The Weighted Majority Algorithm}.
+\newblock \emph{Information and Computation} 108(2): 212--261.
+
 \bibitem[{Lugosi(2006)}]{Lugosi2006}
 Lugosi, G{\'{a}}bor. 2006.
-\newblock \emph{{Prediction, learning, and games}}, vol. 9780521841.
-
-\bibitem[{MacAl and North(2010)}]{MacAl2010}
-MacAl, C.~M., and M.~J. North. 2010.
-\newblock {Tutorial on agent-based modelling and simulation}.
-\newblock \emph{Journal of Simulation} 4(3): 151--162.
+\newblock \emph{{Prediction, learning, and games}}.
+\newblock Cambridge University Press.
 
 \bibitem[{Mochon and Saez(2015)}]{Mochon2015}
 Mochon, Asuncion, and Yago Saez. 2015.
@@ -169,7 +134,7 @@ Roughgarden, Tim.
 Roughgarden, Tim. 2007.
 \newblock {Routing games}.
 \newblock In \emph{Algorithmic Game Theory}, edited by Noam Nisan, Tim
-  Roughgarden, and Vijay Vazirani, 461--486.
+  Roughgarden, and Vijay Vazirani, chap.~18, 461--486.
 
 \bibitem[{Roughgarden(2016)}]{Roughgarden2016}
 Roughgarden, Tim. 2016.
@@ -190,6 +155,7 @@ Russel, Stuart~J, and Peter Norvig. 2010.
 \bibitem[{Sargent and Stachurski(2019)}]{Sargent2019}
 Sargent, Thomas~J, and John Stachurski. 2019.
 \newblock {Lectures in Quantitative Economics} .
+\newline\urlprefix\url{https://python.quantecon.org/}
 
 \bibitem[{Schelling(1969)}]{Schelling1969}
 Schelling, Thomas. 1969.
@@ -207,7 +173,7 @@ Shoham, Yoav, and Kevin Leyton-Brown. 2008.
 \newblock {Multiagent systems: Algorithmic, Game-Theoretic, and logical
   foundations}.
 \newblock \emph{Multiagent Systems: Algorithmic, Game-Theoretic, and Logical
-  Foundations} 9780521899: 1--483.
+  Foundations} .
 
 \bibitem[{Syrgkanis and Tardos(2013)}]{Syrgkanis2013}
 Syrgkanis, Vasilis, and {\'{E}}va Tardos. 2013.
@@ -219,24 +185,11 @@ Syrgkanis, Vasilis, and {\'{E}}va Tardos. 2013.
 Tesfatsion, Leigh. 2002.
 \newblock {Agent-based computational economics: growing economies from the
   bottom up.}
-
-\bibitem[{Tesfatsion(2005)}]{Tesfatsion2005}
-Tesfatsion, Leigh. 2005.
-\newblock {AGENT-BASED COMPUTATIONAL ECONOMICS : A CONSTRUCTIVE APPROACH TO
-  ECONOMIC THEORY 18 December 2005}.
-\newblock \emph{Computational Economics} 2(October 2003): 831--880.
-\newline\urlprefix\url{http://linkinghub.elsevier.com/retrieve/pii/S1574002105020162}
-
-\bibitem[{van~der Hoog(2016)}]{VanderHoog2016}
-van~der Hoog, Sander. 2016.
-\newblock {Deep Learning in Agent-Based Models: A Prospectus}.
-\newblock \emph{SSRN Electronic Journal} (02).
+\newblock \emph{Artificial life} .
 
 \bibitem[{Vickrey(1961)}]{Vickrey1961}
 Vickrey, William. 1961.
-\newblock {American Finance Association Counterspeculation , Auctions , and
-  Competitive Sealed Tenders Author ( s ): William Vickrey Source : The Journal
-  of Finance , Vol . 16 , No . 1 ( Mar ., 1961 ), pp . 8-37 Published by :
-  Wiley for the American Finance Associat} 16(1): 8--37.
+\newblock {Counterspeculation, auctions, and competitive sealed tenders}.
+\newblock \emph{Journal of Finance} 16(1): 8--37.
 
 \end{thebibliography}
