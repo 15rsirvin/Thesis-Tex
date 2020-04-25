@@ -30,7 +30,7 @@
 % Chemistry (chemtex), screenplays, you name it.
 % Check out CTAN to see: http://www.ctan.org/
 %%
-\input{cryptomacros}
+\input{thesismacros}
 \usepackage{graphicx,latexsym} 
 \usepackage{amssymb,amsthm,amsmath}
 \usepackage{longtable,booktabs,setspace} 
@@ -42,7 +42,6 @@
 \usepackage{changepage}
 \usepackage[vlined]{algorithm2e}
 \usepackage{amsthm}
-\usepackage{tikz}
 \usepackage [english]{babel}
 \usepackage [autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}
@@ -88,7 +87,7 @@
 % Acknowledgements (Acceptable American spelling) are optional
 % So are Acknowledgments (proper English spelling)
     \chapter*{Acknowledgments}
-	The cat, Pinoe.
+	The cat, Pinoe
 
 % The preface is optional
 % To remove it, comment it out or delete it.
@@ -167,19 +166,42 @@ This thesis is about simulating the price to society for anarchic behavior withi
 It is perhaps obvious why economists would be interested in studying auctions. Auctions are one of the most basic market structures that have roots going back to at least the ancient Greeks and still exist today in places such as art auctions and Ebay \citep{Mochon2015}. In the past 15 years, economists have been joined by computer scientists who are increasingly interested in the strategic interactions of agents within this setting. Christos Papadimitriou said in a 2015 lecture at the Simons Institute that it was the advent of the internet, an artifact out of computer scientists control, that turned theoretical computer science into a "physical science." Now computer scientists had to "approach the internet with the same humility that economists approach the market..." He went on to say that "it also turned us [computer science] into a social science. It was obviously about people and incentives. Without understanding this, you cannot understand the internet"\citep{Papadimitriou2015}. It is within this framework that he says computer scientists first began to study auctions as they existed on the internet such as Ebay and Google's sponsored search auctions. Now, computer scientists are moving beyond the internet, taking the mathematical tools of their discipline and applying them as a lens to understand and explain the world. This thesis is looking at the field algorithmic game theory, the study of the algorithms and complexity of strategic interactions. For economists, this can be thought of as a new toolbox for unpacking and understanding the models and structures that already dominate the field. For example, in the case of a Walrasian auctioneer who calculates the clearing prices of a combinatorial auction, their problem was shown to be NP-complete, a complexity class usually called "intractable" due to the time it takes to solve these problems (the best algorithms here are generally guess and check, which gets out of hand for large inputs i.e. possible combinations)\citep{Papadimitriou2015}\footnote{NP is the class of problems that a given solution can be checked in polynomial time, i.e. $O(n^k)$ operations where $n$ is the size of the input and $k$ is any positive integer. NP-complete means that all problems in NP reduce to solving this problem. This is when you will usually hear "taking more time to compute than the age of the universe" etc...}. Using the lens of computational complexity, analysis of how many operations or how much memory a problem must take to solve, is one way of assessing what assumptions we are making about the computational power of our rational agents.
 
 \subsection{The Price of Anarchy}
-One of the major ideas to come out of algorithmic game theory is the \textit{price of anarchy} (POA), a mathematical way of showing the difference between the social welfare in the optimal case and in the worst case equilibrium for a game. This term was first coined by two computer scientist Elias Koutsoupias and Christos Papadimitriou, who were using the price of anarchy to understand network games and more generally were looking at how this concept could be used to understand behavior on the internet \citep*{Koutsoupias1999, Papadimitriou2001}. More formally, the price of anarchy for a game is the ratio of the minimum equilibrium social welfare in a game over the best possible social welfare of the game (The actual formal definition is given in definition \ref{eq:POA}). An illustrative example of the price of anarchy from \citet[15-16]{Roughgarden2016} are selfish routing games played on graphs such as the one pictured below in figure \ref{braess}. 
+One of the major ideas to come out of algorithmic game theory is the \textit{price of anarchy} (POA), a mathematical way of showing the difference between the social welfare in the optimal case and in the worst case equilibrium for a game. This term was first coined by two computer scientist Elias Koutsoupias and Christos Papadimitriou, who were using the price of anarchy to understand network games and more generally were looking at how this concept could be used to understand behavior on the internet \citep*{Koutsoupias1999, Papadimitriou2001}. More formally, the price of anarchy for a game is the ratio of the minimum equilibrium social welfare in a game over the best possible social welfare of the game (The actual formal definition is given in definition \ref{eq:POA}). An illustrative example of the price of anarchy from \citet[15-16]{Roughgarden2016} are selfish routing games played on graphs such as the one pictured below in figure \ref{braess}.
+ 
+
 \begin{figure}[h!]
+	\begin{tikzpicture}[scale=3.0]
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (0,0) (left) {$s$};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (1,1) (top) {};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (1,-1) (bottom) {};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (2,0) (right) {$t$};
+	\draw[->] (left)--(top) node[midway,above,rotate=45] {$c(x)=x$};
+	\draw[->] (top)--(right) node[midway,above,rotate=-45] {$c(x)=1$};
+	\draw[->] (top)--(bottom) node[midway,above,rotate=-90] {$c(x)=0$};
+	\draw[->] (left)--(bottom) node[midway,below,rotate=-45] {$c(x)=1$};
+	\draw[->] (bottom)--(right) node[midway,below,rotate=45] {$c(x)=1$};
+	\end{tikzpicture}
 	\centering
-	\includegraphics[scale=0.35]{Figures/braess}
 	\caption{Routing game from s to t. Strategic interaction will make everyone worse off.}
 	\label{braess}
 \end{figure}
+
 In this game, each player chooses which edges to take on the directed graph from the source $s$ to reach the terminal $t$ and tries to do it with the least cost, total weight of edges taken, as possible. The cost of taking these edges it is a function of the proportion of players who take that edge in the game. Some of them do not depend on how many players take it, but always cost a constant $1$ or $0$ where others are exactly proportional to how many players take it with a possible range $(0,1]$.
 For example if $50 \%$ of the players take that edge then $x=0.5$. This can be seen as analogous to traffic when driving a car, the more people take a road, the slower the traffic goes and the longer it takes to get somewhere. Knowing this, each player try to choose which path to take to get to their destination as quickly as possible. As you can quickly verify, the best solution for society, minimizing the total driving time for all, is when half of the drivers take the top route, and half of the drivers take the bottom route costing in total 1.5 for each driver. 
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.35]{Figures/braess_optimal}
+	\begin{tikzpicture}[scale=3.0]
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (0,0) (left) {$s$};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (1,1) (top) {};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (1,-1) (bottom) {};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (2,0) (right) {$t$};
+	\draw[->,red,thick] (left)--(top) node[midway,above,rotate=45] {$c(x)=x$};
+	\draw[->,red,thick] (top)--(right) node[midway,above,rotate=-45] {$c(x)=1$};
+	\draw[->] (top)--(bottom) node[midway,above,rotate=-90] {$c(x)=0$};
+	\draw[->,cyan,thick] (left)--(bottom) node[midway,below,rotate=-45] {$c(x)=1$};
+	\draw[->,cyan,thick] (bottom)--(right) node[midway,below,rotate=45] {$c(x)=1$};
+	\end{tikzpicture}
 	\caption{Socially optimal Routing}
 	\label{braess2}
 \end{figure}
@@ -188,7 +210,17 @@ However, this is not an equilibrium. The drivers taking the top route have incen
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.35]{Figures/braess_selfish}
+	\begin{tikzpicture}[scale=3.0]
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (0,0) (left) {$s$};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (1,1) (top) {};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (1,-1) (bottom) {};
+	\node[circle,draw,inner sep=3pt, minimum size=15pt] at (2,0) (right) {$t$};
+	\draw[->,blue,thick] (left)--(top) node[midway,above,rotate=45] {$c(x)=x$};
+	\draw[->] (top)--(right) node[midway,above,rotate=-45] {$c(x)=1$};
+	\draw[->,blue,thick] (top)--(bottom) node[midway,above,rotate=-90] {$c(x)=0$};
+	\draw[->] (left)--(bottom) node[midway,below,rotate=-45] {$c(x)=1$};
+	\draw[->,blue,thick] (bottom)--(right) node[midway,below,rotate=45] {$c(x)=1$};
+	\end{tikzpicture}
 	\caption{Route under strategic interaction}
 	\label{braess3}
 \end{figure}

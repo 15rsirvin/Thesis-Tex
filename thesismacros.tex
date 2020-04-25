@@ -1,0 +1,124 @@
+%based off of cryptomacros file from Adam Groce for cryptography spring 2020
+%this file is a mess since it is added packages and macros tacked on from outside sources :(
+
+\usepackage{amsthm} %theorem environments etc
+%\usepackage{fullpage} % reducing borders
+%\usepackage{xspace}
+\usepackage{amssymb} % \mathbb
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[utf8]{inputenc}
+%\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage[vlined]{algorithm2e}
+\RestyleAlgo{boxruled}
+
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{dfn}[theorem]{Definition}
+
+\setcounter{equation}{0}
+
+
+\newcommand{\adv}{\mathcal{A}}
+\newcommand{\reals}{\mathbb{R}}
+\newcommand{\gen}{\ensuremath{{\sf Gen}}\xspace}
+\newcommand{\enc}{\ensuremath{{\sf Enc}}\xspace}
+\newcommand{\dec}{\ensuremath{{\sf Dec}}\xspace}
+\newcommand{\negl}{\ensuremath{{\sf negl}}\xspace}
+\newcommand{\EXP}{\mathbb{E}}
+\newcommand{\bidders}{\textbf{b}}
+\newcommand{\valuations}{\textbf{v}}
+\newcommand{\strategies}{\textbf{s}}
+\newcommand{\types}{\textbf{T}}
+\newcommand{\actions}{\textbf{a}}
+\newcommand{\OPT}{\text{OPT}}
+\newcommand{\F}{\mathcal{F}}
+
+\usepackage[procnames]{listings}
+\usepackage{color}
+\usepackage{xcolor}
+
+\lstset{language=Python, 
+	basicstyle=\ttfamily\small, 
+	keywordstyle=\color{keywords},
+	commentstyle=\color{comments},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	identifierstyle=\color{green},
+	procnamekeys={def,class}}
+
+%\usepackage{systeme}
+
+%\usepackage[textheight=8.5in, margin=1.6in]{geometry}
+\usepackage[total={6in,8in}]{geometry}
+
+\usepackage{graphicx}
+
+% Tikz stuff: This comes from Dave, hence it being added on at end
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc, positioning}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+%\usepgfplotslibrary{fillbetween}
+%\usetikzlibrary{cd}
+%\usetikzlibrary{graphs,graphs.standard}
+%\usetikzlibrary{decorations.pathmorphing}    
+%\usetikzlibrary{decorations.pathreplacing}
+%\usetikzlibrary{arrows.meta,calc}
+%\usetikzlibrary{bending}
+\usetikzlibrary{decorations.markings,shapes.geometric}
+\tikzset{->-/.style={decoration={markings, mark=at position #1 with
+			{\arrow{>}}},postaction={decorate}}}
+\tikzset{-|-/.style={decoration={markings, mark=at position #1 with
+			{\arrow{stealth}}},postaction={decorate}}}
+\tikzset{movearrow/.style 2 args ={
+		decoration={markings,
+			mark= at position {#1} with {\arrow{#2}} ,
+		},
+		postaction={decorate}
+	}
+}
+\tikzset{<--/.style={decoration={markings, mark=at position #1 with
+			{\arrow{<}}},postaction={decorate}}}
+\tikzstyle{ball} = [circle,shading=ball, ball color=black,
+minimum size=1mm,inner sep=1.3pt]
+\tikzstyle{bball} = [circle,shading=ball, ball color=blue,
+minimum size=1mm,inner sep=1.3pt]
+\tikzstyle{miniball} = [circle,shading=ball, ball color=black,
+minimum size=1mm,inner sep=0.5pt]
+\tikzstyle{redminiball} = [circle,shading=ball, ball color=red,
+minimum size=1mm,inner sep=0.5pt]
+\tikzstyle{mminiball} = [circle,shading=ball, ball color=black,
+minimum size=0.6mm,inner sep=0.1pt]
+\tikzstyle{mycircle} = [draw,circle, minimum size=1mm,inner sep=1.3pt]
+
+\usepackage{needspace}  % <-- to prevent bad pagebreak over environment titles
+% Use:  \Needspace{3\baselineskip} before opening an environment
+
+\usepackage{enumitem}
+%\setlist[enumerate]{leftmargin=*}
+\setlist[enumerate]{itemsep=2pt,label={(\alph*)}}
+
+%\allowdisplaybreaks
+%\usepackage[colorlinks=true,citecolor=black,linkcolor=black,urlcolor=blue]{hyperref}
+%\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+
+\usepackage{outlines}
+
+
+
+	
+	
+
+
