@@ -402,11 +402,16 @@ To try and get a sense of how inefficient first-price auctions can be, computer 
 	\ref{dfn:PriceOfAnarchy}
 \end{dfn}
 
-The price the winning bidder pays does not appear in this equation since the winning bidder is paying exactly as much as the auctioneer is getting, and this term cancels out. Hence, the social welfare is maximized when the bidder with the highest valuation wins the auction. If we let $x^*_i(\valuations)$ be an indicator variable for whether or not a player $i$ is the player with the highest valuation (ties broken arbitrarily), the maximum possible social welfare in a single-item auction is 
-$$ \OPT( \valuations) = \sum_{i=1}^{n} v_i \cdot x^*_i (\valuations).$$
+The price the winning bidder pays does not appear in this equation since the winning bidder is paying exactly as much as the auctioneer is getting, and this term cancels out. Hence, the social welfare is maximized when the bidder with the highest valuation wins the auction. Since the social welfare is just the valuation of the winning bidder regardless of their bid, this can lead to outcomes that we might find a little strange. For example even in the player who wins over bids and receives negative utility for winning the item, the social welfare is still positive (assuming valuations greater than zero). 
 
-Now that we have mathematically described the social welfare in our system, we can define the price of anarchy. 
+Moving on, we let $x^*_i(\valuations)$ be an indicator variable for whether or not a player $i$ is the player with the highest valuation (ties broken arbitrarily). Now, we can define what we mean by optimal social welfare. 
 
+\begin{dfn}[Optimal Social Welfare]
+	The {\em optimal social welfare} in a single-item auction is, 
+	$$ \OPT( \valuations) = \sum_{i=1}^{n} v_i \cdot x^*_i (\valuations).$$
+\end{dfn}
+Hence, the optimal social welfare for any auction will just be the valuation of the person who values the item highest. In a perfect world, the person who values the item the most would always be given it and we could go home knowing that our auctions were allocating resources in an efficient way. However, as we have discussed, the knowledge of how much each player values the item is private knowledge. Unless each player bids their true valuation, which is not a property of strategic play for this auction format, or the auctioneer is a mind reader, there is no way for the auctioneer to know how close they are to optimal. Hence we introduce the concept of the price of anarchy to formalize how much worse than optimal we are.
+ 
 \begin{dfn}[Price of Anarchy]
 	The \textit{price of anarchy} of an auction, with a valuation distribution $\mathcal{F}$, is the smallest value of the ratio:
 	\begin{equation}
@@ -416,42 +421,43 @@ Now that we have mathematically described the social welfare in our system, we c
 	ranging over all Bayes-Nash equilibrium $\strategies$ of the auction.
 \end{dfn}
 
+The above definition applies to individual auctions which are dependent on the choice  of $\F$~and~$n$. We generally only discuss the price of anarchy for the format of the auction which in our case is first-price single-item auctions.
 
-The above definition applies to individual auctions which are dependent on the choice  of $\F$~and~$n$. We generally only discuss the price of anarchy for the format of the auction which in our case is first-price single-item auctions.  The price of anarchy for the first-price auction format is then the worst possible price of anarchy for any choice of the number of players $n$ or valuation distributions $\mathcal{F}$. Note that the price of anarchy (for either an individual auction or the format of auction) is a number between $0$ and $1$, and that the closer it is to one, the "better" we can guarantee the system's social welfare will be\footnote{Much of the literature for POA (including the paper introducing the idea) defines it as the opposite ratio, Optimal/Worst-EQ where smaller values indicate better systems \citep{Koutsoupias1999}. For some reason the auction literature defines it as Worst-EQ/Optimal, so I will remain consistent with them. This is confusing as {\em price} of anarchy makes you think it should be a number that gets bigger as it gets worse.}.
+\begin{dfn}[Price of Anarchy for Auction Format]  
+{\em The price of anarchy for the first-price auction format} is then the worst possible price of anarchy for any choice of the number of players $n$ or valuation distributions $\mathcal{F}$.
+\label{dfn:FormatPOA}
+\end{dfn}
+
+Note that the price of anarchy (for either an individual auction or the format of auction) is a number between $0$ and $1$, and that the closer it is to one, the "better" we can guarantee the system's social welfare will be\footnote{Much of the literature for POA (including the paper introducing the idea) defines it as the opposite ratio, Optimal/Worst-EQ where smaller values indicate better systems \citep{Koutsoupias1999}. For some reason the auction literature defines it as Worst-EQ/Optimal, so I will remain consistent with them. This is confusing as {\em price} of anarchy makes you think it should be a number that gets bigger as it gets worse.}.
 
 Incredibly, bounds on the price of anarchy for the format of first-price auctions have been found. Again, this allows us to characterize how much worse the social welfare for the system could be at (Bayes-Nash) equilibrium no matter how many players we have or what distributions they are choosing their valuations from. This sort of guarantee is incredible, especially for systems where we may not want, or it may not be feasible to have a central authority pre-calculate the way to optimize social welfare in a system. Rather, we can trust that the system will perform at least so well under strategic interaction.
 
 \begin{theorem}{\citep{Syrgkanis2013}}
-	The price of anarchy in first-price single-item auctions format is at least $1-\frac{1}{e} \approx 0.63$
+	The price of anarchy in first-price single-item auctions format is at least $1-\frac{1}{e} \approx 0.63$.
 	\label{thm:POA}	
 \end{theorem}
-
-%TODO Find out if this is needed
-%(Possibly include below thm, might be referenced by later proofs)
-%\begin{theorem}
-%	Every Bayes-Nash equilibrium of a first-price auction with correlated valuation distributions has expected social welfare at least $1 - \frac{1}{e}$ times the optimal welfare.
-%\end{theorem}
-%
-%(CITE: Syrgkanis, 2014) (Tight bound for above)
 
 Theorem \ref{thm:POA} tells us that no matter  how many players we have or what weird distributions we try and give them, we cannot construct a first-price auction that will achieve less than $0.63$\% of the optimal social welfare at Bayes-Nash equilibrium (if it exists). 
  
 \section{Extending Results to No-Regret Agents}
-These results hold for simple first-price auctions, but it is natural to ask questions about how robust these results are. First of all, how do people arrive at a Bayes-Nash equilibria if there doesn't exist a closed form way to express it? Secondly, do these results hold for mixed Bayes-Nash equilibria (randomizing between bidding strategies) or other larger, more realistic equilibrium concepts? To address these questions, Roughgarden et.~al use a set of extension theorems that take us through a general mechanism design setting and allow the class of equilibria our bounds hold for to be expanded. This extension will take us to a concept of no-regret learning. We briefly sketch key theorems from this thesis that lead us to an equilibrium concept that applies to learning agents.
+These results hold for simple first-price auctions, but it is natural to ask questions about how robust these results are. First of all, how do people arrive at a Bayes-Nash equilibria if there doesn't exist a closed form way to express it? Secondly, do these results hold for mixed Bayes-Nash equilibria (randomizing between bidding strategies) or other larger, more realistic equilibrium concepts? To address these questions, \cite{Roughgarden2017} create what they call an "extension theorem" which allows them to "extend" the price of anarchy results from the small set of Bayes-Nash equilibria, to the much larger set of coarse-correlated equilibria (pg. 60).  This extension will take us to a concept of no-regret learning. We briefly sketch key theorems from this thesis that lead us to an equilibrium concept that applies to learning agents.
 
-\subsection{General Auction Mechanisms}
 
-In order to understand (or even state) the proofs and theorems required to take us to our expanded set of equilibria, we must introduce  more notation and the idea of a general mechanism design setting and a general auction setting (this is unfortunate for us due to an expansion of scope, but actually makes these theorems quite powerful!). Mechanism design can be thought of as reverse game theory. Instead of thinking about how to play a game to maximize your utility, you are now thinking about how to design a game so that rational agents will behave in a certain way. This influence on players is generally exerted through payoffs and cost to play in the game. While we will not be spending much time with this math, it is useful to note that this framework reflects an ability for the auctioneer to fine tune how the game is played. In a general mechanism design setting, the auctioneer solicits an action $a_i$ from all of the players, $i$, from some action space $\mathcal{A} = \mathcal{A}_1 \times \cdots \times \mathcal{A}_n$. Given an action profile $\textbf{a} = (a_1, \dots, a_n) \in \mathcal{A}$, the auctioneer decides an outcome $o(\textbf{a})$ among the set of possible outcomes $\mathcal{O}$. This outcome includes a payment $p_i(o)$ that each player must give to the auctioneer. Denote the revenue of the auctioneer $\mathcal{R}(O) = \sum_i p_i(o)$. Players receive some utility as a function of their valuation, $v_i$ and the outcome which we write $u_i(o;v_i)$. Let $\mathcal{V} = \mathcal{V}_1 \times \cdots \times \mathcal{V}_n$. 
+%TODO fix above page number citation to be correct
+\subsection{Smooth Auctions and No-Regret Learning}
+To extend the results for the price of anarchy of the first price auction format from the smaller set of Bayes-Nash equilibria to a larger, more approachable set, \cite{Roughgarden2017} use a specific property of auctions called 
 
-\subsection{Smooth Auctions}
-
-Smooth auctions are a way of describing auctions in the general mechanism design framework that allow all possible deviations by players to be better accounted for in the math. The details of this are omitted from this paper, but for the complete details on this see \citet{Roughgarden2017}. The definition of a smooth auction is as follows, where $D^*_i$ is a new concept of an action distribution that is just a priori distribution over the belief about what actions the other players will take 
+\begin{dfn}[Smooth Auctions]
+	Consider an auction with $n$ bidders, and a the utility function of player $i$ is $u_i(\textbf{s})$, where $\textbf{s}$ is the vector containing the strategies of the $n$ bidders. The revenue of the auctioneer at $\textbf{s}$ is $\mathcal{R}$.   
+\end{dfn}
 
 \begin{dfn}[Smooth Auctions]
 	For parameters $\lambda \geq 0$ and $\mu \geq 1$, an auction is $(\lambda, \mu)$-smooth if for every valuation profile $\valuations \in \mathcal{V}$ there exist action distribution $D_1^{*}(\valuations), \ldots , D_n^*(\valuations)$ over $\mathcal{A}_1, \cdots, \mathcal{A}_n$ such that for every action profile \textbf{a},
 	$$ \sum_i \EXP_{a_i^* \sim D_i^*(\valuations)}[u_i(a^*, \textbf{a}_{-i};v_i)] \geq \lambda \OPT(\valuations) - \mu \mathcal{R}(\textbf{a})$$
 	\label{dfn:smoothauction}
 \end{dfn}
+
+
 
  Now, following from the proof of theorem \ref{thm:POA}, Roughgarden et.~al show that first-price, single-item auctions are $(1-\frac{1}{e}, 1)$-smooth. This is done by using the last step of their proof of theorem \ref{thm:POA}. They then go on to develop a series of extension theorems that allow us to characterize characterize the price of anarchy for equilibria of auctions when they are not just for pure-strategies. Specifically we will be looking at how these can be extended a set of outcomes for agents who learn to play the game as they go.
 
@@ -488,7 +494,7 @@ This chapter constructs a novel simulation of first-price single-payer auctions 
 To simulate sequential first-price auctions, we construct a program in python that allows us to create an arbitrary number of bidders, each with valuation distributions of our choice who simultaneously bid on an item being auctioned for as many sequential auctions, or rounds, as we choose. Each round represents an auction for a new, but similar item where the valuation distributions for each bidder remains the same. At the beginning of each round, every bidder draws a new valuation from their distribution. The bidders then each simultaneously submit a bid to the auction and the winner is determined by the highest bid (ties are broken with equal probability among those with the same bid). After the winner is selected, they are given utility $u(v, b) = v - b$, the difference between their valuation and bid that round. At each round the total social welfare is $v_i$, the valuation of the winning bidder as per definition \ref{dfn:SocialWelfare}. The optimal social welfare each round then is the highest valuation of any bidder. These values are summed across auctions to get the total social welfare for this sequence of auctions and to see what the optimal social welfare would have been. This is laid out in the pseudo-code version of the sequential auction below where we use the super script $t$ to denote which round each variable is from\footnote{The "$\leftarrow$" symbol used in the algorithm means assignment of value. For example $x \leftarrow 1$ is the variable $x$ is assigned a value of $1$. This reduces the ambiguity of using the "$=$" symbol which could be also be a statement or proposition in pseudo-code.}.\\
 
 \begin{algorithm}[H]
-	Initialize $SW$, $OW$, and $POA$ to zero\\
+	Initialize $SW$, $OPT$, and $POA$ to zero\\
 	\For{$t = 1, \ldots, T$}
 	{
 		Each bidder draws their valuation $v^t_i$ from their distribution $F_i$\;
@@ -499,10 +505,10 @@ To simulate sequential first-price auctions, we construct a program in python th
 			$SW \leftarrow SW + v^t_i$
 		}
 		\If{player $j$ has the highest valuation}{
-			$OW \leftarrow OW + v^t_j$
+			$OPT \leftarrow OPT + v^t_j$
 		}
 	
-		$POA \leftarrow \frac{SW}{OW}$	
+		$POA \leftarrow \frac{SW}{OPT}$	
 	}
 \caption{Sequential First-Price Single-Item Auction}
 \label{alg:main}
