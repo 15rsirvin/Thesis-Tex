@@ -444,28 +444,37 @@ These results hold for simple first-price auctions, but it is natural to ask que
 
 
 %TODO fix above page number citation to be correct
-\subsection{Smooth Auctions and No-Regret Learning}
-To extend the results for the price of anarchy of the first price auction format from the smaller set of Bayes-Nash equilibria to a larger, more approachable set, \cite{Roughgarden2017} use a specific property of auctions called 
+\subsection{Smooth Auctions}
+
+In proving the price of anarchy bounds for cost minimization games (such as atomic routing seen in chapter one), Tim Roughgarden noticed that many of the proofs followed the same formula:
+
+\begin{enumerate}
+	\item Given a Pure strategy Nash equilibrium $\textbf{s}$ and optimal strategy $\strategies^{*}$, for each agent $i$ invoke the equilibrium hypothesis for a hypothetical deviation to $\strategies^*_i$ to obtain the inequality $u_i(\strategies) \geq u_i(\strategies_i^*,\strategies_{-i}).$
+	
+	\item Sum the inequalities over the $n$ agents in the game to get $\sum_{i=1}^{n}u_i(\strategies) \geq \sum_{i=1}^{n}u_i(\strategies_i^*,\strategies_{-i}).$
+	
+	
+	\item Relate the sum of the cost of deviations for each agent to the sum of the utilities for each agent at equilibrium and at optimal getting something of the form, $\sum_{i=1}^{n}u_i(\strategies_i^*,\strategies_{-i}) \geq \lambda \sum_{i=1}^{n}u(\strategies^*) - \mu \sum_{i=1}^{n}u(\strategies)$ for some $\lambda \geq 0$ and $\mu \geq 1$. You do not invoke the equilibrium hypothesis for this step.
+	
+	\item Put together the inequalities in step 2 and 3 to get $\sum_{i=1}^{n}u_i(\strategies) \geq \lambda \sum_{i=1}^{n}u(\strategies^*) - \mu \sum_{i=1}^{n}u(\strategies)$.
+	
+	\item Solve above equation for the price of anarchy, $POA =  \frac{\lambda}{1 + \mu} \cdot \frac{\sum_{i=1}^{n}u_i(\strategies)}{\sum_{i=1}^{n}u(\strategies^*)}$
+\end{enumerate}
+
+ In fact, he eventually realized that this generic recipe could be formulated as a precise definition, something he called {\em smooth games}. Smooth games were ones in which you can prove the third step of Roughgarden's formulas. Since you are not invoking the equilibrium hypothesis for either $\strategies$ or $\strategies^*$, this means this relationship actually applies to any $\strategies,\strategies^* \in S$. That is where the name "smoothness" comes from, games that satisfy this property can have their payoffs related between deviations of any possible strategy profiles by a simple inequality. \cite{Syrgkanis2013} adapted this to create a definition for a smooth auction as follows:
 
 \begin{dfn}[Smooth Auctions]
-	Consider an auction with $n$ bidders, and a the utility function of player $i$ is $u_i(\textbf{s})$, where $\textbf{s}$ is the vector containing the strategies of the $n$ bidders. The revenue of the auctioneer at $\textbf{s}$ is $\mathcal{R}$.   
-\end{dfn}
-
-\begin{dfn}[Smooth Auctions]
-	For parameters $\lambda \geq 0$ and $\mu \geq 1$, an auction is $(\lambda, \mu)$-smooth if for every valuation profile $\valuations \in \mathcal{V}$ there exist action distribution $D_1^{*}(\valuations), \ldots , D_n^*(\valuations)$ over $\mathcal{A}_1, \cdots, \mathcal{A}_n$ such that for every action profile \textbf{a},
-	$$ \sum_i \EXP_{a_i^* \sim D_i^*(\valuations)}[u_i(a^*, \textbf{a}_{-i};v_i)] \geq \lambda \OPT(\valuations) - \mu \mathcal{R}(\textbf{a})$$
+	For parameters $\lambda \geq 0$ and $\mu \geq 1$, an auction is $(\lambda, \mu)$-smooth if for every valuation profile $\valuations \in \mathcal{F}$ there exists action distributions $D^*_1(\valuations), \ldots, D^*_n(\valuations)$ such that for every strategy profile \strategies,
+	$$ \sum_i \EXP_{s^*_i ~ D*_i(\valuations)}[u_i(s^*, \strategies_{-i};v_i)] \geq \lambda \OPT(\valuations) - \mu \mathcal{R}(\textbf{s})$$.
 	\label{dfn:smoothauction}
 \end{dfn}
 
 
-
- Now, following from the proof of theorem \ref{thm:POA}, Roughgarden et.~al show that first-price, single-item auctions are $(1-\frac{1}{e}, 1)$-smooth. This is done by using the last step of their proof of theorem \ref{thm:POA}. They then go on to develop a series of extension theorems that allow us to characterize characterize the price of anarchy for equilibria of auctions when they are not just for pure-strategies. Specifically we will be looking at how these can be extended a set of outcomes for agents who learn to play the game as they go.
+ Now, following from the details of proof the proof of theorem \ref{thm:POA} corresponding to step 3 of Roughgarden's general POA formula, \cite{Roughgarden2017} show that first-price auctions are $(1-\frac{1}{e}, 1)$-smooth. They then go on to develop a series of extension theorems that allow us to characterize characterize the price of anarchy for equilibria of auctions when they are not just for pure-strategies. Specifically we will be looking at how these can be extended a set of outcomes for agents who learn to play the game as they go.
 
 %\begin{theorem}(\citep{Roughgarden2017})
 %	If an auction is $(\lambda, \mu)$-smooth, then for every profile $\mathcal{F}_1, \ldots, \mathcal{F}_n$ of independent valuation distributions over $\mathcal{V}_1, \ldots, \mathcal{V}_n$, every Bayes-Nash equilibrium of the auction has expected welfare at least $\frac{\lambda}{\mu} \cdot \EXP_{\valuations \sim \mathcal{F}}[\OPT(\valuations)]$.
 %\end{theorem} 
-
-
 
 
 \subsection{No-Regret Learning}
@@ -484,6 +493,22 @@ A player $i$ is said to use a no-regret learning algorithm if, in hindsight thei
 \end{theorem}
 
 The end result is that since single-payer first-price auctions are $(1-\frac{1}{e}, 1)$ smooth, we know that this bound will hold for auctions with no regret learning agents. Thus, we will try and build a simulation that uses one of the algorithms that fulfills this property and demonstrate that for any arbitrary number of players and distributions from which they pick their valuations from, they converge to an equilibrium social welfare greater than $1-\frac{1}{e}$.
+
+\subsection{Coarse Correlated Equilibria}
+The set of outcomes that no-regret algorithms converge to are not arbitrary. It has been shown that when all of the agents independently run algorithms satisfying the no-regret condition, that they converge to a set of outcomes called {\em coarse correlated equilibria}. Informally, one can think of this as the equilibria where players best option is agreeing to take advice from some trusted outside source before they actually hear what that advice is. For example, if I was taking a math exam that I was completely unprepared for and I was given the option of putting down the same answer as the best student in the class, my expected grade would be higher for putting down the same answer as this star student than any answer I could come up with. Following the definition from \cite{Roughgarden2016},
+
+\begin{dfn}[Coarse Correlated Equilibria]
+	A distribution $sigma$ on the set $S_1 \times \ldots \times S_n$ of outcomes of a game is a {\em coarse correlated equilibrium} (CCE) if for every $i \in {1, \ldots n}$ and every unilateral deviation $s_i^{'} \in S_i$,
+	$$\EXP_{\strategies ~ \sigma}[u_i(\strategies)] \geq \EXP_{\strategies ~ \sigma}[u_i(s_i^{'}, \strategies_{-i})].$$
+	\label{dfn:CoarseEQ}
+\end{dfn}
+
+Interpreting out math test game example in light of definition \ref{dfn:CoarseEQ}, we interpret the star student as sampling $\strategies$ from $\sigma$ when she selects her answer and gives it to me. $\sigma$, the distribution on possible outcomes is generally interpreted as being publically know (i.e I know that she is probably submitting the right answer). Hence the best I can do here is just follow her advice.
+
+It is perhaps easy to see how this could generalize to no-regret outcomes, and \cite{Roughgarden2016} proves exactly that. Specifically he proves that if each player implements a no-regret algorithm, than their expect utility after $T$ steps with regret $\epsilon$ will be,
+$$ \EXP_{\strategies ~ \sigma}[u_i(\strategies)] \geq \EXP_{\strategies ~ \sigma}[u_i(s_i^{'}, \strategies_{-i})] + \epsilon.$$
+
+Since these players are implementing vanishing regret sequences, their regret grown arbitrarily smaller as the number of iterations approaches infinity, i.e~they grow arbitrarily closer and closer to a coarse correlated equilibria.
 
 \chapter{Simulating the Price of Anarchy}
 
