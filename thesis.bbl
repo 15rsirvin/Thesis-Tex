@@ -67,6 +67,12 @@ Jamal, Karim, Michael Maier, and Shyam Sunder. 2017.
 \newblock {Simple Agents, Intelligent Markets}.
 \newblock \emph{Computational Economics} 49(4): 653--675.
 
+\bibitem[{Joshi(1998)}]{Joshi1998}
+Joshi, Shareen. 1998.
+\newblock \emph{{Is Technical Trading A Menace? Resuslts From An Agent-Based
+  Artificial Model}}.
+\newblock Ph.D. thesis.
+
 \bibitem[{Koutsoupias and Papadimitriou(1999)}]{Koutsoupias1999}
 Koutsoupias, Ellias, and Christos~H Papadimitriou. 1999.
 \newblock {Worst-case equilibria}.
@@ -119,11 +125,6 @@ Papadimitriou, Christos~H. 2001.
 \newblock {Algorithms , Games , and the Internet}.
 \newblock In \emph{Proceedings of the 33rd Annual ACM Symposium on Theory of
   Computing}, 749--753.
-
-\bibitem[{QuiBids(2020)}]{QuiBids}
-QuiBids. 2020.
-\newblock {Our Auction Model}.
-\newline\urlprefix\url{http://www.quibids.com/en/quibids101/articles/3-Our-Auction-Model}
 
 \bibitem[{Rejeb and Guessoum(2005)}]{Rejeb2005}
 Rejeb, Lilia, and Zahia Guessoum. 2005.
