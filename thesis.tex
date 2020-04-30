@@ -509,8 +509,7 @@ Interpreting out math test game example in light of Definition \ref{dfn:CoarseEQ
 It is perhaps easy to see how this could generalize to no-regret outcomes, and \cite{Roughgarden2016} proves exactly that. Specifically he proves that if each player implements a no-regret algorithm, than their expect utility after $T$ steps with regret~$\epsilon$ will be,
 $$ \EXP_{\strategies ~ \sigma}[u_i(\strategies)] \geq \EXP_{\strategies ~ \sigma}[u_i(s_i^{'}, \strategies_{-i})] + \epsilon.$$
 
-Since these players are implementing vanishing regret sequences, their regret grown arbitrarily smaller as the number of iterations approaches infinity, i.e.,~they grow arbitrarily closer and closer to a coarse correlated equilibria.
-
+Since these players are implementing vanishing regret sequences, their regret grown arbitrarily smaller as the number of iterations approaches infinity, i.e.,~they grow arbitrarily closer and closer to a coarse correlated equilibria. 
 
 
 
@@ -528,7 +527,7 @@ To simulate sequential first-price auctions, we construct a program in Python th
 	{
 		Each bidder draws their valuation $v^t_i$ from their distribution $F_i$\;
 		Each bidder uses their strategy $s^t_i$ to submit a bid\;
-		The highest bidder is assgined the object and they pay their bid, if tie, a winner is choosen randomly among them\;
+		The highest bidder is assigned the object and they pay their bid, if tie, a winner is choosen randomly among them\;
 		Each player has their utilites updated according to if they won the object\;
 		\If{player $i$ wins the auction}{
 			$SW \leftarrow SW + v^t_i$
@@ -545,9 +544,9 @@ To simulate sequential first-price auctions, we construct a program in Python th
 
 
 \subsection{Simulating Bayes-Nash Equilibria}
-Using the simulation outlined above, we first demonstrate that bidders using known Bayes-Nash equilibrium strategies have an average price of anarchy greater than $0.63$. First, we simulate the case of two bidders each drawing their valuation from the uniform distribution $[0,1]$. We are using the hard coded strategies that $s(v^t_i) = \frac{v^t_i}{2}$ for each bidder which was shown to be the unique Bayes-Nash Equilibrium in chapter 2. The results are shown in table \ref{table:1} below, where the cumulative price of anarchy is given up to the specified round specified 
+Using the simulation outlined above, I first demonstrate that bidders using known Bayes-Nash equilibrium strategies have an average price of anarchy greater than $0.63$. First, we simulate the case of two bidders each drawing their valuation from the uniform distribution $[0,1]$. We are using the hard coded strategies that $s(v^t_i) = \frac{v^t_i}{2}$ for each bidder which was shown to be the unique Bayes-Nash Equilibrium in chapter 2. The results are shown in table \ref{table:1} below, where the cumulative price of anarchy is given up to the specified round specified. 
 \footnote{The POA is calculated as per algorithm \ref{alg:main}. %(TODO Fix manual ref).
-}.
+}
 
 \begin{table}[h!]
 \begin{center}
@@ -601,7 +600,7 @@ While this auction is not fully efficient, it is highly efficient. The price of 
 \subsection{Minimal Intelligence Bidders}
 Before going on to simulate the auction using no-regret bidders, we first move to establish a baseline for how well each auction setting (based on number of bidders and distribution choice) performs with agents that are not learning. The simulations of Bayes-Nash equilibria in the previous sections indicate that we can generally expect this system to perform well, but how well? How well will this system perform with even arbitrary bidders?
  
-To try and answer this question, we construct agents that bid randomly between zero and their (current) valuation every round i.e. each players bid is chosen uniformly from the distribution $[0,v^t]$. We call these agents minimally intelligent since they are not overbidding, but they are also clearly using a nonsensical strategy for an auction. One should note that while this is a bad strategy, it is possible to formulate much worse strategies for our bidders from both utility maximization and efficiency standpoints\footnote{It's rather fun to think up such strategies! For example, if each bidder shaded little when they had a low draw and shaded a lot when they had a high valuation, this can lead to highly inefficient outcomes}. This in some way represents agents who are incapable of learning (or doing their homework before they arrive) and thus continually randomly select from all options. The results for simulating sequential first-price auctions with 2, 10, and 100 agents using this strategy are shown in the table \ref{table:zero_int_symmetric} below.
+To try to answer this question, I construct agents that bid randomly between zero and their (current) valuation every round i.e. each player's bid is chosen uniformly from the distribution $[0,v^t]$. I call these agents minimally intelligent since they are not overbidding, but they are also clearly using a nonsensical strategy for an auction. One should note that while this is a bad strategy, it is possible to formulate much worse strategies for our bidders from both utility maximization and efficiency standpoints\footnote{It's rather fun to think up such strategies! For example, if each bidder shaded little when they had a low draw and shaded a lot when they had a high valuation, this can lead to highly inefficient outcomes}. This in some way represents agents who are incapable of learning (or doing their homework before they arrive) and thus continually randomly select from all options. The results for simulating sequential first-price auctions with 2, 10, and 100 agents using this strategy are shown in the table \ref{table:zero_int_symmetric} below.
 
 \begin{table}[h!]
 	\begin{center}
@@ -631,7 +630,7 @@ Table \ref{table:zero_int_symmetric} shows how the price of anarchy evolves thro
 \end{figure}
  
 
- We see three things, one is that when all bidders are drawing from the same uniform distribution the market is incredibly efficient regardless of how smart the bidders are when choosing their strategy. Even with arbitrary strategies this auction still performs remarkably well. The second thing to note is that in this setting, as the number of bidders increases the social welfare also increases. This makes sense as we would expect the probability of a reasonably high valuation winning to increase as there are  more valuations per round. The third thing we notice, and most surprising of all, is that the increase in the price of anarchy as the number of players increases is not monotonic. At lower level of bidders, the efficiency actually decreases as we add more bidders. This seems to be because the probability that one player outbids another with a significantly higher valuation increases as you add players when you only have a few to begin with. Still though, the probability of someone with a high valuation winning is quite high and we see the price of anarchy approach 1 as $n$ goes to infinity. This is exactly what we expect as if we had a near infinite number of bidders, one of them would almost certainly bid arbitrarily close to their own valuation. 
+ We see three things, one is that when all bidders are drawing from the same uniform distribution the market is highly efficient regardless of how smart the bidders are when choosing their strategy. Even with arbitrary strategies this auction still performs remarkably well. The second thing to note is that in this setting, as the number of bidders increases the social welfare also increases. This makes sense as we would expect the probability of a reasonably high valuation winning to increase as there are  more valuations per round. The third thing we notice, and most surprising of all, is that the increase in the price of anarchy as the number of players increases is not monotonic. At lower level of bidders, the efficiency actually decreases as we add more bidders. This seems to be because the probability that one player outbids another with a significantly higher valuation increases as you add players when you only have a few to begin with. Still though, the probability of someone with a high valuation winning is quite high and we see the price of anarchy approach 1 as $n$ goes to infinity. This is exactly what we expect as if we had a near infinite number of bidders, one of them would almost certainly bid arbitrarily close to their own valuation. 
 
 We now conduct a similar simulation but with asymmetric bidders. In this case, half of the bidders are drawing uniformly from $[0,1]$ and half from $[0,2]$. The results are shown in table \ref{table:zero_int_asymmetric}. 
 
@@ -665,7 +664,7 @@ Again we see that the market is quite efficient in this case regardless of how s
 Note that the baseline price of anarchy for minimal-intelligence agent auctions changes as we change the distributions. While the format seems quite efficient and well above the price of anarchy bounds (which again are only guaranteed for equilibria, which this is not) even with agents following these minimally intelligent strategies, we have no guarantee that there is not some way to construct this so that these agents wouldn't do much worse. Given that it seems as the number of agents increases, the efficiency also seems to increase, one would expect that this would need to be done by picking more interesting distributions for the bidders to choose from and only having two bidders.
 
 \section{Simulating No-Regret Bidders}
-With the results from the Bayes-Nash equilibrium demonstrated and an efficiency baseline established, we move on to simulating the bounds of no-regret learning agents in first-price auctions. Again, this is the equilibria we expect auctions to converge to if each agent is using a no-regret learning algorithm. To use these algorithms we do however have to make a concession to the environment we are simulating: we must now simulate an auction where the bidders are only allowed a finite number of actions.
+With the results from the Bayes-Nash equilibrium demonstrated and an efficiency baseline established, we move on to simulating the bounds of no-regret learning agents in first-price auctions. Again, the equilibria they converge to should be arbitrarily close to a coarse correlated equilibrium since each agent is using a no-regret learning algorithm. To use these algorithms we do however have to make a concession to the environment we are simulating: we must now simulate an auction where the bidders are only allowed a finite number of actions.
 
 \subsection{Multiplicative Weights Algorithm}
 The no-regret learning algorithm we will use to train our bidders is called the multiplicative weights algorithm. It has been shown to satisfy the no-regret property in papers such as \citet{Littlestone1994} or \citet{Freund1999}, but our implementation of it comes from \cite{Roughgarden2016}. If each of our bidders use the no-regret learning algorithm our auction should converge to an outcome greater than the $0.63$ price of anarchy bound from chapter 2. 
