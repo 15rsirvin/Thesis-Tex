@@ -56,6 +56,8 @@ Hart, Sergiu, and Andreu Mas-Colell. 2000.
 \bibitem[{Hartline et~al.(2015)Hartline, Syrgkanis, and Tardos}]{Hartline2015}
 Hartline, Jason, Vasilis Syrgkanis, and {\'{E}}va Tardos. 2015.
 \newblock {No-regret learning in Bayesian games}.
+\newblock \emph{arXiv} .
+\newline\urlprefix\url{https://arxiv.org/abs/1507.00418}
 
 \bibitem[{Holland and Miller(1991)}]{Holland1991}
 Holland, John, and John Miller. 1991.
@@ -71,7 +73,7 @@ Jamal, Karim, Michael Maier, and Shyam Sunder. 2017.
 Joshi, Shareen. 1998.
 \newblock \emph{{Is Technical Trading A Menace? Resuslts From An Agent-Based
   Artificial Model}}.
-\newblock Ph.D. thesis.
+\newblock Master's thesis, Reed College.
 
 \bibitem[{Koutsoupias and Papadimitriou(1999)}]{Koutsoupias1999}
 Koutsoupias, Ellias, and Christos~H Papadimitriou. 1999.

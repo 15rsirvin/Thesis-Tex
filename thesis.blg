@@ -3,11 +3,14 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: thesis.aux
 The style file: APA/reedecon.bst
 Database file #1: thesis.bib
-Warning--I didn't find a database entry for ""
+I was expecting a `,' or a `}'---line 12 of file thesis.bib
+ : 
+ : type = {Bachelor's Thesis}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 Warning--there's a number but no volume in Arthur1992
 Warning--missing publisher in Blum2007
 Warning--can't use both volume and number fields in Chawla2013
-Warning--missing school in Joshi1998
 Warning--there's a number but no volume in LeBaron2002
 Warning--missing publisher in Nisan2007
 Warning--missing publisher in Rejeb2005
@@ -17,43 +20,43 @@ Warning--can't use both author and editor fields in Russel2010
 Warning--empty journal in Sargent2019
 You've used 36 entries,
             2807 wiz_defined-function locations,
-            818 strings with 9563 characters,
-and the built_in function-call counts, 18454 in all, are:
-= -- 1570
+            820 strings with 9607 characters,
+and the built_in function-call counts, 18512 in all, are:
+= -- 1573
 > -- 626
 < -- 37
 + -- 214
 - -- 178
-* -- 1213
-:= -- 2997
-add.period$ -- 138
+* -- 1217
+:= -- 3003
+add.period$ -- 139
 call.type$ -- 36
 change.case$ -- 249
 chr.to.int$ -- 36
-cite$ -- 47
-duplicate$ -- 1395
-empty$ -- 1391
+cite$ -- 46
+duplicate$ -- 1404
+empty$ -- 1400
 format.name$ -- 279
-if$ -- 3662
+if$ -- 3676
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 276
-newline$ -- 185
+missing$ -- 278
+newline$ -- 187
 num.names$ -- 147
-pop$ -- 495
+pop$ -- 497
 preamble$ -- 1
 purify$ -- 200
 quote$ -- 0
-skip$ -- 603
+skip$ -- 605
 stack$ -- 0
 substring$ -- 877
-swap$ -- 669
+swap$ -- 671
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 309
-warning$ -- 11
+warning$ -- 10
 while$ -- 155
 width$ -- 0
-write$ -- 452
-(There were 12 warnings)
+write$ -- 456
+(There was 1 error message)
