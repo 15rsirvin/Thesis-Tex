@@ -71,9 +71,9 @@ Jamal, Karim, Michael Maier, and Shyam Sunder. 2017.
 
 \bibitem[{Joshi(1998)}]{Joshi1998}
 Joshi, Shareen. 1998.
+\newblock
 \newblock \emph{{Is Technical Trading A Menace? Resuslts From An Agent-Based
-  Artificial Model}}.
-\newblock Master's thesis, Reed College.
+  Artificial Model}}, Reed College.
 
 \bibitem[{Koutsoupias and Papadimitriou(1999)}]{Koutsoupias1999}
 Koutsoupias, Ellias, and Christos~H Papadimitriou. 1999.
@@ -94,7 +94,7 @@ LeBaron, Blake. 2002.
 \bibitem[{Levin(2002)}]{Levin2002}
 Levin, Jonathan. 2002.
 \newblock {Games of Incomplete Information}.
-\newline\urlprefix\url{web.stanford.edu/{~}jdlevin/Econ 203/Bayesian.pdf}
+\newline\urlprefix\url{web.stanford.edu/~jdlevin/Econ 203/Bayesian.pdf}
 
 \bibitem[{Littlestone and Warmuth(1994)}]{Littlestone1994}
 Littlestone, N., and M.~K. Warmuth. 1994.
